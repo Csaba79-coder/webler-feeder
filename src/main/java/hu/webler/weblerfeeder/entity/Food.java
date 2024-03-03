@@ -18,8 +18,9 @@ public class Food {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    private String Name;
-    private String Description;   // soup or main or dessert enum?
+    private String name;
+    private String description;   // soup or main or dessert enum?
+    private int price;
 }

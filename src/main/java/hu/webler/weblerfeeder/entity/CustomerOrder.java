@@ -21,14 +21,12 @@ public class CustomerOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     private String address;
 
     @CreationTimestamp
-    private LocalDateTime registrationDate = LocalDateTime.now();
+    private LocalDateTime orderDate = LocalDateTime.now();
 
     private String description;   // kapucsengő emelett stb.
-
-    private boolean isPaid = false;
 }

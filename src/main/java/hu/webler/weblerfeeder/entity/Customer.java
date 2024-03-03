@@ -21,7 +21,7 @@ public class Customer extends Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @CreationTimestamp
     private LocalDateTime registrationDate = LocalDateTime.now();
