@@ -16,5 +16,4 @@ public class Person {
     private String lastName;
     private String cell;
     private String email;
-    private LocalDate dateOfBirth;
 }
