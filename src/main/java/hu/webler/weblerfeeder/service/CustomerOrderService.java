@@ -15,4 +15,6 @@ public interface CustomerOrderService {
     CustomerOrder findCustomerOrderById(Long id);
 
     CustomerOrder findCustomerOrderByAddress(String address);
+
+    CustomerOrder updateCustomerOrder(long id, CustomerOrder customerOrder);
 }
