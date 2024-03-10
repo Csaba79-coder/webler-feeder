@@ -29,4 +29,6 @@ public class CustomerOrder {
     private LocalDateTime orderDate = LocalDateTime.now();
 
     private String description;   // kapucsengő emelett stb.
+
+    // customer + food customerOrder one-one, food customerorder one-to-many
 }
