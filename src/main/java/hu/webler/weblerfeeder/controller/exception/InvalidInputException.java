@@ -1,4 +1,4 @@
-package hu.webler.weblerfeeder.exception;
+package hu.webler.weblerfeeder.controller.exception;
 
 public class InvalidInputException extends RuntimeException {
 

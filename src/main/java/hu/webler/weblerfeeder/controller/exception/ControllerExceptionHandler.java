@@ -1,4 +1,4 @@
-package hu.webler.weblerfeeder.exception;
+package hu.webler.weblerfeeder.controller.exception;
 
 import hu.webler.weblerfeeder.value.ErrorCode;
 import org.springframework.http.HttpStatus;
