@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-
 import hu.webler.weblerfeeder.value.Status;
 import java.time.LocalDateTime;
 
