@@ -1,6 +1,5 @@
 package hu.webler.weblerfeeder.util;
 
-import hu.webler.weblerfeeder.entity.Customer;
 import hu.webler.weblerfeeder.model.CustomerCreateModel;
 import hu.webler.weblerfeeder.model.CustomerModel;
 
