@@ -12,7 +12,6 @@ import java.util.NoSuchElementException;
 
 import static hu.webler.weblerfeeder.value.ErrorCode.*;
 
-
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
