@@ -1,37 +1,38 @@
-package hu.webler.weblerfeeder.service;
+package hu.webler.weblerfeeder.customer.service;
 
-import hu.webler.weblerfeeder.model.CustomerCreateModel;
-import hu.webler.weblerfeeder.model.CustomerModel;
-import hu.webler.weblerfeeder.model.CustomerUpdateModel;
-import hu.webler.weblerfeeder.repository.CustomerRepository;
-import hu.webler.weblerfeeder.util.Mapper;
+import hu.webler.weblerfeeder.customer.entity.Customer;
+import hu.webler.weblerfeeder.customer.model.CustomerCreateModel;
+import hu.webler.weblerfeeder.customer.model.CustomerModel;
+import hu.webler.weblerfeeder.customer.model.CustomerUpdateModel;
+import hu.webler.weblerfeeder.customer.repository.CustomerRepository;
+import hu.webler.weblerfeeder.util.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static hu.webler.weblerfeeder.util.CustomerMapper.mapCustomerCreateModelToCustomerEntity;
+import static hu.webler.weblerfeeder.util.CustomerMapper.mapCustomerEntityToCustomerModel;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CustomerServiceImpl implements CustomerService {
+public class CustomerService {
 
     private final CustomerRepository customerRepository;
 
-    @Override
     public List<CustomerModel> getAllCustomers() {
         return customerRepository.findAll()
                 .stream()
-                .map(Mapper::mapCustomerEntityToCustomerModel)
+                .map(CustomerMapper::mapCustomerEntityToCustomerModel)
                 .collect(Collectors.toList());
     }
 
-    @Override
     public CustomerModel getCustomerByEmail(String email) {
-        return Mapper.mapCustomerEntityToCustomerModel(
+        return mapCustomerEntityToCustomerModel(
                 customerRepository.findByEmail(email)
                         .orElseThrow(() -> {
                             String message = String.format("User with this email %s not found", email);
@@ -41,26 +42,25 @@ public class CustomerServiceImpl implements CustomerService {
         );
     }
 
-    @Override
-    public CustomerModel getCustomerById(Long id) {
-        return Mapper.mapCustomerEntityToCustomerModel(customerRepository.findById(id)
+    public Customer getCustomerById(Long id) {
+        return customerRepository.findById(id)
                 .orElseThrow(() -> {
                     String message = String.format("Customer with id %s not found", id);
                     log.info(message);
                     return new NoSuchElementException(message);
-                })
+                }
         );
     }
 
-    @Override
     public CustomerModel addCustomer(CustomerCreateModel customerCreateModel) {
-        return Mapper.mapCustomerEntityToCustomerModel(customerRepository
-                .save(Mapper.mapCustomerCreateModelToCustomerEntity(customerCreateModel)));
+        return mapCustomerEntityToCustomerModel(customerRepository
+                .save(mapCustomerCreateModelToCustomerEntity(customerCreateModel)));
     }
 
-    @Override
-    public CustomerModel updateCustomer(CustomerUpdateModel customerUpdateModel) {
-        Optional<Customer> customerOptionalByEmail = customerRepository.findByEmail(customerUpdateModel.getEmail());
+    public CustomerModel updateCustomer(Long id, CustomerUpdateModel customerUpdateModel) {
+        //TODO megkeresem ID alapján, ha létezik, akkor az entitás adatait az update modellel módosítom
+
+        /*Optional<Customer> customerOptionalByEmail = customerRepository.findByEmail(customerUpdateModel.getEmail());
         if (customerOptionalByEmail.isPresent()) {
             Customer existingCustomer = customerOptionalByEmail.get();
             if (customerUpdateModel.getFirstName() != null && !customerUpdateModel.getFirstName().equals(existingCustomer.getFirstName())) {
@@ -82,18 +82,12 @@ public class CustomerServiceImpl implements CustomerService {
         }
         String message = String.format("User with email %s not found", customerUpdateModel.getEmail());
         log.info(message);
-        throw new NoSuchElementException(message);
+        throw new NoSuchElementException(message);*/
+        return  null;
     }
 
-    @Override
     public void deleteCustomer(Long id) {
-        Optional<Customer> customer = customerRepository.findById(id);
-        if (customer.isPresent()) {
-            customerRepository.deleteById(id);
-        } else {
-            String message = String.format("Customer with id %d not found", id);
-            log.info(message);
-            throw new NoSuchElementException(message);
-        }
+        Customer customer = getCustomerById(id);
+        customerRepository.delete(customer);
     }
 }

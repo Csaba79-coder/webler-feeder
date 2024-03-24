@@ -1,5 +1,6 @@
-package hu.webler.weblerfeeder.repository;
+package hu.webler.weblerfeeder.customer.repository;
 
+import hu.webler.weblerfeeder.customer.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
