@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Entity
 @Getter
 @Setter
@@ -15,6 +14,8 @@ import lombok.Setter;
 public class Food extends Auditable {
 
     private String name;
-    private String description;   // soup or main or dessert enum?
+
+    private String description;
+
     private Double price;
 }
