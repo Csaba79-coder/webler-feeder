@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class FoodCreateAndUpdateModel {
 
-    private Long id;
-    private LocalDateTime createdAt;
     private String name;
     private String description;
     private Double price;

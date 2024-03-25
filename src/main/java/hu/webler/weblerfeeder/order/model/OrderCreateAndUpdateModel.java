@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class OrderCreateAndUpdateModel {
 
-    private Long id;
-    private LocalDateTime createdAt;
     private String address;
     private String description;
 }
