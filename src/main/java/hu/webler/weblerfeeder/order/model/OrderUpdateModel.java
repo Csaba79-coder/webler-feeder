@@ -14,6 +14,7 @@ import lombok.Setter;
 public class OrderUpdateModel {
 
     private LocalDateTime createdAt;
+
     private String address;
 
     private String description;
