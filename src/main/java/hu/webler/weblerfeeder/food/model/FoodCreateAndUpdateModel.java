@@ -1,6 +1,4 @@
-package hu.webler.weblerfeeder.order.model;
-
-import java.time.LocalDateTime;
+package hu.webler.weblerfeeder.food.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,11 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderUpdateModel {
+public class FoodCreateAndUpdateModel {
 
-    private LocalDateTime createdAt;
-
-    private String address;
-
+    private String name;
     private String description;
+    private Double price;
 }

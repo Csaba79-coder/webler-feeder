@@ -14,8 +14,6 @@ import lombok.Setter;
 public class Food extends Auditable {
 
     private String name;
-
     private String description;
-
     private Double price;
 }

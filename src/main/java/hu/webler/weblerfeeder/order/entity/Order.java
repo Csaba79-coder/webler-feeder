@@ -17,6 +17,5 @@ import lombok.Setter;
 public class Order extends Auditable {
 
     private String address;
-
     private String description;
 }
