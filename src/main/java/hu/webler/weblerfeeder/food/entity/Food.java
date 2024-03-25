@@ -1,4 +1,5 @@
 package hu.webler.weblerfeeder.food.entity;
+
 import hu.webler.weblerfeeder.base.Auditable;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
