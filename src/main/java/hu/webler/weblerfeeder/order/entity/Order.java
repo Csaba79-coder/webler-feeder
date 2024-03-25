@@ -18,6 +18,5 @@ public class Order extends Auditable {
 
     private String address;
 
-    private String description;   // kapucsengő emelett stb.
-    // customer + food customerOrder one-many, food customerorder one-to-many
+    private String description;
 }
