@@ -12,6 +12,5 @@ import lombok.Setter;
 public class OrderCreateAndUpdateModel {
 
     private String address;
-
     private String description;
 }
