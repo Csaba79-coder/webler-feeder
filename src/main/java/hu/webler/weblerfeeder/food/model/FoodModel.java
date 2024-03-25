@@ -1,19 +1,20 @@
-package hu.webler.weblerfeeder.food.entity;
+package hu.webler.weblerfeeder.food.model;
 
-import hu.webler.weblerfeeder.base.Auditable;
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Food extends Auditable {
+public class FoodModel {
 
+    private Long id;
+    private LocalDateTime createdAt;
     private String name;
     private String description;
     private Double price;
