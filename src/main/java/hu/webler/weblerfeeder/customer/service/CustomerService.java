@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static hu.webler.weblerfeeder.util.CustomerMapper.mapCustomerCreateModelToCustomerEntity;
@@ -57,33 +58,34 @@ public class CustomerService {
                 .save(mapCustomerCreateModelToCustomerEntity(customerCreateModel)));
     }
 
-    public CustomerModel updateCustomer(Long id, CustomerUpdateModel customerUpdateModel) {
-        //TODO megkeresem ID alapján, ha létezik, akkor az entitás adatait az update modellel módosítom
-
-        /*Optional<Customer> customerOptionalByEmail = customerRepository.findByEmail(customerUpdateModel.getEmail());
-        if (customerOptionalByEmail.isPresent()) {
-            Customer existingCustomer = customerOptionalByEmail.get();
+    public String updateCustomer(Long id, CustomerUpdateModel customerUpdateModel) {
+        Optional<Customer> customerOptionalById = Optional.ofNullable(getCustomerById(id));
+        if (customerOptionalById.isPresent()) {
+            Customer existingCustomer = customerOptionalById.get();
             if (customerUpdateModel.getFirstName() != null && !customerUpdateModel.getFirstName().equals(existingCustomer.getFirstName())) {
                 existingCustomer.setFirstName(customerUpdateModel.getFirstName());
             }
             if (customerUpdateModel.getMidName() != null && !customerUpdateModel.getMidName().equals(existingCustomer.getMidName())) {
                 existingCustomer.setMidName(customerUpdateModel.getMidName());
             }
-            if (customerUpdateModel.getLastName() != null && !customerUpdateModel.getLastName().equals(existingCustomer.getLastName())) {
-                existingCustomer.setLastName(customerUpdateModel.getLastName());
+            if (customerUpdateModel.getLastName() != null && !customerUpdateModel.getLastName().equals(existingCustomer.getMidName())) {
+                existingCustomer.setMidName(customerUpdateModel.getMidName());
             }
             if (customerUpdateModel.getCell() != null && !customerUpdateModel.getCell().equals(existingCustomer.getCell())) {
                 existingCustomer.setCell(customerUpdateModel.getCell());
             }
+            if (customerUpdateModel.getEmail() != null && !customerUpdateModel.getEmail().equals(existingCustomer.getEmail())) {
+                existingCustomer.setEmail(customerUpdateModel.getEmail());
+            }
+            if (customerUpdateModel.getDateOfBirth() != null && !customerUpdateModel.getDateOfBirth().equals(existingCustomer.getDateOfBirth())) {
+                existingCustomer.setDateOfBirth(customerUpdateModel.getDateOfBirth());
+            }
             if (customerUpdateModel.getStatus() != null && !customerUpdateModel.getStatus().equals(existingCustomer.getStatus())) {
                 existingCustomer.setStatus(customerUpdateModel.getStatus());
             }
-            return Mapper.mapCustomerEntityToCustomerModel(customerRepository.save(existingCustomer));
+            CustomerMapper.mapCustomerEntityToCustomerModel(customerRepository.save(existingCustomer));
         }
-        String message = String.format("User with email %s not found", customerUpdateModel.getEmail());
-        log.info(message);
-        throw new NoSuchElementException(message);*/
-        return  null;
+        return String.format("User with ID %s modified successfully", id);
     }
 
     public void deleteCustomer(Long id) {
