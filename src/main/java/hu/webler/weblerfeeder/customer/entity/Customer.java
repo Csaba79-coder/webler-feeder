@@ -3,6 +3,7 @@ package hu.webler.weblerfeeder.customer.entity;
 import hu.webler.weblerfeeder.base.Auditable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Customer extends Auditable {
 
     private String firstName;

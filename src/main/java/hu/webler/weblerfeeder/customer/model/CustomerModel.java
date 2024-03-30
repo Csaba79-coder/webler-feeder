@@ -3,6 +3,7 @@ package hu.webler.weblerfeeder.customer.model;
 import hu.webler.weblerfeeder.value.Status;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class CustomerModel {
 
     private Long id;

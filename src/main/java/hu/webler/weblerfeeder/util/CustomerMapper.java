@@ -7,28 +7,30 @@ import hu.webler.weblerfeeder.customer.model.CustomerModel;
 public class CustomerMapper {
 
     public static CustomerModel mapCustomerEntityToCustomerModel(Customer customer) {
-        CustomerModel customerModel = new CustomerModel();
-        customerModel.setId(customer.getId());
-        customerModel.setRegistrationDate(customer.getCreatedAt());
-        customerModel.setFirstName(customer.getFirstName());
-        customerModel.setMidName(customer.getMidName());
-        customerModel.setLastName(customer.getLastName());
-        customerModel.setCell(customer.getCell());
-        customerModel.setEmail(customer.getEmail());
-        customerModel.setDateOfBirth(customer.getDateOfBirth());
-        customerModel.setStatus(customer.getStatus());
-        return customerModel;
+        return CustomerModel
+                .builder()
+                .id(customer.getId())
+                .registrationDate(customer.getCreatedAt())
+                .firstName(customer.getFirstName())
+                .midName(customer.getMidName())
+                .lastName(customer.getLastName())
+                .cell(customer.getCell())
+                .email(customer.getEmail())
+                .dateOfBirth(customer.getDateOfBirth())
+                .status(customer.getStatus())
+                .build();
     }
 
     public static Customer mapCustomerCreateModelToCustomerEntity(CustomerCreateModel customerCreateModel) {
-        Customer customer = new Customer();
-        customer.setFirstName(customerCreateModel.getFirstName());
-        customer.setMidName(customerCreateModel.getMidName());
-        customer.setLastName(customerCreateModel.getLastName());
-        customer.setCell(customerCreateModel.getCell());
-        customer.setEmail(customerCreateModel.getEmail());
-        customer.setDateOfBirth(customerCreateModel.getDateOfBirth());
-        return customer;
+        return Customer
+                .builder()
+                .firstName(customerCreateModel.getFirstName())
+                .midName(customerCreateModel.getMidName())
+                .lastName(customerCreateModel.getLastName())
+                .cell(customerCreateModel.getCell())
+                .email(customerCreateModel.getEmail())
+                .dateOfBirth(customerCreateModel.getDateOfBirth())
+                .build();
     }
 
     private CustomerMapper() {
