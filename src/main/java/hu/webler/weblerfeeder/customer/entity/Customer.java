@@ -20,13 +20,23 @@ import java.time.LocalDate;
 @Builder
 public class Customer extends Auditable {
 
+    @Column(nullable = false)
     private String firstName;
+
     private String midName;
+
+    @Column(nullable = false)
     private String lastName;
+
+    @Column(nullable = false)
     private String cell;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
     private LocalDate dateOfBirth;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     private Status status = Status.INACTIVE;
 }
