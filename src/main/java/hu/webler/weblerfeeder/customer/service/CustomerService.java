@@ -5,6 +5,7 @@ import hu.webler.weblerfeeder.customer.model.CustomerCreateModel;
 import hu.webler.weblerfeeder.customer.model.CustomerModel;
 import hu.webler.weblerfeeder.customer.model.CustomerUpdateModel;
 import hu.webler.weblerfeeder.customer.repository.CustomerRepository;
+import hu.webler.weblerfeeder.exception.DuplicateKeyException;
 import hu.webler.weblerfeeder.util.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +44,10 @@ public class CustomerService {
         );
     }
 
+    public Optional<Customer> isCustomerExistsWithThisEmail(String email) {
+        return customerRepository.findByEmail(email);
+    }
+
     public Customer getCustomerById(Long id) {
         return customerRepository.findById(id)
                 .orElseThrow(() -> {
@@ -54,8 +59,13 @@ public class CustomerService {
     }
 
     public CustomerModel addCustomer(CustomerCreateModel customerCreateModel) {
-        return mapCustomerEntityToCustomerModel(customerRepository
-                .save(mapCustomerCreateModelToCustomerEntity(customerCreateModel)));
+        Optional<Customer> customerOptionalByEmail = isCustomerExistsWithThisEmail(customerCreateModel.getEmail());
+        if (customerOptionalByEmail.isEmpty()) {
+            return mapCustomerEntityToCustomerModel(customerRepository
+                    .save(mapCustomerCreateModelToCustomerEntity(customerCreateModel)));
+        } else {
+            throw new DuplicateKeyException("User with this email already exists");
+        }
     }
 
     public String updateCustomer(Long id, CustomerUpdateModel customerUpdateModel) {
@@ -76,7 +86,8 @@ public class CustomerService {
             }
             if (customerUpdateModel.getEmail() != null && !customerUpdateModel.getEmail().equals(existingCustomer.getEmail())) {
                 existingCustomer.setEmail(customerUpdateModel.getEmail());
-            }
+            } else
+                throw new DuplicateKeyException("Please use another email, customer with this email already exists");
             if (customerUpdateModel.getDateOfBirth() != null && !customerUpdateModel.getDateOfBirth().equals(existingCustomer.getDateOfBirth())) {
                 existingCustomer.setDateOfBirth(customerUpdateModel.getDateOfBirth());
             }
@@ -85,11 +96,24 @@ public class CustomerService {
             }
             CustomerMapper.mapCustomerEntityToCustomerModel(customerRepository.save(existingCustomer));
         }
-        return String.format("User with ID %s modified successfully", id);
+        return String.format("User with ID %s modified successfully to: %s", id, getCustomerEntityAsString(id));
+    }
+
+    private String getCustomerEntityAsString(Long id) {
+        Customer customer = getCustomerById(id);
+        return String.format("""
+                        First Name: %s\s
+                        Mid Name: %s\s
+                        Last Name: %s\s
+                        Cell: %s\s
+                        Email: %s\s
+                        Date of birth: %s\s
+                        Status: %s""",
+                customer.getFirstName(), customer.getMidName(), customer.getLastName(), customer.getCell(),
+                customer.getEmail(), customer.getDateOfBirth(), customer.getStatus());
     }
 
     public void deleteCustomer(Long id) {
-        Customer customer = getCustomerById(id);
-        customerRepository.delete(customer);
+        customerRepository.delete(getCustomerById(id));
     }
 }

@@ -30,6 +30,11 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(responseBodyWithMessage(ERROR_CODE_003, ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(value = {DuplicateKeyException.class})
+    public ResponseEntity<Object> handleDuplicateKeyException(DuplicateKeyException ex) {
+        return new ResponseEntity<>(responseBodyWithMessage(ERROR_CODE_004, ex.getMessage()), HttpStatus.CONFLICT);
+    }
+
     private String responseBodyWithMessage(ErrorCode code, String message) {
         return Map.of(code, message).toString();
     }
