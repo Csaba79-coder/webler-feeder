@@ -1,6 +1,7 @@
 package hu.webler.weblerfeeder.customer.entity;
 
 import hu.webler.weblerfeeder.base.Auditable;
+import hu.webler.weblerfeeder.order.entity.Order;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +12,7 @@ import lombok.Setter;
 import hu.webler.weblerfeeder.value.Status;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -39,4 +41,7 @@ public class Customer extends Auditable {
     @Builder.Default
     @Enumerated(EnumType.STRING)
     private Status status = Status.INACTIVE;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Order> orders;
 }
