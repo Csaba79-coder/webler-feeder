@@ -14,6 +14,7 @@ import static hu.webler.weblerfeeder.util.CustomerMapper.mapCustomerEntityToCust
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin
 @RequestMapping("/api")
 public class CustomerController {
 

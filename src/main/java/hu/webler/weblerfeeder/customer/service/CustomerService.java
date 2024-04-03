@@ -6,6 +6,7 @@ import hu.webler.weblerfeeder.customer.model.CustomerModel;
 import hu.webler.weblerfeeder.customer.model.CustomerUpdateModel;
 import hu.webler.weblerfeeder.customer.repository.CustomerRepository;
 import hu.webler.weblerfeeder.exception.DuplicateKeyException;
+import hu.webler.weblerfeeder.exception.InvalidInputException;
 import hu.webler.weblerfeeder.util.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +45,7 @@ public class CustomerService {
         );
     }
 
-    public Optional<Customer> isCustomerExistsWithThisEmail(String email) {
+    private Optional<Customer> isCustomerExistsWithThisEmail(String email) {
         return customerRepository.findByEmail(email);
     }
 
@@ -59,8 +60,8 @@ public class CustomerService {
     }
 
     public CustomerModel addCustomer(CustomerCreateModel customerCreateModel) {
-        Optional<Customer> customerOptionalByEmail = isCustomerExistsWithThisEmail(customerCreateModel.getEmail());
-        if (customerOptionalByEmail.isEmpty()) {
+        Optional<Customer> existingCustomerWithThisEmail = isCustomerExistsWithThisEmail(customerCreateModel.getEmail());
+        if (isAllFieldsContainData(customerCreateModel) && existingCustomerWithThisEmail.isEmpty()) {
             return mapCustomerEntityToCustomerModel(customerRepository
                     .save(mapCustomerCreateModelToCustomerEntity(customerCreateModel)));
         } else {
@@ -69,40 +70,57 @@ public class CustomerService {
     }
 
     public String updateCustomer(Long id, CustomerUpdateModel customerUpdateModel) {
-        Optional<Customer> customerOptionalById = Optional.ofNullable(getCustomerById(id));
-        if (customerOptionalById.isPresent()) {
-            Customer existingCustomer = customerOptionalById.get();
-            if (customerUpdateModel.getFirstName() != null && !customerUpdateModel.getFirstName().equals(existingCustomer.getFirstName())) {
-                existingCustomer.setFirstName(customerUpdateModel.getFirstName());
-            }
-            if (customerUpdateModel.getMidName() != null && !customerUpdateModel.getMidName().equals(existingCustomer.getMidName())) {
-                existingCustomer.setMidName(customerUpdateModel.getMidName());
-            }
-            if (customerUpdateModel.getLastName() != null && !customerUpdateModel.getLastName().equals(existingCustomer.getMidName())) {
-                existingCustomer.setMidName(customerUpdateModel.getMidName());
-            }
-            if (customerUpdateModel.getCell() != null && !customerUpdateModel.getCell().equals(existingCustomer.getCell())) {
-                existingCustomer.setCell(customerUpdateModel.getCell());
-            }
-            if (customerUpdateModel.getEmail() != null && !customerUpdateModel.getEmail().equals(existingCustomer.getEmail())) {
-                existingCustomer.setEmail(customerUpdateModel.getEmail());
-            } else
-                throw new DuplicateKeyException("Please use another email, customer with this email already exists");
-            if (customerUpdateModel.getDateOfBirth() != null && !customerUpdateModel.getDateOfBirth().equals(existingCustomer.getDateOfBirth())) {
-                existingCustomer.setDateOfBirth(customerUpdateModel.getDateOfBirth());
-            }
-            if (customerUpdateModel.getStatus() != null && !customerUpdateModel.getStatus().equals(existingCustomer.getStatus())) {
-                existingCustomer.setStatus(customerUpdateModel.getStatus());
-            }
+        Customer existingCustomer = getCustomerById(id);
+        if (isAllFieldsContainData(customerUpdateModel)) {
+            addNewDataToExistingCustomer(existingCustomer, customerUpdateModel);
             CustomerMapper.mapCustomerEntityToCustomerModel(customerRepository.save(existingCustomer));
         }
         return String.format("User with ID %s modified successfully to: %s", id, getCustomerEntityAsString(id));
     }
 
+    private void addNewDataToExistingCustomer(Customer existingCustomer, CustomerUpdateModel customerUpdateModel) {
+        existingCustomer.setFirstName(customerUpdateModel.getFirstName());
+        existingCustomer.setMidName(customerUpdateModel.getMidName());
+        existingCustomer.setCell(customerUpdateModel.getCell());
+        if (!customerUpdateModel.getEmail().equals(existingCustomer.getEmail())) {
+            existingCustomer.setEmail(customerUpdateModel.getEmail());
+        } else
+            throw new DuplicateKeyException("Please use another email, customer with this email already exists");
+        existingCustomer.setDateOfBirth(customerUpdateModel.getDateOfBirth());
+        existingCustomer.setStatus(customerUpdateModel.getStatus());
+    }
+
+    private boolean isAllFieldsContainData(CustomerUpdateModel customerUpdateModel) {
+        if (
+                customerUpdateModel.getFirstName() != null &&
+                customerUpdateModel.getMidName() != null &&
+                customerUpdateModel.getLastName() != null &&
+                customerUpdateModel.getCell() != null &&
+                customerUpdateModel.getEmail() != null &&
+                customerUpdateModel.getDateOfBirth() != null &&
+                customerUpdateModel.getStatus() != null
+        ) {
+            return true;
+        } else throw new InvalidInputException("Please fill all fields");
+    }
+
+    private boolean isAllFieldsContainData(CustomerCreateModel customerCreateModel) {
+        if (
+                customerCreateModel.getFirstName() != null &&
+                customerCreateModel.getMidName() != null &&
+                customerCreateModel.getLastName() != null &&
+                customerCreateModel.getCell() != null &&
+                customerCreateModel.getEmail() != null &&
+                customerCreateModel.getDateOfBirth() != null
+        ) {
+            return true;
+        } else throw new InvalidInputException("Please fill all fields");
+    }
+
     private String getCustomerEntityAsString(Long id) {
         Customer customer = getCustomerById(id);
         return String.format("""
-                        First Name: %s\s
+                        \nFirst Name: %s\s
                         Mid Name: %s\s
                         Last Name: %s\s
                         Cell: %s\s
