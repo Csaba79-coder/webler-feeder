@@ -5,7 +5,7 @@ import hu.webler.weblerfeeder.customer.model.CustomerCreateModel;
 import hu.webler.weblerfeeder.customer.model.CustomerModel;
 import hu.webler.weblerfeeder.customer.model.CustomerUpdateModel;
 import hu.webler.weblerfeeder.customer.repository.CustomerRepository;
-import hu.webler.weblerfeeder.exception.DuplicateKeyException;
+import hu.webler.weblerfeeder.exception.UserAlreadyExistsException;
 import hu.webler.weblerfeeder.exception.InvalidInputException;
 import hu.webler.weblerfeeder.util.CustomerMapper;
 import lombok.RequiredArgsConstructor;
@@ -65,7 +65,7 @@ public class CustomerService {
             return mapCustomerEntityToCustomerModel(customerRepository
                     .save(mapCustomerCreateModelToCustomerEntity(customerCreateModel)));
         } else {
-            throw new DuplicateKeyException("User with this email already exists");
+            throw new UserAlreadyExistsException("User with this email already exists");
         }
     }
 
@@ -85,7 +85,7 @@ public class CustomerService {
         if (!customerUpdateModel.getEmail().equals(existingCustomer.getEmail())) {
             existingCustomer.setEmail(customerUpdateModel.getEmail());
         } else
-            throw new DuplicateKeyException("Please use another email, customer with this email already exists");
+            throw new UserAlreadyExistsException("Please use another email, customer with this email already exists");
         existingCustomer.setDateOfBirth(customerUpdateModel.getDateOfBirth());
         existingCustomer.setStatus(customerUpdateModel.getStatus());
     }
