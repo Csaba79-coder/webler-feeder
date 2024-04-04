@@ -1,6 +1,5 @@
 package hu.webler.weblerfeeder.order.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import hu.webler.weblerfeeder.base.Auditable;
 import hu.webler.weblerfeeder.customer.entity.Customer;
 import hu.webler.weblerfeeder.food.entity.Food;
