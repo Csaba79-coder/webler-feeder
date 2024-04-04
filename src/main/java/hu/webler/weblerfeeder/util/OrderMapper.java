@@ -30,4 +30,6 @@ public class OrderMapper {
                 ;
     }
 
+    public OrderMapper() {
+    }
 }

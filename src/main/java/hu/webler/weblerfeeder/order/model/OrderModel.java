@@ -1,6 +1,5 @@
 package hu.webler.weblerfeeder.order.model;
 
-
 import hu.webler.weblerfeeder.customer.entity.Customer;
 import hu.webler.weblerfeeder.order.entity.Order;
 import lombok.*;

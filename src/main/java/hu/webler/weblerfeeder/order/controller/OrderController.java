@@ -18,7 +18,6 @@ public class OrderController {
 
     private final OrderService orderService;
 
-
     @GetMapping("/orders")
     public ResponseEntity<List<OrderModel>> listAllOrders() {
         return ResponseEntity.status(200).body(orderService.getAllOrders()) ;
