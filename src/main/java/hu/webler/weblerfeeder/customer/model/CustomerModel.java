@@ -2,16 +2,14 @@ package hu.webler.weblerfeeder.customer.model;
 
 import hu.webler.weblerfeeder.value.Status;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerModel {
