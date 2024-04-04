@@ -1,7 +1,5 @@
 package hu.webler.weblerfeeder.order.controller;
 
-
-import hu.webler.weblerfeeder.order.entity.Order;
 import hu.webler.weblerfeeder.order.model.OrderModel;
 import hu.webler.weblerfeeder.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
