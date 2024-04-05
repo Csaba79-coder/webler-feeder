@@ -3,7 +3,9 @@ package hu.webler.weblerfeeder.util;
 import hu.webler.weblerfeeder.customer.entity.Customer;
 import hu.webler.weblerfeeder.customer.model.CustomerCreateModel;
 import hu.webler.weblerfeeder.customer.model.CustomerModel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class CustomerMapper {
 
     public static CustomerModel mapCustomerEntityToCustomerModel(Customer customer) {
@@ -31,8 +33,5 @@ public class CustomerMapper {
                 .email(customerCreateModel.getEmail())
                 .dateOfBirth(customerCreateModel.getDateOfBirth())
                 .build();
-    }
-
-    private CustomerMapper() {
     }
 }
