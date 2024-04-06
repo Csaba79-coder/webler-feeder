@@ -1,5 +1,6 @@
 package hu.webler.weblerfeeder.order.service;
 
+import hu.webler.weblerfeeder.order.model.OrderCreateAndUpdateModel;
 import hu.webler.weblerfeeder.order.model.OrderModel;
 import hu.webler.weblerfeeder.order.repository.OrderRepository;
 import hu.webler.weblerfeeder.util.OrderMapper;
@@ -42,5 +43,9 @@ public class OrderService {
                 .stream()
                 .map(OrderMapper::mapOrderEntityToOrderModel)
                 .collect(Collectors.toList());
+    }
+
+    public OrderModel addCustomer(OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
+        return null;
     }
 }
