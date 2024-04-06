@@ -65,17 +65,18 @@ public class CustomerService {
             return mapCustomerEntityToCustomerModel(customerRepository
                     .save(mapCustomerCreateModelToCustomerEntity(customerCreateModel)));
         } else {
-            throw new UserAlreadyExistsException("User with this email already exists");
+            String email = customerCreateModel.getEmail();
+            String message = String.format("Please use another email, customer with this email: %s already exists", email);
+            throw new UserAlreadyExistsException(message);
         }
     }
 
-    public String updateCustomer(Long id, CustomerUpdateModel customerUpdateModel) {
+    public CustomerModel updateCustomer(Long id, CustomerUpdateModel customerUpdateModel) {
         Customer existingCustomer = getCustomerById(id);
         if (isAllFieldsContainData(customerUpdateModel)) {
             addNewDataToExistingCustomer(existingCustomer, customerUpdateModel);
-            CustomerMapper.mapCustomerEntityToCustomerModel(customerRepository.save(existingCustomer));
         }
-        return String.format("User with ID %s modified successfully to: %s", id, getCustomerEntityAsString(id));
+        return CustomerMapper.mapCustomerEntityToCustomerModel(customerRepository.save(existingCustomer));
     }
 
     private void addNewDataToExistingCustomer(Customer existingCustomer, CustomerUpdateModel customerUpdateModel) {
@@ -84,10 +85,13 @@ public class CustomerService {
         existingCustomer.setCell(customerUpdateModel.getCell());
         if (!customerUpdateModel.getEmail().equals(existingCustomer.getEmail())) {
             existingCustomer.setEmail(customerUpdateModel.getEmail());
-        } else
-            throw new UserAlreadyExistsException("Please use another email, customer with this email already exists");
-        existingCustomer.setDateOfBirth(customerUpdateModel.getDateOfBirth());
-        existingCustomer.setStatus(customerUpdateModel.getStatus());
+        } else {
+            String email = customerUpdateModel.getEmail();
+            String message = String.format("Please use another email, customer with this email: %s already exists", email);
+            throw new UserAlreadyExistsException(message);
+            }
+            existingCustomer.setDateOfBirth(customerUpdateModel.getDateOfBirth());
+            existingCustomer.setStatus(customerUpdateModel.getStatus());
     }
 
     private boolean isAllFieldsContainData(CustomerUpdateModel customerUpdateModel) {
@@ -115,20 +119,6 @@ public class CustomerService {
         ) {
             return true;
         } else throw new InvalidInputException("Please fill all fields");
-    }
-
-    private String getCustomerEntityAsString(Long id) {
-        Customer customer = getCustomerById(id);
-        return String.format("""
-                        \nFirst Name: %s\s
-                        Mid Name: %s\s
-                        Last Name: %s\s
-                        Cell: %s\s
-                        Email: %s\s
-                        Date of birth: %s\s
-                        Status: %s""",
-                customer.getFirstName(), customer.getMidName(), customer.getLastName(), customer.getCell(),
-                customer.getEmail(), customer.getDateOfBirth(), customer.getStatus());
     }
 
     public void deleteCustomer(Long id) {

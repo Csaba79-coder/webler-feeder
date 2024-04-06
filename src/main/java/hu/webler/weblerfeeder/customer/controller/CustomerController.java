@@ -14,7 +14,6 @@ import static hu.webler.weblerfeeder.util.CustomerMapper.mapCustomerEntityToCust
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin
 @RequestMapping("/api")
 public class CustomerController {
 
@@ -35,18 +34,18 @@ public class CustomerController {
         return ResponseEntity.status(200).body(customerService.getCustomerByEmail(email));
     }
 
-    @GetMapping("/customers/customer/id/{id}")
+    @GetMapping("/customers/customer/{id}")
     public ResponseEntity<CustomerModel> getCustomerById(@PathVariable Long id) {
         return ResponseEntity.status(200).body(mapCustomerEntityToCustomerModel(customerService.getCustomerById(id)));
     }
 
     @PatchMapping("/customers/customer/{id}")
-    public ResponseEntity<String> updateCustomer(@PathVariable Long id, @RequestBody CustomerUpdateModel customerUpdateModel) {
+    public ResponseEntity<CustomerModel> updateCustomer(@PathVariable Long id, @RequestBody CustomerUpdateModel customerUpdateModel) {
         return ResponseEntity.status(200).body(customerService.updateCustomer(id, customerUpdateModel));
     }
 
     @DeleteMapping("/customers/customer/{id}")
-    public ResponseEntity<CustomerModel> deleteCustomer(@PathVariable Long id) {
+    public ResponseEntity deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomer(id);
         return ResponseEntity.status(204).build();
     }
