@@ -24,12 +24,12 @@ public class OrderController {
     }
 
     @GetMapping("/orders/order/address/{address}")
-    public  ResponseEntity<OrderModel> getOrderModelByEmail(@PathVariable String address) {
+    public  ResponseEntity<OrderModel> getOrderByAddress(@PathVariable String address) {
         return ResponseEntity.status(200).body(orderService.getOrderByAddress(address));
     }
 
-    @GetMapping("/orders/order/address2/{address}")
-    public  ResponseEntity<List<OrderModel>> getOrderModelByAddress(@PathVariable String address) {
+    @GetMapping("/orders/orders/address/{address}")
+    public  ResponseEntity<List<OrderModel>> getOrdersByAddress(@PathVariable String address) {
         return ResponseEntity.status(200).body(orderService.getAllOrderByAddress(address));
     }
 }
