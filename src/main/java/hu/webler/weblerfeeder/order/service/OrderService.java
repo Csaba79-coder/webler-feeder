@@ -37,7 +37,7 @@ public class OrderService {
                 ;
     }
 
-    public List<OrderModel> getOrderByAllAddress(String address) {
+    public List<OrderModel> getAllOrderByAddress(String address) {
         return orderRepository.findAllByAddress(address)
                 .stream()
                 .map(OrderMapper::mapOrderEntityToOrderModel)
