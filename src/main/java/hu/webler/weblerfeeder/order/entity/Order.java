@@ -18,9 +18,6 @@ import java.util.List;
 public class Order extends Auditable {
 
     @Column(nullable = false)
-    private String address;
-
-    @Column(nullable = false)
     private String description;
 
     @ManyToOne
