@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,26 +26,8 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public OrderModel getOrderByAddress(String address) {
-        return OrderMapper.mapOrderEntityToOrderModel(
-                orderRepository
-                        .findByAddress(address)
-                        .orElseThrow(() -> {
-            String message = String.format("User with this address %s not found", address);
-            log.info(message);
-            return new NoSuchElementException(message);
-        }))
-                ;
-    }
-
-    public List<OrderModel> getAllOrderByAddress(String address) {
-        return orderRepository.findAllByAddress(address)
-                .stream()
-                .map(OrderMapper::mapOrderEntityToOrderModel)
-                .collect(Collectors.toList());
-    }
-
     public OrderModel addCustomer(OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
-        return null;
+        System.out.println(orderCreateAndUpdateModel);
+        return OrderMapper.mapOrderEntityToOrderModel(orderRepository.save(OrderMapper.mapOrderCreateAndUpdateModelToOrderEntity(orderCreateAndUpdateModel)));
     }
 }

@@ -18,12 +18,9 @@ import java.util.List;
 public class Order extends Auditable {
 
     @Column(nullable = false)
-    private String address;
-
-    @Column(nullable = false)
     private String description;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 

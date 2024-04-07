@@ -21,17 +21,9 @@ public class OrderController {
         return ResponseEntity.status(200).body(orderService.getAllOrders()) ;
     }
 
-    @GetMapping("/orders/order/address/{address}")
-    public  ResponseEntity<OrderModel> getOrderByAddress(@PathVariable String address) {
-        return ResponseEntity.status(200).body(orderService.getOrderByAddress(address));
-    }
 
-    @GetMapping("/orders/orders/address/{address}")
-    public  ResponseEntity<List<OrderModel>> getOrdersByAddress(@PathVariable String address) {
-        return ResponseEntity.status(200).body(orderService.getAllOrderByAddress(address));
-    }
 
-    @PostMapping("/customers")
+    @PostMapping("/orders")
     public ResponseEntity<OrderModel> addOrder(@RequestBody OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
         return ResponseEntity.status(200).body(orderService.addCustomer(orderCreateAndUpdateModel));
     }
