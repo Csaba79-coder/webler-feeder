@@ -30,6 +30,11 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(responseBodyWithMessage(ERROR_CODE_003, ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(value = {UserAlreadyExistsException.class})
+    public ResponseEntity<Object> handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
+        return new ResponseEntity<>(responseBodyWithMessage(ERROR_CODE_004, ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
     private String responseBodyWithMessage(ErrorCode code, String message) {
         return Map.of(code, message).toString();
     }

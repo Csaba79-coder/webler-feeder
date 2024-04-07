@@ -1,5 +1,6 @@
 package hu.webler.weblerfeeder.order.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import hu.webler.weblerfeeder.base.Auditable;
 import hu.webler.weblerfeeder.customer.entity.Customer;
 import hu.webler.weblerfeeder.food.entity.Food;
@@ -18,13 +19,11 @@ import java.util.List;
 public class Order extends Auditable {
 
     @Column(nullable = false)
-    private String address;
-
-    @Column(nullable = false)
     private String description;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id", nullable = false)
+    @JsonBackReference
     private Customer customer;
 
     @ManyToMany
