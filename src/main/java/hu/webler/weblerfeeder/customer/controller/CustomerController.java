@@ -34,7 +34,7 @@ public class CustomerController {
         return ResponseEntity.status(200).body(customerService.getCustomerByEmail(email));
     }
 
-    @GetMapping("/customers/customer/{id}")
+    @GetMapping("/customers/customer/id/{id}")
     public ResponseEntity<CustomerModel> getCustomerById(@PathVariable Long id) {
         return ResponseEntity.status(200).body(mapCustomerEntityToCustomerModel(customerService.getCustomerById(id)));
     }
