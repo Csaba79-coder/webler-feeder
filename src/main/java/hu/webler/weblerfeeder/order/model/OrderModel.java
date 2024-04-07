@@ -18,7 +18,4 @@ public class OrderModel {
     private String address;
     private String description;
     private Customer customer;
-
-    public OrderModel(Order order) {
-    }
 }
