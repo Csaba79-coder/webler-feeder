@@ -9,4 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
+
+    Optional<Order> findByAddress(String address);
+    List<Order> findAllByAddress(String address);
 }

@@ -13,6 +13,7 @@ public class OrderMapper {
         return OrderModel.
                 builder().id(order.getId())
                 .createdAt(order.getCreatedAt())
+                .address(order.getAddress())
                 .description(order.getDescription())
                 .customer(order.getCustomer())
                 .build()
@@ -22,6 +23,7 @@ public class OrderMapper {
     public static Order mapOrderCreateAndUpdateModelToOrderEntity
             (OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
         return Order.builder()
+                .address(orderCreateAndUpdateModel.getAddress())
                 .description(orderCreateAndUpdateModel.getDescription())
                 .customer(orderCreateAndUpdateModel.getCustomer())
                 .build()

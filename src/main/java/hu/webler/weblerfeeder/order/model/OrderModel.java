@@ -15,6 +15,7 @@ public class OrderModel {
 
     private Long id;
     private LocalDateTime createdAt;
+    private String address;
     private String description;
     private Customer customer;
 }

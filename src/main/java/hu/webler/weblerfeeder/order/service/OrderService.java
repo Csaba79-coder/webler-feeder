@@ -26,6 +26,25 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
+    public OrderModel getOrderByAddress(String address) {
+        return OrderMapper.mapOrderEntityToOrderModel(
+                orderRepository
+                        .findByAddress(address)
+                        .orElseThrow(() -> {
+            String message = String.format("User with this address %s not found", address);
+            log.info(message);
+            return new NoSuchElementException(message);
+        }))
+                ;
+    }
+
+    public List<OrderModel> getAllOrderByAddress(String address) {
+        return orderRepository.findAllByAddress(address)
+                .stream()
+                .map(OrderMapper::mapOrderEntityToOrderModel)
+                .collect(Collectors.toList());
+    }
+
     public OrderModel addCustomer(OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
         return null;
     }

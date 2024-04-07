@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class OrderCreateAndUpdateModel {
 
+    private String address;
     private String description;
     private Customer customer;
 }
