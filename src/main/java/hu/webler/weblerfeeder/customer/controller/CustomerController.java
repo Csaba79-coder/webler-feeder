@@ -39,12 +39,12 @@ public class CustomerController {
         return ResponseEntity.status(200).body(mapCustomerEntityToCustomerModel(customerService.getCustomerById(id)));
     }
 
-    @PatchMapping("/customers/customer/{id}")
+    @PatchMapping("/customers/customer/id/{id}")
     public ResponseEntity<CustomerModel> updateCustomer(@PathVariable Long id, @RequestBody CustomerUpdateModel customerUpdateModel) {
         return ResponseEntity.status(200).body(customerService.updateCustomer(id, customerUpdateModel));
     }
 
-    @DeleteMapping("/customers/customer/{id}")
+    @DeleteMapping("/customers/customer/id/{id}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomer(id);
         return ResponseEntity.status(204).build();
