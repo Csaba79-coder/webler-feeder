@@ -5,6 +5,8 @@ import hu.webler.weblerfeeder.customer.model.CustomerCreateModel;
 import hu.webler.weblerfeeder.customer.model.CustomerModel;
 import hu.webler.weblerfeeder.customer.model.CustomerUpdateModel;
 import hu.webler.weblerfeeder.customer.repository.CustomerRepository;
+import hu.webler.weblerfeeder.exception.UserAlreadyExistsException;
+import hu.webler.weblerfeeder.exception.InvalidInputException;
 import hu.webler.weblerfeeder.util.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static hu.webler.weblerfeeder.util.CustomerMapper.mapCustomerCreateModelToCustomerEntity;
@@ -42,6 +45,10 @@ public class CustomerService {
         );
     }
 
+    private Optional<Customer> findCustomerByEmail(String email) {
+        return customerRepository.findByEmail(email);
+    }
+
     public Customer getCustomerById(Long id) {
         return customerRepository.findById(id)
                 .orElseThrow(() -> {
@@ -53,41 +60,77 @@ public class CustomerService {
     }
 
     public CustomerModel addCustomer(CustomerCreateModel customerCreateModel) {
-        return mapCustomerEntityToCustomerModel(customerRepository
-                .save(mapCustomerCreateModelToCustomerEntity(customerCreateModel)));
+        Optional<Customer> existingCustomerWithThisEmail = findCustomerByEmail(customerCreateModel.getEmail());
+        if (isAllFieldsContainData(customerCreateModel) && existingCustomerWithThisEmail.isEmpty()) {
+            return mapCustomerEntityToCustomerModel(customerRepository
+                    .save(mapCustomerCreateModelToCustomerEntity(customerCreateModel)));
+        } else {
+            String email = customerCreateModel.getEmail();
+            String message = String.format("Please use another email, customer with this email: %s already exists", email);
+            throw new UserAlreadyExistsException(message);
+        }
     }
 
     public CustomerModel updateCustomer(Long id, CustomerUpdateModel customerUpdateModel) {
-        //TODO megkeresem ID alapján, ha létezik, akkor az entitás adatait az update modellel módosítom
-
-        /*Optional<Customer> customerOptionalByEmail = customerRepository.findByEmail(customerUpdateModel.getEmail());
-        if (customerOptionalByEmail.isPresent()) {
-            Customer existingCustomer = customerOptionalByEmail.get();
-            if (customerUpdateModel.getFirstName() != null && !customerUpdateModel.getFirstName().equals(existingCustomer.getFirstName())) {
-                existingCustomer.setFirstName(customerUpdateModel.getFirstName());
-            }
-            if (customerUpdateModel.getMidName() != null && !customerUpdateModel.getMidName().equals(existingCustomer.getMidName())) {
-                existingCustomer.setMidName(customerUpdateModel.getMidName());
-            }
-            if (customerUpdateModel.getLastName() != null && !customerUpdateModel.getLastName().equals(existingCustomer.getLastName())) {
-                existingCustomer.setLastName(customerUpdateModel.getLastName());
-            }
-            if (customerUpdateModel.getCell() != null && !customerUpdateModel.getCell().equals(existingCustomer.getCell())) {
-                existingCustomer.setCell(customerUpdateModel.getCell());
-            }
-            if (customerUpdateModel.getStatus() != null && !customerUpdateModel.getStatus().equals(existingCustomer.getStatus())) {
-                existingCustomer.setStatus(customerUpdateModel.getStatus());
-            }
-            return Mapper.mapCustomerEntityToCustomerModel(customerRepository.save(existingCustomer));
+        Customer existingCustomer = getCustomerById(id);
+        if (isAllFieldsContainData(customerUpdateModel)) {
+            addNewDataToExistingCustomer(existingCustomer, customerUpdateModel);
         }
-        String message = String.format("User with email %s not found", customerUpdateModel.getEmail());
-        log.info(message);
-        throw new NoSuchElementException(message);*/
-        return  null;
+        return CustomerMapper.mapCustomerEntityToCustomerModel(customerRepository.save(existingCustomer));
+    }
+
+    private void addNewDataToExistingCustomer(Customer existingCustomer, CustomerUpdateModel customerUpdateModel) {
+        existingCustomer.setFirstName(customerUpdateModel.getFirstName());
+        existingCustomer.setMidName(customerUpdateModel.getMidName());
+        existingCustomer.setCell(customerUpdateModel.getCell());
+        existingCustomer.setStreetAndNumber(customerUpdateModel.getStreetAndNumber());
+        existingCustomer.setCity(customerUpdateModel.getCity());
+        existingCustomer.setPostalCode(customerUpdateModel.getPostalCode());
+        if (!customerUpdateModel.getEmail().equals(existingCustomer.getEmail())) {
+            existingCustomer.setEmail(customerUpdateModel.getEmail());
+        } else {
+            String email = customerUpdateModel.getEmail();
+            String message = String.format("Please use another email, customer with this email: %s already exists", email);
+            throw new UserAlreadyExistsException(message);
+            }
+            existingCustomer.setDateOfBirth(customerUpdateModel.getDateOfBirth());
+            existingCustomer.setStatus(customerUpdateModel.getStatus());
+    }
+
+    private boolean isAllFieldsContainData(CustomerUpdateModel customerUpdateModel) {
+        if (
+                customerUpdateModel.getFirstName() != null &&
+                customerUpdateModel.getMidName() != null &&
+                customerUpdateModel.getLastName() != null &&
+                customerUpdateModel.getCell() != null &&
+                customerUpdateModel.getStreetAndNumber() != null &&
+                customerUpdateModel.getCity() != null &&
+                customerUpdateModel.getPostalCode() != null &&
+                customerUpdateModel.getEmail() != null &&
+                customerUpdateModel.getDateOfBirth() != null &&
+                customerUpdateModel.getStatus() != null
+        ) {
+            return true;
+        } else throw new InvalidInputException("Please fill all fields");
+    }
+
+    private boolean isAllFieldsContainData(CustomerCreateModel customerCreateModel) {
+        if (
+                customerCreateModel.getFirstName() != null &&
+                customerCreateModel.getMidName() != null &&
+                customerCreateModel.getLastName() != null &&
+                customerCreateModel.getCell() != null &&
+                customerCreateModel.getStreetAndNumber() != null &&
+                customerCreateModel.getCity() != null &&
+                customerCreateModel.getPostalCode() != null &&
+                customerCreateModel.getEmail() != null &&
+                customerCreateModel.getDateOfBirth() != null
+        ) {
+            return true;
+        } else throw new InvalidInputException("Please fill all fields");
     }
 
     public void deleteCustomer(Long id) {
-        Customer customer = getCustomerById(id);
-        customerRepository.delete(customer);
+        customerRepository.delete(getCustomerById(id));
     }
 }
