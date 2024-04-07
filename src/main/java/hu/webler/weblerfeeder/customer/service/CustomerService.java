@@ -45,7 +45,7 @@ public class CustomerService {
         );
     }
 
-    private Optional<Customer> isCustomerExistsWithThisEmail(String email) {
+    private Optional<Customer> findCustomerByEmail(String email) {
         return customerRepository.findByEmail(email);
     }
 
@@ -60,7 +60,7 @@ public class CustomerService {
     }
 
     public CustomerModel addCustomer(CustomerCreateModel customerCreateModel) {
-        Optional<Customer> existingCustomerWithThisEmail = isCustomerExistsWithThisEmail(customerCreateModel.getEmail());
+        Optional<Customer> existingCustomerWithThisEmail = findCustomerByEmail(customerCreateModel.getEmail());
         if (isAllFieldsContainData(customerCreateModel) && existingCustomerWithThisEmail.isEmpty()) {
             return mapCustomerEntityToCustomerModel(customerRepository
                     .save(mapCustomerCreateModelToCustomerEntity(customerCreateModel)));
@@ -83,6 +83,9 @@ public class CustomerService {
         existingCustomer.setFirstName(customerUpdateModel.getFirstName());
         existingCustomer.setMidName(customerUpdateModel.getMidName());
         existingCustomer.setCell(customerUpdateModel.getCell());
+        existingCustomer.setStreetAndNumber(customerUpdateModel.getStreetAndNumber());
+        existingCustomer.setCity(customerUpdateModel.getCity());
+        existingCustomer.setPostalCode(customerUpdateModel.getPostalCode());
         if (!customerUpdateModel.getEmail().equals(existingCustomer.getEmail())) {
             existingCustomer.setEmail(customerUpdateModel.getEmail());
         } else {
@@ -100,6 +103,9 @@ public class CustomerService {
                 customerUpdateModel.getMidName() != null &&
                 customerUpdateModel.getLastName() != null &&
                 customerUpdateModel.getCell() != null &&
+                customerUpdateModel.getStreetAndNumber() != null &&
+                customerUpdateModel.getCity() != null &&
+                customerUpdateModel.getPostalCode() != null &&
                 customerUpdateModel.getEmail() != null &&
                 customerUpdateModel.getDateOfBirth() != null &&
                 customerUpdateModel.getStatus() != null
@@ -114,6 +120,9 @@ public class CustomerService {
                 customerCreateModel.getMidName() != null &&
                 customerCreateModel.getLastName() != null &&
                 customerCreateModel.getCell() != null &&
+                customerCreateModel.getStreetAndNumber() != null &&
+                customerCreateModel.getCity() != null &&
+                customerCreateModel.getPostalCode() != null &&
                 customerCreateModel.getEmail() != null &&
                 customerCreateModel.getDateOfBirth() != null
         ) {

@@ -31,11 +31,21 @@ public class Customer extends Auditable {
     private String lastName;
 
     @Column(nullable = false)
+    private String streetAndNumber;
+
+    @Column(nullable = false)
+    private String city;
+
+    @Column(nullable = false)
+    private String postalCode;
+
+    @Column(nullable = false)
     private String cell;
 
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false)
     private LocalDate dateOfBirth;
 
     @Builder.Default
