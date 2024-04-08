@@ -1,6 +1,7 @@
 package hu.webler.weblerfeeder.order.model;
 
 import hu.webler.weblerfeeder.customer.entity.Customer;
+import hu.webler.weblerfeeder.food.entity.Food;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class OrderCreateAndUpdateModel {
 
-    private String address;
     private String description;
     private Customer customer;
 }

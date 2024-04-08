@@ -9,6 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 @NoArgsConstructor
 @Builder
 public class Food extends Auditable {

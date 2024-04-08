@@ -1,6 +1,7 @@
 package hu.webler.weblerfeeder.order.controller;
 
 import hu.webler.weblerfeeder.customer.model.CustomerModel;
+import hu.webler.weblerfeeder.customer.model.CustomerUpdateModel;
 import hu.webler.weblerfeeder.order.model.OrderCreateAndUpdateModel;
 import hu.webler.weblerfeeder.order.model.OrderModel;
 import hu.webler.weblerfeeder.order.service.OrderService;
@@ -27,8 +28,18 @@ public class OrderController {
 
 
     @PostMapping("/orders")
-    public ResponseEntity<OrderModel> addOrder(@RequestBody OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
+    public ResponseEntity<OrderModel> addOrderWithCustomer(@RequestBody OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
         return ResponseEntity.status(200).body(orderService.addOrder(orderCreateAndUpdateModel));
+    }
+
+    @PostMapping("/orders/order/id/{id}/food/{id2}")
+    public ResponseEntity<OrderModel> addFoodToOrder(@PathVariable Long id, @PathVariable Long id2) {
+        return ResponseEntity.status(200).body((OrderMapper.mapOrderEntityToOrderModel(orderService.addFoodToOrderById(id,id2))));
+    }
+
+    @DeleteMapping("/orders/order/remove-all-food/id/{id}")
+    public ResponseEntity<OrderModel> removeFoodFromOrder(@PathVariable Long id) {
+        return ResponseEntity.status(200).body((OrderMapper.mapOrderEntityToOrderModel(orderService.removeFoodFromOrderById(id))));
     }
 
     @GetMapping("/orders/order/id/{id}")
@@ -41,4 +52,10 @@ public class OrderController {
         orderService.deleteCustomer(id);
         return ResponseEntity.status(204).build();
     }
+
+    @PatchMapping("/orders/order/id/{id}")
+    public ResponseEntity<OrderModel> updateOrder(@PathVariable Long id, @RequestBody OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
+        return ResponseEntity.status(200).body(OrderMapper.mapOrderEntityToOrderModel(orderService.updateOrder(id, orderCreateAndUpdateModel)));
+    }
+
 }

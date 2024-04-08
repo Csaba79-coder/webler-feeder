@@ -1,5 +1,10 @@
 package hu.webler.weblerfeeder.order.service;
 
+import hu.webler.weblerfeeder.exception.InvalidInputException;
+import hu.webler.weblerfeeder.food.entity.Food;
+import hu.webler.weblerfeeder.food.model.FoodCreateAndUpdateModel;
+import hu.webler.weblerfeeder.food.repository.FoodRepository;
+import hu.webler.weblerfeeder.food.service.FoodService;
 import hu.webler.weblerfeeder.order.entity.Order;
 import hu.webler.weblerfeeder.order.model.OrderCreateAndUpdateModel;
 import hu.webler.weblerfeeder.order.model.OrderModel;
@@ -20,6 +25,7 @@ import java.util.stream.Collectors;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final FoodService foodService;
 
     public List<OrderModel> getAllOrders() {
         return orderRepository.findAll()
@@ -29,8 +35,10 @@ public class OrderService {
     }
 
     public OrderModel addOrder(OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
-        System.out.println(orderCreateAndUpdateModel);
-        return OrderMapper.mapOrderEntityToOrderModel(orderRepository.save(OrderMapper.mapOrderCreateAndUpdateModelToOrderEntity(orderCreateAndUpdateModel)));
+        if(isAllFieldsContainData(orderCreateAndUpdateModel)) {
+            return OrderMapper.mapOrderEntityToOrderModel(orderRepository.save(OrderMapper.mapOrderCreateAndUpdateModelToOrderEntity(orderCreateAndUpdateModel)));
+        }
+        return null;
     }
 
     public Order getOrderById(Long id) {
@@ -43,7 +51,39 @@ public class OrderService {
                 );
     }
 
+    public Order addFoodToOrderById(Long id, Long id2) {
+        Order order = getOrderById(id);
+        Food food = foodService.getFoodById(id2);
+
+        List<Food> foods = order.getFoods();
+        foods.add(food);
+        order.setFoods(foods);
+
+        return orderRepository.save(order);
+    }
+    ;
+
+    public Order removeFoodFromOrderById(Long id) {
+        Order order = getOrderById(id);
+
+        order.getFoods().removeAll(order.getFoods());
+
+        return orderRepository.save(order);
+    }
+    ;
+
     public void deleteCustomer(Long id) {
         orderRepository.delete(getOrderById(id));
+    }
+
+    public Order updateOrder(Long id, OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
+
+        return null;
+    }
+
+    private boolean isAllFieldsContainData(OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
+        if (orderCreateAndUpdateModel.getDescription() != null && (!orderCreateAndUpdateModel.getDescription().equals("")) ) {
+            return true;
+        } else throw new InvalidInputException("Please fill all fields");
     }
 }
