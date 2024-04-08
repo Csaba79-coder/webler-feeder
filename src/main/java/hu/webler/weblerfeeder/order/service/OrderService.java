@@ -2,8 +2,6 @@ package hu.webler.weblerfeeder.order.service;
 
 import hu.webler.weblerfeeder.exception.InvalidInputException;
 import hu.webler.weblerfeeder.food.entity.Food;
-import hu.webler.weblerfeeder.food.model.FoodCreateAndUpdateModel;
-import hu.webler.weblerfeeder.food.repository.FoodRepository;
 import hu.webler.weblerfeeder.food.service.FoodService;
 import hu.webler.weblerfeeder.order.entity.Order;
 import hu.webler.weblerfeeder.order.model.OrderCreateAndUpdateModel;
@@ -61,7 +59,6 @@ public class OrderService {
 
         return orderRepository.save(order);
     }
-    ;
 
     public Order removeFoodFromOrderById(Long id) {
         Order order = getOrderById(id);
@@ -70,7 +67,6 @@ public class OrderService {
 
         return orderRepository.save(order);
     }
-    ;
 
     public void deleteCustomer(Long id) {
         orderRepository.delete(getOrderById(id));

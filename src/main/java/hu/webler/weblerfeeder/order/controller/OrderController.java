@@ -1,7 +1,5 @@
 package hu.webler.weblerfeeder.order.controller;
 
-import hu.webler.weblerfeeder.customer.model.CustomerModel;
-import hu.webler.weblerfeeder.customer.model.CustomerUpdateModel;
 import hu.webler.weblerfeeder.order.model.OrderCreateAndUpdateModel;
 import hu.webler.weblerfeeder.order.model.OrderModel;
 import hu.webler.weblerfeeder.order.service.OrderService;
@@ -11,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import hu.webler.weblerfeeder.util.OrderMapper;
 
 import java.util.List;
-
-import static hu.webler.weblerfeeder.util.CustomerMapper.mapCustomerEntityToCustomerModel;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,7 +21,6 @@ public class OrderController {
     public ResponseEntity<List<OrderModel>> listAllOrders() {
         return ResponseEntity.status(200).body(orderService.getAllOrders()) ;
     }
-
 
     @PostMapping("/orders")
     public ResponseEntity<OrderModel> addOrderWithCustomer(@RequestBody OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
@@ -57,5 +52,4 @@ public class OrderController {
     public ResponseEntity<OrderModel> updateOrder(@PathVariable Long id, @RequestBody OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
         return ResponseEntity.status(200).body(OrderMapper.mapOrderEntityToOrderModel(orderService.updateOrder(id, orderCreateAndUpdateModel)));
     }
-
 }
