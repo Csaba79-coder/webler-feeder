@@ -1,6 +1,5 @@
 package hu.webler.weblerfeeder.order.service;
 
-import hu.webler.weblerfeeder.customer.entity.Customer;
 import hu.webler.weblerfeeder.exception.InvalidInputException;
 import hu.webler.weblerfeeder.food.entity.Food;
 import hu.webler.weblerfeeder.food.service.FoodService;
@@ -34,7 +33,8 @@ public class OrderService {
 
     public OrderModel addOrder(OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
         if(isAllFieldsContainData(orderCreateAndUpdateModel) && isAllFieldsContainDataCustomer(orderCreateAndUpdateModel)) {
-            return OrderMapper.mapOrderEntityToOrderModel(orderRepository.save(OrderMapper.mapOrderCreateAndUpdateModelToOrderEntity(orderCreateAndUpdateModel)));
+            return OrderMapper.mapOrderEntityToOrderModel(orderRepository
+                    .save(OrderMapper.mapOrderCreateAndUpdateModelToOrderEntity(orderCreateAndUpdateModel)));
         }
         return null;
     }
@@ -83,7 +83,7 @@ public class OrderService {
         }
 
         if(orderCreateAndUpdateModel.getCustomer() != null )  {
-            Customer currentCustomer = orderCreateAndUpdateModel.getCustomer();
+
             if (orderCreateAndUpdateModel.getCustomer().getFirstName() != null &&
                     !orderCreateAndUpdateModel.getCustomer().getFirstName().equals(""))
             {
@@ -126,7 +126,6 @@ public class OrderService {
                     !orderCreateAndUpdateModel.getCustomer().getDateOfBirth().equals("")) {
                 existingOrder.getCustomer().setDateOfBirth(orderCreateAndUpdateModel.getCustomer().getDateOfBirth());
             }
-            // email not changed
         }
     }
 
