@@ -32,7 +32,7 @@ public class OrderController {
         return ResponseEntity.status(200).body((OrderMapper.mapOrderEntityToOrderModel(orderService.addFoodToOrderById(id,id2))));
     }
 
-    @DeleteMapping("/orders/order/remove-all-food/id/{id}")
+    @DeleteMapping("/orders/order/foods/id/{id}")
     public ResponseEntity<OrderModel> removeFoodFromOrder(@PathVariable Long id) {
         return ResponseEntity.status(200).body((OrderMapper.mapOrderEntityToOrderModel(orderService.removeFoodFromOrderById(id))));
     }
@@ -48,8 +48,8 @@ public class OrderController {
         return ResponseEntity.status(204).build();
     }
 
-    @PatchMapping("/orders/order/id/{id}")
+    @PutMapping("/orders/order/id/{id}")
     public ResponseEntity<OrderModel> updateOrder(@PathVariable Long id, @RequestBody OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
-        return ResponseEntity.status(200).body(OrderMapper.mapOrderEntityToOrderModel(orderService.updateOrder(id, orderCreateAndUpdateModel)));
+        return ResponseEntity.status(200).body(orderService.updateOrder(id, orderCreateAndUpdateModel));
     }
 }
