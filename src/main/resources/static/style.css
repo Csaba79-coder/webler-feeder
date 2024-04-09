@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: beige;
+}
+
+/* navbar */
+.navbar {
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar img {
+    width: 5%;
+}
+
+.navbar a {
+    text-decoration: none;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.navElements {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hero */
+.hero {
+    background: url('images/hero.png') no-repeat center;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    line-height: 0;
+}
+#siteNameHero {
+    font-size: 80px;
+    color: beige;
+}
+#siteSloganHero {
+    font-size: 60px;
+    color: beige;
+}
+
+/* Home content */
+.index-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.customersListButtonForm {
+    margin: 20px;
+}
+
+.customerEmailSearchForm {
+    margin-bottom: 20px;
+}
+
+/* Customers */
+.customers-content {
+    text-align: center;
+}
+
+.our-customers-table {
+    display: flex;
+    justify-content: center;
+}
+
+.update-customer-container {
+    margin-bottom: 40px;
+}

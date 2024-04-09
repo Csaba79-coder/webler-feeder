@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <title>Feeder - Order food to be fed</title>
+</head>
+<body>
+
+    <div class="navbar">
+        <img th:src="@{/images/logo.png}" alt="Feeder logo">
+        <div class="navElements">
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/customers}">Customers</a>
+        </div>
+    </div>
+
+    <div class="hero">
+        <h1 id="siteNameHero">Feeder</h1>
+        <h3 id="siteSloganHero">Order food to be fed</h3>
+    </div>
+
+    <div class="index-content">
+        <form action="/customers" method="get" class="customersListButtonForm">
+            <button type="submit" class="customersListButton">List all customers</button>
+        </form>
+
+        <form action="/customers/search" method="get" class="customerEmailSearchForm">
+            <input type="text" name="email" placeholder="Search by email address...">
+            <button type="submit" class="customerEmailSearchButton">Search students by email</button>
+        </form>
+    </div>
+
+
+</body>
+</html>

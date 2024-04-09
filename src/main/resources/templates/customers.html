@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <title>Feeder - Order food to be fed</title>
+</head>
+<body class="customers-content">
+
+  <div class="navbar">
+    <img th:src="@{/images/logo.png}" alt="Feeder logo">
+    <div class="navElements">
+      <a th:href="@{/}">Home</a>
+      <a th:href="@{/customers}">Customers</a>
+    </div>
+  </div>
+
+  <h1>Our customers</h1>
+  <div class="our-customers-table">
+    <table border="1">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Mid Name</th>
+        <th>Last name</th>
+        <th>Street and number</th>
+        <th>City</th>
+        <th>Postal code</th>
+        <th>Cellphone</th>
+        <th>Email</th>
+        <th>Date of birth</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+
+      <tbody th:if="${not #lists.isEmpty(customers)}">
+      <tr th:each="customer, stat : ${customers}">
+        <td th:text="${stat.index + 1}"></td>
+        <td th:text="${customer.getId()}"></td>
+        <td th:text="${customer.getFirstName()}"></td>
+        <td th:text="${customer.getMidName()}"></td>
+        <td th:text="${customer.getLastName()}"></td>
+        <td th:text="${customer.getStreetAndNumber()}"></td>
+        <td th:text="${customer.getCity()}"></td>
+        <td th:text="${customer.getPostalCode()}"></td>
+        <td th:text="${customer.getCell()}"></td>
+        <td th:text="${customer.getEmail()}"></td>
+        <td th:text="${customer.getDateOfBirth()}"></td>
+        <td th:text="${customer.getStatus()}"></td>
+      </tr>
+      </tbody>
+      <tbody th:unless="${not #lists.isEmpty(customers)}">
+      <tr>
+        <td colspan="6">No data found</td>
+      </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+  <div class="customers">
+
+
+    <h2>Delete customer</h2>
+    <form action="/customers/customer/" method="POST">
+      <input type="number" name="id" placeholder="Delete by id...">
+      <button type="submit" class="customerDeleteButton">Delete customer</button>
+    </form>
+
+    <h2>Add new customer</h2>
+    <form action="/customers/customer/add" th:method="POST">
+      <input type="text" name="firstName" placeholder="First Name" required>
+      <input type="text" name="midName" placeholder="Mid Name">
+      <input type="text" name="lastName" placeholder="Last Name" required>
+      <input type="text" name="streetAndNumber" placeholder="Street and number" required>
+      <input type="text" name="city" placeholder="City" required>
+      <input type="text" name="postalCode" placeholder="Postal code" required>
+      <input type="text" name="cell" placeholder="Cellphone" required minlength="10">
+      <input type="text" name="email" placeholder="E-mail" required>
+      <input type="date" name="dateOfBirth" placeholder="Date of Birth" required>
+      <button type="submit" class="customerAddButton">Add customer</button>
+    </form>
+
+    <div class="update-customer-container">
+      <h2>Update existing customer</h2>
+      <form action="/customers/customer/update/" th:method="POST">
+        <input type="number" name="customerId" placeholder="ID of customer" required>
+        <input type="text" name="firstName" placeholder="First Name">
+        <input type="text" name="midName" placeholder="Mid Name">
+        <input type="text" name="lastName" placeholder="Last Name">
+        <input type="text" name="streetAndNumber" placeholder="Street and number">
+        <input type="text" name="city" placeholder="City">
+        <input type="text" name="postalCode" placeholder="Postal code">
+        <input type="text" name="cell" placeholder="Cellphone" minlength="10">
+        <input type="text" name="email" placeholder="E-mail">
+        <input type="date" name="dateOfBirth" placeholder="Date of Birth">
+        <input type="text" name="status" placeholder="Status(ACTIVE, INACTIVE, DELETED, UNDEFINED)">
+        <button type="submit" class="customerUpdateButton">Update customer</button>
+      </form>
+    </div>
+
+
+  </div>
+
+</body>
+</html>
