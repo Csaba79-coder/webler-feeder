@@ -77,10 +77,12 @@ public class OrderService {
     }
 
     private void addNewDataToExistingCustomer(Order existingOrder, OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
-        existingOrder.setDescription(orderCreateAndUpdateModel.getDescription());
-        //&& isAllFieldsContainDataCustomer(orderCreateAndUpdateModel
+        if (orderCreateAndUpdateModel.getDescription()  != null && (!orderCreateAndUpdateModel.getDescription().equals("")) )
+        {
+            existingOrder.setDescription(orderCreateAndUpdateModel.getDescription());
+        }
+
         if(orderCreateAndUpdateModel.getCustomer() != null )  {
-            System.out.println("hello");
             Customer currentCustomer = orderCreateAndUpdateModel.getCustomer();
             if (orderCreateAndUpdateModel.getCustomer().getFirstName() != null &&
                     !orderCreateAndUpdateModel.getCustomer().getFirstName().equals(""))
@@ -136,7 +138,7 @@ public class OrderService {
 
     private boolean isAllFieldsContainDataCustomer(OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
         if (
-                orderCreateAndUpdateModel.getCustomer().getFirstName() != null &&
+                        orderCreateAndUpdateModel.getCustomer().getFirstName() != null &&
                         !orderCreateAndUpdateModel.getCustomer().getFirstName().equals("") &&
                         orderCreateAndUpdateModel.getCustomer().getMidName() != null &&
                         !orderCreateAndUpdateModel.getCustomer().getMidName().equals("") &&
