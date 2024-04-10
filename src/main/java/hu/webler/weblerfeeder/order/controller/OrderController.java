@@ -22,34 +22,39 @@ public class OrderController {
         return ResponseEntity.status(200).body(orderService.getAllOrders()) ;
     }
 
-    @PostMapping("/orders")
-    public ResponseEntity<OrderModel> addOrderWithCustomer(@RequestBody OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
-        return ResponseEntity.status(200).body(orderService.addOrder(orderCreateAndUpdateModel));
+    @PostMapping("/orders/{customerId}")
+    public ResponseEntity<OrderModel> addOrderToCustomer(@PathVariable Long customerId,
+                                                         @RequestBody OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
+        return ResponseEntity.status(200).body(orderService.addOrder(customerId, orderCreateAndUpdateModel));
     }
 
-    @PostMapping("/orders/order/id/{id}/food/{id2}")
-    public ResponseEntity<OrderModel> addFoodToOrder(@PathVariable Long id, @PathVariable Long id2) {
-        return ResponseEntity.status(200).body((OrderMapper.mapOrderEntityToOrderModel(orderService.addFoodToOrderById(id,id2))));
+    @PostMapping("/orders/order/id/{orderId}/food/id/{foodId}")
+    public ResponseEntity<OrderModel> addFoodToOrder(@PathVariable Long orderId, @PathVariable Long foodId) {
+        return ResponseEntity.status(200).body((OrderMapper
+                .mapOrderEntityToOrderModel(orderService.addFoodToOrderById(orderId, foodId))));
     }
 
-    @DeleteMapping("/orders/order/foods/id/{id}")
-    public ResponseEntity<OrderModel> removeFoodFromOrder(@PathVariable Long id) {
-        return ResponseEntity.status(200).body((OrderMapper.mapOrderEntityToOrderModel(orderService.removeFoodFromOrderById(id))));
+    @DeleteMapping("/orders/order/id/{orderId}/food/id/{foodId}")
+    public ResponseEntity<OrderModel> removeFoodFromOrder(@PathVariable Long orderId, @PathVariable Long foodId) {
+        return ResponseEntity.status(200).body((OrderMapper
+                .mapOrderEntityToOrderModel(orderService.removeFoodFromOrderById(orderId, foodId))));
     }
 
-    @GetMapping("/orders/order/id/{id}")
-    public ResponseEntity<OrderModel> getOrderById(@PathVariable Long id) {
-        return ResponseEntity.status(200).body((OrderMapper.mapOrderEntityToOrderModel(orderService.getOrderById(id))));
+    @GetMapping("/orders/order/id/{orderId}")
+    public ResponseEntity<OrderModel> getOrderById(@PathVariable Long orderId) {
+        return ResponseEntity.status(200).body((OrderMapper
+                .mapOrderEntityToOrderModel(orderService.getOrderById(orderId))));
     }
 
-    @DeleteMapping("/orders/order/id/{id}")
-    public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
-        orderService.deleteCustomer(id);
+    @PutMapping("/orders/order/id/{orderId}")
+    public ResponseEntity<OrderModel> updateOrder(@PathVariable Long orderId,
+                                                  @RequestBody OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
+        return ResponseEntity.status(200).body(orderService.updateOrder(orderId, orderCreateAndUpdateModel));
+    }
+
+    @DeleteMapping("/orders/order/id/{orderId}")
+    public ResponseEntity<Void> deleteOrder(@PathVariable Long orderId) {
+        orderService.deleteOrder(orderId);
         return ResponseEntity.status(204).build();
-    }
-
-    @PutMapping("/orders/order/id/{id}")
-    public ResponseEntity<OrderModel> updateOrder(@PathVariable Long id, @RequestBody OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
-        return ResponseEntity.status(200).body(orderService.updateOrder(id, orderCreateAndUpdateModel));
     }
 }
