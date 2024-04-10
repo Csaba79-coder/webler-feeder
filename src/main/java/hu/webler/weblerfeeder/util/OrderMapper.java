@@ -11,12 +11,12 @@ public class OrderMapper {
 
     public static OrderModel mapOrderEntityToOrderModel(Order order) {
         return OrderModel.
-                builder().id(order.getId())
+                builder()
+                .id(order.getId())
                 .createdAt(order.getCreatedAt())
                 .description(order.getDescription())
                 .customer(order.getCustomer())
-                .build()
-                ;
+                .build();
     }
 
     public static Order mapOrderCreateAndUpdateModelToOrderEntity
@@ -24,7 +24,6 @@ public class OrderMapper {
         return Order.builder()
                 .description(orderCreateAndUpdateModel.getDescription())
                 .customer(orderCreateAndUpdateModel.getCustomer())
-                .build()
-                ;
+                .build();
     }
 }
