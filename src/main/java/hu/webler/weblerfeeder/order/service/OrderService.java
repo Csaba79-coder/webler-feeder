@@ -1,5 +1,6 @@
 package hu.webler.weblerfeeder.order.service;
 
+import hu.webler.weblerfeeder.customer.service.CustomerService;
 import hu.webler.weblerfeeder.exception.InvalidInputException;
 import hu.webler.weblerfeeder.food.entity.Food;
 import hu.webler.weblerfeeder.food.service.FoodService;
@@ -16,6 +17,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+import static hu.webler.weblerfeeder.util.OrderMapper.mapOrderCreateAndUpdateModelToOrderEntity;
+import static hu.webler.weblerfeeder.util.OrderMapper.mapOrderEntityToOrderModel;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -24,6 +28,8 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final FoodService foodService;
 
+    private final CustomerService customerService;
+
     public List<OrderModel> getAllOrders() {
         return orderRepository.findAll()
                 .stream()
@@ -31,12 +37,14 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public OrderModel addOrder(OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
-        if(isAllFieldsContainData(orderCreateAndUpdateModel) && isAllFieldsContainDataCustomer(orderCreateAndUpdateModel)) {
-            return OrderMapper.mapOrderEntityToOrderModel(orderRepository
-                    .save(OrderMapper.mapOrderCreateAndUpdateModelToOrderEntity(orderCreateAndUpdateModel)));
-        }
-        return null;
+    public OrderModel addOrder(Long customerId, OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
+            if(orderCreateAndUpdateModel.getDescription() != null) {
+            OrderCreateAndUpdateModel newOrder = new OrderCreateAndUpdateModel();
+            newOrder.setDescription(orderCreateAndUpdateModel.getDescription());
+            newOrder.setCustomer(customerService.getCustomerById(customerId));
+            return mapOrderEntityToOrderModel(orderRepository
+                    .save(mapOrderCreateAndUpdateModelToOrderEntity(newOrder)));
+        } else throw new InvalidInputException("Please fill description");
     }
 
     public Order getOrderById(Long id) {
@@ -46,12 +54,12 @@ public class OrderService {
                             log.info(message);
                             return new NoSuchElementException(message);
                         }
-                );
+        );
     }
 
-    public Order addFoodToOrderById(Long id, Long id2) {
-        Order order = getOrderById(id);
-        Food food = foodService.getFoodById(id2);
+    public Order addFoodToOrderById(Long orderId, Long foodId) {
+        Order order = getOrderById(orderId);
+        Food food = foodService.getFoodById(foodId);
 
         List<Food> foods = order.getFoods();
         foods.add(food);
@@ -60,104 +68,26 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public Order removeFoodFromOrderById(Long id) {
-        Order order = getOrderById(id);
-        order.getFoods().removeAll(order.getFoods());
+    public Order removeFoodFromOrderById(Long orderId, Long foodId) {
+        Order order = getOrderById(orderId);
+        List<Food> foods = order.getFoods();
+        foods.remove(foodService.getFoodById(foodId));
         return orderRepository.save(order);
     }
 
-    public void deleteCustomer(Long id) {
+    public void deleteOrder(Long id) {
         orderRepository.delete(getOrderById(id));
     }
 
     public OrderModel updateOrder(Long id, OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
         Order existingOrder = getOrderById(id);
-        addNewDataToExistingCustomer(existingOrder, orderCreateAndUpdateModel);
-        return OrderMapper.mapOrderEntityToOrderModel(orderRepository.save(existingOrder));
+        addNewDataToExistingOrder(existingOrder, orderCreateAndUpdateModel);
+        return mapOrderEntityToOrderModel(orderRepository.save(existingOrder));
     }
 
-    private void addNewDataToExistingCustomer(Order existingOrder, OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
-        if (orderCreateAndUpdateModel.getDescription()  != null && (!orderCreateAndUpdateModel.getDescription().equals("")) )
-        {
+    private void addNewDataToExistingOrder(Order existingOrder, OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
+        if (orderCreateAndUpdateModel.getDescription()  != null) {
             existingOrder.setDescription(orderCreateAndUpdateModel.getDescription());
-        }
-
-        if(orderCreateAndUpdateModel.getCustomer() != null )  {
-
-            if (orderCreateAndUpdateModel.getCustomer().getFirstName() != null &&
-                    !orderCreateAndUpdateModel.getCustomer().getFirstName().equals(""))
-            {
-                existingOrder.getCustomer().setFirstName(orderCreateAndUpdateModel.getCustomer().getFirstName());
-            }
-
-            if (orderCreateAndUpdateModel.getCustomer().getMidName() != null &&
-                    !orderCreateAndUpdateModel.getCustomer().getMidName().equals(""))
-            {
-                existingOrder.getCustomer().setMidName(orderCreateAndUpdateModel.getCustomer().getMidName());
-            }
-
-            if (orderCreateAndUpdateModel.getCustomer().getLastName() != null &&
-                    !orderCreateAndUpdateModel.getCustomer().getLastName().equals(""))
-            {
-                existingOrder.getCustomer().setLastName(orderCreateAndUpdateModel.getCustomer().getLastName());
-            }
-
-            if( orderCreateAndUpdateModel.getCustomer().getCell() != null &&
-                    !orderCreateAndUpdateModel.getCustomer().getCell().equals("")) {
-                existingOrder.getCustomer().setCell(orderCreateAndUpdateModel.getCustomer().getCell());
-            }
-
-            if( orderCreateAndUpdateModel.getCustomer().getStreetAndNumber() != null &&
-                    !orderCreateAndUpdateModel.getCustomer().getStreetAndNumber().equals("")) {
-                existingOrder.getCustomer().setStreetAndNumber(orderCreateAndUpdateModel.getCustomer().getStreetAndNumber());
-            }
-
-           if ( orderCreateAndUpdateModel.getCustomer().getCity() != null &&
-                    !orderCreateAndUpdateModel.getCustomer().getCity().equals("")) {
-               existingOrder.getCustomer().setCity(orderCreateAndUpdateModel.getCustomer().getCity());
-           }
-
-            if ( orderCreateAndUpdateModel.getCustomer().getPostalCode() != null &&
-                    !orderCreateAndUpdateModel.getCustomer().getPostalCode().equals("")) {
-                existingOrder.getCustomer().setPostalCode(orderCreateAndUpdateModel.getCustomer().getPostalCode());
-            }
-
-            if(orderCreateAndUpdateModel.getCustomer().getDateOfBirth() != null &&
-                    !orderCreateAndUpdateModel.getCustomer().getDateOfBirth().equals("")) {
-                existingOrder.getCustomer().setDateOfBirth(orderCreateAndUpdateModel.getCustomer().getDateOfBirth());
-            }
-        }
-    }
-
-    private boolean isAllFieldsContainData(OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
-        if (orderCreateAndUpdateModel.getDescription() != null && (!orderCreateAndUpdateModel.getDescription().equals("")) ) {
-            return true;
-        } else throw new InvalidInputException("Please fill all fields");
-    }
-
-    private boolean isAllFieldsContainDataCustomer(OrderCreateAndUpdateModel orderCreateAndUpdateModel) {
-        if (
-                        orderCreateAndUpdateModel.getCustomer().getFirstName() != null &&
-                        !orderCreateAndUpdateModel.getCustomer().getFirstName().equals("") &&
-                        orderCreateAndUpdateModel.getCustomer().getMidName() != null &&
-                        !orderCreateAndUpdateModel.getCustomer().getMidName().equals("") &&
-                        orderCreateAndUpdateModel.getCustomer().getLastName() != null &&
-                        !orderCreateAndUpdateModel.getCustomer().getLastName().equals("") &&
-                        orderCreateAndUpdateModel.getCustomer().getCell() != null &&
-                        !orderCreateAndUpdateModel.getCustomer().getCell().equals("") &&
-                        orderCreateAndUpdateModel.getCustomer().getStreetAndNumber() != null &&
-                        !orderCreateAndUpdateModel.getCustomer().getStreetAndNumber().equals("") &&
-                        orderCreateAndUpdateModel.getCustomer().getCity() != null &&
-                        !orderCreateAndUpdateModel.getCustomer().getCity().equals("") &&
-                        orderCreateAndUpdateModel.getCustomer().getPostalCode() != null &&
-                        !orderCreateAndUpdateModel.getCustomer().getPostalCode().equals("") &&
-                        orderCreateAndUpdateModel.getCustomer().getEmail() != null &&
-                        !orderCreateAndUpdateModel.getCustomer().getEmail().equals("") &&
-                        orderCreateAndUpdateModel.getCustomer().getDateOfBirth() != null &&
-                        !orderCreateAndUpdateModel.getCustomer().getDateOfBirth().equals("")
-
-        ) {
-            return true;
-        } else throw new InvalidInputException("Please fill all fields");
+        } else throw new InvalidInputException("Please fill description");
     }
 }
