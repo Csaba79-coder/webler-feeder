@@ -33,6 +33,16 @@ public class FoodService {
                 .collect(Collectors.toList());
     }
 
+    private boolean isFoodAlreadyExistsWithThisName(String foodName) {
+        List<FoodModel> foods = getAllFoods();
+        for (FoodModel food : foods) {
+            if (food.getName().equals(foodName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public FoodModel getFoodByName(String name) {
         return mapFoodEntityToFoodModel(
                 foodRepository.findByName(name)
@@ -62,8 +72,11 @@ public class FoodService {
         if (isAllFieldsContainData(foodCreateAndUpdateModel) && existingFoodWithThisName.isEmpty()) {
             return mapFoodEntityToFoodModel(foodRepository
                     .save(mapFoodCreateAndUpdateModelToFoodEntity(foodCreateAndUpdateModel)));
-        } else
-            throw new FoodAlreadyExistsException("Food with this name already exists");
+        } else {
+            String name = foodCreateAndUpdateModel.getName();
+            String message = String.format("Please use another food name, food with this name %s already exists", name);
+            throw new FoodAlreadyExistsException(message);
+        }
     }
 
     public FoodModel updateFood(Long id, FoodCreateAndUpdateModel foodCreateAndUpdateModel) {
@@ -75,10 +88,14 @@ public class FoodService {
     }
 
     private void addNewDataToExistingFood(Food existingFood, FoodCreateAndUpdateModel foodCreateAndUpdateModel) {
-        if (!foodCreateAndUpdateModel.getName().equals(existingFood.getName())) {
+        if (existingFood.getName().equals(foodCreateAndUpdateModel.getName()) ||
+                !isFoodAlreadyExistsWithThisName(foodCreateAndUpdateModel.getName())) {
             existingFood.setName(foodCreateAndUpdateModel.getName());
-        } else
-            throw new FoodAlreadyExistsException("Please use another food name, food with this name already exists");
+        } else {
+            String name = foodCreateAndUpdateModel.getName();
+            String message = String.format("Please use another food name, food with this name %s already exists", name);
+            throw new FoodAlreadyExistsException(message);
+        }
         existingFood.setDescription(foodCreateAndUpdateModel.getDescription());
         existingFood.setPrice(foodCreateAndUpdateModel.getPrice());
     }
@@ -86,8 +103,8 @@ public class FoodService {
     private boolean isAllFieldsContainData(FoodCreateAndUpdateModel foodCreateAndUpdateModel) {
         if (
                 foodCreateAndUpdateModel.getName() != null &&
-                        foodCreateAndUpdateModel.getDescription() != null &&
-                        foodCreateAndUpdateModel.getPrice() != null
+                foodCreateAndUpdateModel.getDescription() != null &&
+                foodCreateAndUpdateModel.getPrice() != null
         ) {
             return true;
         } else throw new InvalidInputException("Please fill all fields");
