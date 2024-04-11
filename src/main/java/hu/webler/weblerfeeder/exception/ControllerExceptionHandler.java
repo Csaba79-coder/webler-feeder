@@ -35,6 +35,11 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(responseBodyWithMessage(ERROR_CODE_004, ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(value = {FoodAlreadyExistsException.class})
+    public ResponseEntity<Object> handleFoodAlreadyExistsException(FoodAlreadyExistsException ex) {
+        return new ResponseEntity<>(responseBodyWithMessage(ERROR_CODE_004, ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
     private String responseBodyWithMessage(ErrorCode code, String message) {
         return Map.of(code, message).toString();
     }
