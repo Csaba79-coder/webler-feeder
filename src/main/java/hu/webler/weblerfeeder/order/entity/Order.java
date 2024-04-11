@@ -22,7 +22,7 @@ public class Order extends Auditable {
     @Column(nullable = false)
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     @JoinColumn(name = "customer_id", nullable = false)
     @JsonBackReference
     private Customer customer;
