@@ -14,12 +14,14 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static hu.webler.weblerfeeder.util.CustomerMapper.mapCustomerCreateModelToCustomerEntity;
+import static hu.webler.weblerfeeder.util.CustomerMapper.mapCustomerEntityToCustomerModel;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.any;
@@ -201,5 +203,36 @@ public class CustomerServiceTest {
 
         // Ensure userRepository.save() is not called
         verify(customerRepository, never()).save(any());
+    }
+
+    @Test
+    @DisplayName("Given customer id_when deleteCustomer_then delete customer")
+    public void givenCustomerId_whenDeleteCustomer_thenDeleteCustomer() {
+        //Given
+        Long id = 1L;
+        CustomerCreateModel customerCreateModel = new CustomerCreateModel();
+        customerCreateModel.setFirstName("Mikulas");
+        customerCreateModel.setMidName("mikcsek");
+        customerCreateModel.setLastName("Abraham");
+        customerCreateModel.setStreetAndNumber("Klapka 44B");
+        customerCreateModel.setCity("Komarom");
+        customerCreateModel.setPostalCode("2900");
+        customerCreateModel.setCell("0918291615");
+        customerCreateModel.setEmail("m2@gmail.com");
+        customerCreateModel.setDateOfBirth(LocalDate.parse("1991-12-07"));
+
+        CustomerModel expectedCustomerModel = new CustomerModel();
+
+        when(customerRepository.delete(any())).thenReturn();
+
+        //When
+
+        CustomerModel customerModel = customerService.addCustomer(customerCreateModel);
+        Customer existingCustomer = customerService.addCustomer(customerCreateModel);
+        customerService.deleteCustomer(existingCustomer.getId());
+
+        //Then
+        then(existingCustomer).isEqualTo(new Customer());
+
     }
 }
