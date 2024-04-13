@@ -1,9 +1,8 @@
 package hu.webler.weblerfeeder.order.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import hu.webler.weblerfeeder.customer.entity.Customer;
+import hu.webler.weblerfeeder.order.entity.Order;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -11,10 +10,11 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class OrderModel {
 
     private Long id;
     private LocalDateTime createdAt;
-    private String address;
     private String description;
+    private Customer customer;
 }
