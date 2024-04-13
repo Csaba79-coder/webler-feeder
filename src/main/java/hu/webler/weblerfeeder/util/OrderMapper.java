@@ -5,7 +5,6 @@ import hu.webler.weblerfeeder.order.model.OrderCreateAndUpdateModel;
 import hu.webler.weblerfeeder.order.model.OrderModel;
 import lombok.NoArgsConstructor;
 
-
 @NoArgsConstructor
 public class OrderMapper {
 

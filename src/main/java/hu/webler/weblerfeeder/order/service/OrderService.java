@@ -60,11 +60,9 @@ public class OrderService {
     public Order addFoodToOrderById(Long orderId, Long foodId) {
         Order order = getOrderById(orderId);
         Food food = foodService.getFoodById(foodId);
-
         List<Food> foods = order.getFoods();
         foods.add(food);
         order.setFoods(foods);
-
         return orderRepository.save(order);
     }
 
