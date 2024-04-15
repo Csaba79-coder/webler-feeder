@@ -13,7 +13,6 @@ import lombok.*;
 @Builder
 public class Address extends Auditable {
 
-
     @Column(nullable = false)
     private String streetAndNumber;
 
