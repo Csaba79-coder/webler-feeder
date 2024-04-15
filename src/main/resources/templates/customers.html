@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <title>Feeder - Order food to be fed</title>
+</head>
+<body class="customers-content">
+
+  <div class="navbar">
+    <img th:src="@{/images/logo.png}" alt="Feeder logo">
+    <div class="navElements">
+      <a th:href="@{/}">Home</a>
+      <a th:href="@{/customers}">Customers</a>
+      <a th:href="@{/add-customer}">Add new customer</a>
+      <a th:href="@{/update-customer}">Update customer</a>
+    </div>
+  </div>
+
+  <h1>Feeder customers</h1>
+  <div class="our-customers-table">
+    <table border="1">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Mid Name</th>
+        <th>Last name</th>
+        <th>Street and number</th>
+        <th>City</th>
+        <th>Postal code</th>
+        <th>Cellphone</th>
+        <th>Email</th>
+        <th>Date of birth</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+
+      <tbody th:if="${not #lists.isEmpty(customers)}">
+      <tr th:each="customer, stat : ${customers}">
+        <td th:text="${stat.index + 1}"></td>
+        <td th:text="${customer.getId()}"></td>
+        <input type="text" name="firstName" th:value="${customer.getId()}" placeholder="First Name" required>
+        <td th:text="${customer.getFirstName()}"></td>
+        <td th:text="${customer.getMidName()}"></td>
+        <td th:text="${customer.getLastName()}"></td>
+        <td th:text="${customer.getStreetAndNumber()}"></td>
+        <td th:text="${customer.getCity()}"></td>
+        <td th:text="${customer.getPostalCode()}"></td>
+        <td th:text="${customer.getCell()}"></td>
+        <td th:text="${customer.getEmail()}"></td>
+        <td th:text="${customer.getDateOfBirth()}"></td>
+        <td th:text="${customer.getStatus()}"></td>
+        <td>
+          <form th:action="/update-customer/${customer.getId()}" method="get" class="customersListButtonForm">
+            <button type="submit" class="customerUpdateButton">Update customer</button>
+          </form>
+        </td>
+        <td><button type="submit" class="customerUpdateButton">Create order</button></td>
+      </tr>
+      </tbody>
+      <tbody th:unless="${not #lists.isEmpty(customers)}">
+      <tr>
+        <td colspan="6">No data found</td>
+      </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+  <div class="customers">
+
+
+    <h2>Delete customer</h2>
+    <form action="/customers/customer/" method="POST">
+      <input type="number" name="id" placeholder="Delete by id...">
+      <button type="submit" class="customerDeleteButton">Delete customer</button>
+    </form>
+
+  </div>
+
+</body>
+</html>
