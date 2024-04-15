@@ -2,8 +2,6 @@ package hu.webler.weblerfeeder.address.model;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @AllArgsConstructor
