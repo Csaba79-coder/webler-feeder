@@ -1,9 +1,7 @@
 package hu.webler.weblerfeeder.address.model;
 
-import hu.webler.weblerfeeder.value.Status;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter

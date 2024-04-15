@@ -1,18 +1,12 @@
 package hu.webler.weblerfeeder.address.service;
 
-
 import hu.webler.weblerfeeder.address.entity.Address;
 import hu.webler.weblerfeeder.address.model.AddressModel;
 import hu.webler.weblerfeeder.address.model.AddressModelUpdateCreate;
 import hu.webler.weblerfeeder.address.repository.AddressRepository;
-import hu.webler.weblerfeeder.customer.entity.Customer;
-import hu.webler.weblerfeeder.customer.model.CustomerCreateModel;
-import hu.webler.weblerfeeder.customer.model.CustomerModel;
-import hu.webler.weblerfeeder.customer.model.CustomerUpdateModel;
 import hu.webler.weblerfeeder.exception.InvalidInputException;
 import hu.webler.weblerfeeder.exception.handleEntityAlreadyExistsException;
 import hu.webler.weblerfeeder.util.AddressMapper;
-import hu.webler.weblerfeeder.util.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -38,14 +32,12 @@ public class AddressService {
                 .collect(Collectors.toList());
     }
 
-    public AddressModel addCustomer(AddressModelUpdateCreate addressModelUpdateCreate) {
+    public AddressModel addAddress(AddressModelUpdateCreate addressModelUpdateCreate) {
 
         if (isRequiredFieldsExistsAndContainData(addressModelUpdateCreate) ) {
-            return  mapAddressEntityToAddressModel(addressRepository.save(mapAddressCreateModelToAddressEntity(addressModelUpdateCreate)))
-                  ;
+            return  mapAddressEntityToAddressModel(addressRepository.save(mapAddressCreateModelToAddressEntity(addressModelUpdateCreate)));
         } else {
-            String message = String.format("Please provide all the fields");
-            throw new handleEntityAlreadyExistsException(message);
+            throw new handleEntityAlreadyExistsException("Please provide all the fields for Address!");
         }
     }
 
@@ -56,7 +48,7 @@ public class AddressService {
                         addressModelUpdateCreate.getPostalCode() != null && !addressModelUpdateCreate.getPostalCode().equals("")
         ) {
             return true;
-        } else throw new InvalidInputException("Please fill all fields");
+        } else throw new InvalidInputException("Please provide all the fields for Address!");
     }
 
     public Address getAddressById(Long id) {
