@@ -23,6 +23,7 @@ import java.util.List;
 @Builder
 public class Customer extends Auditable {
 
+
     @Column(nullable = false)
     private String firstName;
 
@@ -39,6 +40,8 @@ public class Customer extends Auditable {
 
     @Column(nullable = false)
     private String postalCode;
+
+
 
     @Column(nullable = false)
     private String cell;
