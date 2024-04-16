@@ -5,7 +5,7 @@ import hu.webler.weblerfeeder.customer.model.CustomerCreateModel;
 import hu.webler.weblerfeeder.customer.model.CustomerModel;
 import hu.webler.weblerfeeder.customer.model.CustomerUpdateModel;
 import hu.webler.weblerfeeder.customer.repository.CustomerRepository;
-import hu.webler.weblerfeeder.exception.UserAlreadyExistsException;
+import hu.webler.weblerfeeder.exception.EntityAlreadyExistsException;
 import hu.webler.weblerfeeder.exception.InvalidInputException;
 import hu.webler.weblerfeeder.util.CustomerMapper;
 import lombok.RequiredArgsConstructor;
@@ -77,7 +77,7 @@ public class CustomerService {
         } else {
             String email = customerCreateModel.getEmail();
             String message = String.format("Please use another email, customer with this email: %s already exists", email);
-            throw new UserAlreadyExistsException(message);
+            throw new EntityAlreadyExistsException(message);
         }
     }
 
@@ -103,7 +103,7 @@ public class CustomerService {
         } else {
             String email = customerUpdateModel.getEmail();
             String message = String.format("Please use another email, customer with this email: %s already exists", email);
-            throw new UserAlreadyExistsException(message);
+            throw new EntityAlreadyExistsException(message);
         }
         existingCustomer.setDateOfBirth(customerUpdateModel.getDateOfBirth());
         existingCustomer.setStatus(customerUpdateModel.getStatus());

@@ -4,7 +4,7 @@ import hu.webler.weblerfeeder.customer.entity.Customer;
 import hu.webler.weblerfeeder.customer.model.CustomerCreateModel;
 import hu.webler.weblerfeeder.customer.model.CustomerModel;
 import hu.webler.weblerfeeder.customer.repository.CustomerRepository;
-import hu.webler.weblerfeeder.exception.UserAlreadyExistsException;
+import hu.webler.weblerfeeder.exception.EntityAlreadyExistsException;
 import hu.webler.weblerfeeder.value.Status;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,14 +14,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static hu.webler.weblerfeeder.util.CustomerMapper.mapCustomerCreateModelToCustomerEntity;
-import static hu.webler.weblerfeeder.util.CustomerMapper.mapCustomerEntityToCustomerModel;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.any;
@@ -91,14 +89,14 @@ public class CustomerServiceTest {
                 "Komarom", "2900", "123", "a@gmail.com", LocalDate.parse("1991-12-07"));
 
         when(customerRepository.save(any())).thenReturn(mapCustomerCreateModelToCustomerEntity(customerCreateModel))
-                .thenThrow(new UserAlreadyExistsException(String.format("User with this email %s not found", email)));
+                .thenThrow(new EntityAlreadyExistsException(String.format("User with this email %s not found", email)));
 
         //When
         customerService.addCustomer(customerCreateModel);
 
         //Then
         assertThatThrownBy(() -> customerService.addCustomer(customerCreateModel))
-                .isInstanceOf(UserAlreadyExistsException.class)
+                .isInstanceOf(EntityAlreadyExistsException.class)
                 .hasMessage("User with this email %s not found", email);
     }
 
