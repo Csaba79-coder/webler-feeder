@@ -1,8 +1,10 @@
 package hu.webler.weblerfeeder.address.entity;
 
 import hu.webler.weblerfeeder.base.Auditable;
+import hu.webler.weblerfeeder.customer.entity.Customer;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import lombok.*;
 
 @Entity
@@ -21,4 +23,7 @@ public class Address extends Auditable {
 
     @Column(nullable = false)
     private String postalCode;
+
+    @OneToOne(mappedBy = "address")
+    private Customer customer;
 }
