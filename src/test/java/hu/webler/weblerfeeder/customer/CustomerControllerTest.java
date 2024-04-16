@@ -2,6 +2,8 @@ package hu.webler.weblerfeeder.customer;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hu.webler.weblerfeeder.address.entity.Address;
+import hu.webler.weblerfeeder.base.Auditable;
 import hu.webler.weblerfeeder.base.Identifier;
 import hu.webler.weblerfeeder.customer.controller.CustomerController;
 import hu.webler.weblerfeeder.customer.entity.Customer;
@@ -86,13 +88,15 @@ public class CustomerControllerTest {
         customerModelOne.setFirstName("Mikulas");
         customerModelOne.setMidName("mikcsek");
         customerModelOne.setLastName("Abraham");
-        customerModelOne.setStreetAndNumber("Klapka 44B");
-        customerModelOne.setCity("Komarom");
-        customerModelOne.setPostalCode("2900");
         customerModelOne.setCell("06702147621");
         customerModelOne.setEmail("mikcsek2@gmail.com");
         customerModelOne.setDateOfBirth(LocalDate.parse("1991-12-07"));
         customerModelOne.setStatus(Status.INACTIVE);
+        customerModelOne.setAddress(Address.builder()
+                .streetAndNumber("Klapka 44B")
+                .city("Komarom")
+                .postalCode("2900")
+                .build());
 
         CustomerModel customerModelTwo = new CustomerModel();
         customerModelTwo.setId(new Identifier().getId());
@@ -100,13 +104,15 @@ public class CustomerControllerTest {
         customerModelTwo.setFirstName("Ferenc");
         customerModelTwo.setMidName("nincs");
         customerModelTwo.setLastName("Kovacs");
-        customerModelTwo.setStreetAndNumber("Erdo utca 95");
-        customerModelTwo.setCity("Nagymegyer");
-        customerModelTwo.setPostalCode("93201");
         customerModelTwo.setCell("0918291615");
         customerModelTwo.setEmail("mikcsekfree@gmail.com");
         customerModelTwo.setDateOfBirth(LocalDate.parse("1991-12-07"));
         customerModelTwo.setStatus(Status.INACTIVE);
+        customerModelTwo.setAddress(Address.builder()
+                .streetAndNumber("Klapka 44B")
+                .city("Komarom")
+                .postalCode("2900")
+                .build());
 
         List<CustomerModel> expectedModels = Arrays.asList(
                 customerModelOne, customerModelTwo
@@ -142,9 +148,21 @@ public class CustomerControllerTest {
         String email = "mikcsek2@gmail.com"; // valid email
 
         // Mock the customerService to return a customer model
-        CustomerModel customer = new CustomerModel(1L, LocalDateTime.now() ,"Mikulas", "mikcsek",
-                "Abraham","Klapka 44B", "Komarom", "2900", "0918291615",
-                "mikcsek2@gmail.com", LocalDate.of(1991, 12, 7), Status.INACTIVE);
+        CustomerModel customer = new CustomerModel();
+        customer.setId(new Identifier().getId());
+        customer.setRegistrationDate(new Auditable().getCreatedAt());
+        customer.setFirstName("Mikulas");
+        customer.setMidName("mikcsek");
+        customer.setLastName("Abraham");
+        customer.setCell("123");
+        customer.setEmail("mikcsek2@gmail.com");
+        customer.setDateOfBirth(LocalDate.parse("1991-12-07"));
+        customer.setStatus(Status.INACTIVE);
+        customer.setAddress(Address.builder()
+                        .streetAndNumber("Klapka 44B")
+                        .city("Komarom")
+                        .postalCode("2900")
+                        .build());
 
         when(customerService.getCustomerByEmail(any(String.class))).thenReturn(customer);
 
@@ -175,9 +193,19 @@ public class CustomerControllerTest {
         Long id = 1L; // valid id
 
         // Mock the customerService to return a customer
-        Customer customer = new Customer("Mikulas", "mikcsek",
-                "Abraham","Klapka 44B", "Komarom", "2900", "0918291615",
-                "mikcsek2@gmail.com", LocalDate.of(1991, 12, 7), Status.INACTIVE, List.of());
+        Customer customer = new Customer();
+        customer.setFirstName("Mikulas");
+        customer.setMidName("mikcsek");
+        customer.setLastName("Abraham");
+        customer.setCell("123");
+        customer.setEmail("mikcsek2@gmail.com");
+        customer.setDateOfBirth(LocalDate.parse("1991-12-07"));
+        customer.setStatus(Status.INACTIVE);
+        customer.setAddress(Address.builder()
+                .streetAndNumber("Klapka 44B")
+                .city("Komarom")
+                .postalCode("2900")
+                .build());
 
         when(customerService.getCustomerById(any(Long.class))).thenReturn(customer);
 
@@ -201,6 +229,4 @@ public class CustomerControllerTest {
                 .isEqualTo(customer);
 
     }
-
-
 }

@@ -1,5 +1,6 @@
 package hu.webler.weblerfeeder.util;
 
+import hu.webler.weblerfeeder.address.entity.Address;
 import hu.webler.weblerfeeder.customer.entity.Customer;
 import hu.webler.weblerfeeder.customer.model.CustomerCreateModel;
 import hu.webler.weblerfeeder.customer.model.CustomerModel;
@@ -8,7 +9,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 import static hu.webler.weblerfeeder.util.CustomerMapper.mapCustomerCreateModelToCustomerEntity;
 import static hu.webler.weblerfeeder.util.CustomerMapper.mapCustomerEntityToCustomerModel;
@@ -26,12 +26,14 @@ public class CustomerMapperTest {
         customerCreateModel.setFirstName("Mikulas");
         customerCreateModel.setMidName("");
         customerCreateModel.setLastName("Abraham");
-        customerCreateModel.setStreetAndNumber("Klapka 44B");
-        customerCreateModel.setCity("Komarom");
-        customerCreateModel.setPostalCode("2900");
         customerCreateModel.setCell("0918291615");
         customerCreateModel.setEmail("mikcsek2@gmail.com");
         customerCreateModel.setDateOfBirth(LocalDate.parse("1991-12-07"));
+        customerCreateModel.setAddress(Address.builder()
+                .streetAndNumber("Klapka 44B")
+                .city("Komarom")
+                .postalCode("2900")
+                .build());
 
         //When
         Customer customer = mapCustomerCreateModelToCustomerEntity(customerCreateModel);
@@ -50,25 +52,29 @@ public class CustomerMapperTest {
         customer.setFirstName("Mikulas");
         customer.setMidName("");
         customer.setLastName("Abraham");
-        customer.setStreetAndNumber("Klapka 44B");
-        customer.setCity("Komarom");
-        customer.setPostalCode("2900");
         customer.setCell("0918291615");
         customer.setEmail("mikcsek2@gmail.com");
         customer.setDateOfBirth(LocalDate.parse("1991-12-07"));
         customer.setStatus(Status.INACTIVE);
+        customer.setAddress(Address.builder()
+                .streetAndNumber("Klapka 44B")
+                .city("Komarom")
+                .postalCode("2900")
+                .build());
 
         CustomerModel expectedCustomerModel = new CustomerModel();
         expectedCustomerModel.setFirstName("Mikulas");
         expectedCustomerModel.setMidName("");
         expectedCustomerModel.setLastName("Abraham");
-        expectedCustomerModel.setStreetAndNumber("Klapka 44B");
-        expectedCustomerModel.setCity("Komarom");
-        expectedCustomerModel.setPostalCode("2900");
         expectedCustomerModel.setCell("0918291615");
         expectedCustomerModel.setEmail("mikcsek2@gmail.com");
         expectedCustomerModel.setDateOfBirth(LocalDate.parse("1991-12-07"));
         expectedCustomerModel.setStatus(Status.INACTIVE);
+        expectedCustomerModel.setAddress(Address.builder()
+                .streetAndNumber("Klapka 44B")
+                .city("Komarom")
+                .postalCode("2900")
+                .build());
 
         //When
         CustomerModel customerModel = mapCustomerEntityToCustomerModel(customer);

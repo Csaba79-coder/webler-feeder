@@ -1,5 +1,6 @@
 package hu.webler.weblerfeeder.customer;
 
+import hu.webler.weblerfeeder.address.entity.Address;
 import hu.webler.weblerfeeder.customer.entity.Customer;
 import hu.webler.weblerfeeder.customer.model.CustomerCreateModel;
 import hu.webler.weblerfeeder.customer.model.CustomerModel;
@@ -45,25 +46,30 @@ public class CustomerServiceTest {
         customerCreateModel.setFirstName("Mikulas");
         customerCreateModel.setMidName("mikcsek");
         customerCreateModel.setLastName("Abraham");
-        customerCreateModel.setStreetAndNumber("Klapka 44B");
-        customerCreateModel.setCity("Komarom");
-        customerCreateModel.setPostalCode("2900");
         customerCreateModel.setCell("0918291615");
         customerCreateModel.setEmail("m2@gmail.com");
         customerCreateModel.setDateOfBirth(LocalDate.parse("1991-12-07"));
+        customerCreateModel.setAddress(Address.builder()
+                .streetAndNumber("Klapka 44B")
+                .city("Komarom")
+                .postalCode("2900")
+                .build());
 
         //Mock customerRepository.save() to return a mock CustomerModel
         CustomerModel expectedCustomer = new CustomerModel();
         expectedCustomer.setFirstName("Mikulas");
         expectedCustomer.setMidName("mikcsek");
         expectedCustomer.setLastName("Abraham");
-        expectedCustomer.setStreetAndNumber("Klapka 44B");
-        expectedCustomer.setCity("Komarom");
-        expectedCustomer.setPostalCode("2900");
         expectedCustomer.setCell("0918291615");
         expectedCustomer.setEmail("m2@gmail.com");
         expectedCustomer.setDateOfBirth(LocalDate.parse("1991-12-07"));
         expectedCustomer.setStatus(Status.valueOf("INACTIVE"));
+        expectedCustomer.setAddress(Address.builder()
+                .streetAndNumber("Klapka 44B")
+                .city("Komarom")
+                .postalCode("2900")
+                .build());
+
         when(customerRepository.save(any())).thenReturn(mapCustomerCreateModelToCustomerEntity(customerCreateModel));
 
         //When
@@ -85,9 +91,19 @@ public class CustomerServiceTest {
 
         //Given
         String email = "a@gmail.com";
-        CustomerCreateModel customerCreateModel = new CustomerCreateModel("Mikulas", "mikcsek",
-                "Abraham", "Klapka 44B",
-                "Komarom", "2900", "123", "a@gmail.com", LocalDate.parse("1991-12-07"));
+        CustomerCreateModel customerCreateModel = new CustomerCreateModel();
+        customerCreateModel.setFirstName("Mikulas");
+        customerCreateModel.setMidName("mikcsek");
+        customerCreateModel.setLastName("Abraham");
+        customerCreateModel.setCell("123");
+        customerCreateModel.setEmail("mikcsek2@gmail.com");
+        customerCreateModel.setDateOfBirth(LocalDate.parse("1991-12-07"));
+        customerCreateModel.setAddress(Address.builder()
+                .streetAndNumber("Klapka 44B")
+                .city("Komarom")
+                .postalCode("2900")
+                .build()
+        );
 
         when(customerRepository.save(any())).thenReturn(mapCustomerCreateModelToCustomerEntity(customerCreateModel))
                 .thenThrow(new EntityAlreadyExistsException(String.format("User with this email %s not found", email)));
@@ -119,12 +135,10 @@ public class CustomerServiceTest {
     public void givenNonEmptyCustomersList_whenGetAllCustomers_thenReturnsTheListsOfCustomerModels() {
         //Given
         List<Customer> customerData = List.of(
-                new Customer("Mikulas", "mikcsek", "Abraham", "Klapka 44B",
-                        "Komarom", "2900", "123", "a@gmail.com", LocalDate.parse("1991-12-07"),
-                        Status.INACTIVE, null),
-                new Customer("asd", "asd", "asd", "Klapka 44B",
-                        "Komarom", "2900", "456", "b@gmail.com", LocalDate.parse("1991-12-07"),
-                        Status.INACTIVE, null)
+                new Customer("Mikulas", "mikcsek", "Abraham", "123", "a@gmail.com", LocalDate.parse("1991-12-07"),
+                        Status.INACTIVE, null, null),
+                new Customer("asd", "asd", "asd", "456", "b@gmail.com", LocalDate.parse("1991-12-07"),
+                        Status.INACTIVE, null, null)
         );
         when(customerRepository.findAll()).thenReturn(customerData);
 
@@ -134,7 +148,7 @@ public class CustomerServiceTest {
         //Then
         then(customers).hasSize(2)
                 .usingRecursiveComparison()
-                .ignoringFields("id", "registrationDate", "orders")
+                .ignoringFields("id", "registrationDate", "orders", "address")
                 .isEqualTo(customerData);
     }
 
@@ -143,9 +157,19 @@ public class CustomerServiceTest {
     public void givenValidCustomerEmail_whenGetCustomerByEmail_thenReturnsCustomerWithThatEmail() {
         //Given
         String email = "ab@gmail.com";
-        Customer customer = new Customer("Mikulas", "mikcsek", "Abraham", "Klapka 44B",
-                "Komarom", "2900", "123", "ab@gmail.com", LocalDate.parse("1991-12-07"),
-                Status.INACTIVE, null);
+        Customer customer = new Customer();
+        customer.setFirstName("Mikulas");
+        customer.setMidName("mikcsek");
+        customer.setLastName("Abraham");
+        customer.setCell("123");
+        customer.setEmail("mikcsek2@gmail.com");
+        customer.setDateOfBirth(LocalDate.parse("1991-12-07"));
+        customer.setStatus(Status.INACTIVE);
+        customer.setAddress(Address.builder()
+                .streetAndNumber("Klapka 44B")
+                .city("Komarom")
+                .postalCode("2900")
+                .build());
 
         when(customerRepository.findByEmail(email)).thenReturn(Optional.of(customer));
 
@@ -176,9 +200,19 @@ public class CustomerServiceTest {
     public void givenCustomerId_whenGetCustomerById_thenReturnsCustomer() {
         //Given
         Long id = 1L;
-        Customer customer = new Customer("Mikulas", "mikcsek", "Abraham", "Klapka 44B",
-                "Komarom", "2900", "123", "ab@gmail.com", LocalDate.parse("1991-12-07"),
-                Status.INACTIVE, null);
+        Customer customer = new Customer();
+        customer.setFirstName("Mikulas");
+        customer.setMidName("mikcsek");
+        customer.setLastName("Abraham");
+        customer.setCell("123");
+        customer.setEmail("mikcsek2@gmail.com");
+        customer.setDateOfBirth(LocalDate.parse("1991-12-07"));
+        customer.setStatus(Status.INACTIVE);
+        customer.setAddress(Address.builder()
+                .streetAndNumber("Klapka 44B")
+                .city("Komarom")
+                .postalCode("2900")
+                .build());
 
         when(customerRepository.findById(id)).thenReturn(Optional.of(customer));
 
