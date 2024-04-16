@@ -71,6 +71,7 @@ public class CustomerService {
 
     public CustomerModel addCustomer(CustomerCreateModel customerCreateModel) {
         Optional<Customer> existingCustomerWithThisEmail = findCustomerByEmail(customerCreateModel.getEmail());
+
         if (isRequiredFieldsExistsAndContainData(customerCreateModel) && existingCustomerWithThisEmail.isEmpty()) {
             return mapCustomerEntityToCustomerModel(customerRepository
                     .save(mapCustomerCreateModelToCustomerEntity(customerCreateModel)));
@@ -93,9 +94,6 @@ public class CustomerService {
         existingCustomer.setFirstName(customerUpdateModel.getFirstName());
         existingCustomer.setMidName(customerUpdateModel.getMidName());
         existingCustomer.setLastName(customerUpdateModel.getLastName());
-        existingCustomer.setStreetAndNumber(customerUpdateModel.getStreetAndNumber());
-        existingCustomer.setCity(customerUpdateModel.getCity());
-        existingCustomer.setPostalCode(customerUpdateModel.getPostalCode());
         existingCustomer.setCell(customerUpdateModel.getCell());
         if (existingCustomer.getEmail().equals(customerUpdateModel.getEmail()) ||
                 !isCustomerAlreadyExistsWithThisEmail(customerUpdateModel.getEmail())) {
@@ -115,10 +113,8 @@ public class CustomerService {
                 customerUpdateModel.getMidName() != null &&
                 customerUpdateModel.getLastName() != null && !customerUpdateModel.getLastName().equals("") &&
                 customerUpdateModel.getCell() != null && !customerUpdateModel.getCell().equals("") &&
-                customerUpdateModel.getStreetAndNumber() != null && !customerUpdateModel.getStreetAndNumber().equals("") &&
-                customerUpdateModel.getCity() != null && !customerUpdateModel.getCity().equals("") &&
-                customerUpdateModel.getPostalCode() != null && !customerUpdateModel.getPostalCode().equals("") &&
-                customerUpdateModel.getEmail() != null && !customerUpdateModel.getEmail().equals("") &&
+
+                        customerUpdateModel.getEmail() != null && !customerUpdateModel.getEmail().equals("") &&
                 customerUpdateModel.getDateOfBirth() != null && !customerUpdateModel.getDateOfBirth().toString().equals("") &&
                 customerUpdateModel.getStatus() != null
         ) {
@@ -132,9 +128,6 @@ public class CustomerService {
                 customerCreateModel.getMidName() != null &&
                 customerCreateModel.getLastName() != null && !customerCreateModel.getLastName().equals("") &&
                 customerCreateModel.getCell() != null && !customerCreateModel.getCell().equals("") &&
-                customerCreateModel.getStreetAndNumber() != null && !customerCreateModel.getStreetAndNumber().equals("") &&
-                customerCreateModel.getCity() != null && !customerCreateModel.getCity().equals("") &&
-                customerCreateModel.getPostalCode() != null && !customerCreateModel.getPostalCode().equals("") &&
                 customerCreateModel.getEmail() != null && !customerCreateModel.getEmail().equals("") &&
                 customerCreateModel.getDateOfBirth() != null && !customerCreateModel.getDateOfBirth().toString().equals("")
         ) {

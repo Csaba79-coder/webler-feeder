@@ -16,12 +16,10 @@ public class CustomerMapper {
                 .firstName(customer.getFirstName())
                 .midName(customer.getMidName())
                 .lastName(customer.getLastName())
-                .streetAndNumber(customer.getStreetAndNumber())
-                .city(customer.getCity())
-                .postalCode(customer.getPostalCode())
                 .cell(customer.getCell())
                 .email(customer.getEmail())
                 .dateOfBirth(customer.getDateOfBirth())
+                .address(customer.getAddress())
                 .status(customer.getStatus())
                 .build();
     }
@@ -32,11 +30,9 @@ public class CustomerMapper {
                 .firstName(customerCreateModel.getFirstName())
                 .midName(customerCreateModel.getMidName())
                 .lastName(customerCreateModel.getLastName())
-                .streetAndNumber(customerCreateModel.getStreetAndNumber())
-                .city(customerCreateModel.getCity())
-                .postalCode(customerCreateModel.getPostalCode())
                 .cell(customerCreateModel.getCell())
                 .email(customerCreateModel.getEmail())
+                .address(customerCreateModel.getAddress())
                 .dateOfBirth(customerCreateModel.getDateOfBirth())
                 .build();
     }
