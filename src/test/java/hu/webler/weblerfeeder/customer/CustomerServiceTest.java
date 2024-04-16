@@ -1,9 +1,10 @@
-package hu.webler.weblerfeeder.customer.service;
+package hu.webler.weblerfeeder.customer;
 
 import hu.webler.weblerfeeder.customer.entity.Customer;
 import hu.webler.weblerfeeder.customer.model.CustomerCreateModel;
 import hu.webler.weblerfeeder.customer.model.CustomerModel;
 import hu.webler.weblerfeeder.customer.repository.CustomerRepository;
+import hu.webler.weblerfeeder.customer.service.CustomerService;
 import hu.webler.weblerfeeder.exception.EntityAlreadyExistsException;
 import hu.webler.weblerfeeder.value.Status;
 import org.junit.jupiter.api.DisplayName;
