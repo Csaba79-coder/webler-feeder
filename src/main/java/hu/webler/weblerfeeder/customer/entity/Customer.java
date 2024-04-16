@@ -25,8 +25,6 @@ import java.util.List;
 @Builder
 public class Customer extends Auditable {
 
-
-
     @Column(nullable = false)
     private String firstName;
 
@@ -34,18 +32,6 @@ public class Customer extends Auditable {
 
     @Column(nullable = false)
     private String lastName;
-
-    /*
-    @Column(nullable = false)
-    private String streetAndNumber;
-
-    @Column(nullable = false)
-    private String city;
-
-    @Column(nullable = false)
-    private String postalCode;
-     */
-
 
     @Column(nullable = false)
     private String cell;
@@ -63,7 +49,6 @@ public class Customer extends Auditable {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Order> orders;
-
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
