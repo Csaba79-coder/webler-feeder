@@ -187,7 +187,7 @@ public class CustomerControllerTest {
 
         // When
         MvcResult result = mockMvc.perform(get("/api/customers/customer/id/{id}", id)
-                        .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -197,11 +197,11 @@ public class CustomerControllerTest {
         assertThat(id).isNotZero();
 
         String responseContent = result.getResponse().getContentAsString();
-        CustomerModel actualCustomer = objectMapper.readValue(responseContent, CustomerModel.class);
+        Customer actualCustomer = objectMapper.readValue(responseContent, Customer.class);
 
         assertThat(actualCustomer)
                 .usingRecursiveComparison()
-                .ignoringFields("id", "registrationDate")
+                .ignoringFields("id", "registrationDate", "createdAt", "orders")
                 .isEqualTo(customer);
 
     }
