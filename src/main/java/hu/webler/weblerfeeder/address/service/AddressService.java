@@ -5,7 +5,7 @@ import hu.webler.weblerfeeder.address.model.AddressModel;
 import hu.webler.weblerfeeder.address.model.AddressModelUpdateCreate;
 import hu.webler.weblerfeeder.address.repository.AddressRepository;
 import hu.webler.weblerfeeder.exception.InvalidInputException;
-import hu.webler.weblerfeeder.exception.handleEntityAlreadyExistsException;
+import hu.webler.weblerfeeder.exception.EntityAlreadyExistsException;
 import hu.webler.weblerfeeder.util.AddressMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ public class AddressService {
         if (isRequiredFieldsExistsAndContainData(addressModelUpdateCreate) ) {
             return  mapAddressEntityToAddressModel(addressRepository.save(mapAddressCreateModelToAddressEntity(addressModelUpdateCreate)));
         } else {
-            throw new handleEntityAlreadyExistsException("Please provide all the fields for Address!");
+            throw new EntityAlreadyExistsException("Please provide all the fields for Address!");
         }
     }
 
