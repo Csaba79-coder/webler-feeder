@@ -1,6 +1,6 @@
 package hu.webler.weblerfeeder.food.service;
 
-import hu.webler.weblerfeeder.exception.handleEntityAlreadyExistsException;
+import hu.webler.weblerfeeder.exception.EntityAlreadyExistsException;
 import hu.webler.weblerfeeder.exception.InvalidInputException;
 import hu.webler.weblerfeeder.food.entity.Food;
 import hu.webler.weblerfeeder.food.model.FoodCreateAndUpdateModel;
@@ -75,7 +75,7 @@ public class FoodService {
         } else {
             String name = foodCreateAndUpdateModel.getName();
             String message = String.format("Please use another food name, food with this name %s already exists", name);
-            throw new handleEntityAlreadyExistsException(message);
+            throw new EntityAlreadyExistsException(message);
         }
     }
 
@@ -94,7 +94,7 @@ public class FoodService {
         } else {
             String name = foodCreateAndUpdateModel.getName();
             String message = String.format("Please use another food name, food with this name %s already exists", name);
-            throw new handleEntityAlreadyExistsException(message);
+            throw new EntityAlreadyExistsException(message);
         }
         existingFood.setDescription(foodCreateAndUpdateModel.getDescription());
         existingFood.setPrice(foodCreateAndUpdateModel.getPrice());
