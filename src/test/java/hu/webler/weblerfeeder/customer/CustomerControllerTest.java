@@ -7,8 +7,6 @@ import hu.webler.weblerfeeder.customer.controller.CustomerController;
 import hu.webler.weblerfeeder.customer.entity.Customer;
 import hu.webler.weblerfeeder.customer.model.CustomerModel;
 import hu.webler.weblerfeeder.customer.service.CustomerService;
-import hu.webler.weblerfeeder.order.entity.Order;
-import hu.webler.weblerfeeder.util.CustomerMapper;
 import hu.webler.weblerfeeder.value.Status;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -171,7 +169,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    @DisplayName("Given valid id when getCustomerById then return customer model")
+    @DisplayName("Given valid id when getCustomerById then return customer")
     public void givenValidEmail_whenGetCustomerById_thenReturnCustomerModel() throws Exception{
         //Given
         Long id = 1L; // valid id
@@ -182,8 +180,6 @@ public class CustomerControllerTest {
                 "mikcsek2@gmail.com", LocalDate.of(1991, 12, 7), Status.INACTIVE, List.of());
 
         when(customerService.getCustomerById(any(Long.class))).thenReturn(customer);
-
-        CustomerModel customerModel = CustomerMapper.mapCustomerEntityToCustomerModel(customer);
 
         // When
         MvcResult result = mockMvc.perform(get("/api/customers/customer/id/{id}", id)
