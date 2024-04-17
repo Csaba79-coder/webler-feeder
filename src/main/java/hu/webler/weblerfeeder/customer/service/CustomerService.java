@@ -5,8 +5,8 @@ import hu.webler.weblerfeeder.customer.model.CustomerCreateModel;
 import hu.webler.weblerfeeder.customer.model.CustomerModel;
 import hu.webler.weblerfeeder.customer.model.CustomerUpdateModel;
 import hu.webler.weblerfeeder.customer.repository.CustomerRepository;
-import hu.webler.weblerfeeder.exception.UserAlreadyExistsException;
 import hu.webler.weblerfeeder.exception.InvalidInputException;
+import hu.webler.weblerfeeder.exception.EntityAlreadyExistsException;
 import hu.webler.weblerfeeder.util.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +32,16 @@ public class CustomerService {
                 .stream()
                 .map(CustomerMapper::mapCustomerEntityToCustomerModel)
                 .collect(Collectors.toList());
+    }
+
+    private boolean isCustomerAlreadyExistsWithThisEmail(String email) {
+        List<CustomerModel> customers = getAllCustomers();
+        for (CustomerModel customer : customers) {
+            if (customer.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public CustomerModel getCustomerByEmail(String email) {
@@ -61,19 +71,20 @@ public class CustomerService {
 
     public CustomerModel addCustomer(CustomerCreateModel customerCreateModel) {
         Optional<Customer> existingCustomerWithThisEmail = findCustomerByEmail(customerCreateModel.getEmail());
-        if (isAllFieldsContainData(customerCreateModel) && existingCustomerWithThisEmail.isEmpty()) {
+
+        if (isRequiredFieldsExistsAndContainData(customerCreateModel) && existingCustomerWithThisEmail.isEmpty()) {
             return mapCustomerEntityToCustomerModel(customerRepository
                     .save(mapCustomerCreateModelToCustomerEntity(customerCreateModel)));
         } else {
             String email = customerCreateModel.getEmail();
             String message = String.format("Please use another email, customer with this email: %s already exists", email);
-            throw new UserAlreadyExistsException(message);
+            throw new EntityAlreadyExistsException(message);
         }
     }
 
     public CustomerModel updateCustomer(Long id, CustomerUpdateModel customerUpdateModel) {
         Customer existingCustomer = getCustomerById(id);
-        if (isAllFieldsContainData(customerUpdateModel)) {
+        if (isRequiredFieldsExistsAndContainData(customerUpdateModel)) {
             addNewDataToExistingCustomer(existingCustomer, customerUpdateModel);
         }
         return CustomerMapper.mapCustomerEntityToCustomerModel(customerRepository.save(existingCustomer));
@@ -82,49 +93,43 @@ public class CustomerService {
     private void addNewDataToExistingCustomer(Customer existingCustomer, CustomerUpdateModel customerUpdateModel) {
         existingCustomer.setFirstName(customerUpdateModel.getFirstName());
         existingCustomer.setMidName(customerUpdateModel.getMidName());
+        existingCustomer.setLastName(customerUpdateModel.getLastName());
         existingCustomer.setCell(customerUpdateModel.getCell());
-        existingCustomer.setStreetAndNumber(customerUpdateModel.getStreetAndNumber());
-        existingCustomer.setCity(customerUpdateModel.getCity());
-        existingCustomer.setPostalCode(customerUpdateModel.getPostalCode());
-        if (!customerUpdateModel.getEmail().equals(existingCustomer.getEmail())) {
+        if (existingCustomer.getEmail().equals(customerUpdateModel.getEmail()) ||
+                !isCustomerAlreadyExistsWithThisEmail(customerUpdateModel.getEmail())) {
             existingCustomer.setEmail(customerUpdateModel.getEmail());
         } else {
             String email = customerUpdateModel.getEmail();
             String message = String.format("Please use another email, customer with this email: %s already exists", email);
-            throw new UserAlreadyExistsException(message);
-            }
-            existingCustomer.setDateOfBirth(customerUpdateModel.getDateOfBirth());
-            existingCustomer.setStatus(customerUpdateModel.getStatus());
+            throw new EntityAlreadyExistsException(message);
+        }
+        existingCustomer.setDateOfBirth(customerUpdateModel.getDateOfBirth());
+        existingCustomer.setStatus(customerUpdateModel.getStatus());
     }
 
-    private boolean isAllFieldsContainData(CustomerUpdateModel customerUpdateModel) {
+    private boolean isRequiredFieldsExistsAndContainData(CustomerUpdateModel customerUpdateModel) {
         if (
-                customerUpdateModel.getFirstName() != null &&
+                customerUpdateModel.getFirstName() != null && !customerUpdateModel.getFirstName().equals("") &&
                 customerUpdateModel.getMidName() != null &&
-                customerUpdateModel.getLastName() != null &&
-                customerUpdateModel.getCell() != null &&
-                customerUpdateModel.getStreetAndNumber() != null &&
-                customerUpdateModel.getCity() != null &&
-                customerUpdateModel.getPostalCode() != null &&
-                customerUpdateModel.getEmail() != null &&
-                customerUpdateModel.getDateOfBirth() != null &&
+                customerUpdateModel.getLastName() != null && !customerUpdateModel.getLastName().equals("") &&
+                customerUpdateModel.getCell() != null && !customerUpdateModel.getCell().equals("") &&
+
+                        customerUpdateModel.getEmail() != null && !customerUpdateModel.getEmail().equals("") &&
+                customerUpdateModel.getDateOfBirth() != null && !customerUpdateModel.getDateOfBirth().toString().equals("") &&
                 customerUpdateModel.getStatus() != null
         ) {
             return true;
         } else throw new InvalidInputException("Please fill all fields");
     }
 
-    private boolean isAllFieldsContainData(CustomerCreateModel customerCreateModel) {
+    private boolean isRequiredFieldsExistsAndContainData(CustomerCreateModel customerCreateModel) {
         if (
-                customerCreateModel.getFirstName() != null &&
+                customerCreateModel.getFirstName() != null && !customerCreateModel.getFirstName().equals("") &&
                 customerCreateModel.getMidName() != null &&
-                customerCreateModel.getLastName() != null &&
-                customerCreateModel.getCell() != null &&
-                customerCreateModel.getStreetAndNumber() != null &&
-                customerCreateModel.getCity() != null &&
-                customerCreateModel.getPostalCode() != null &&
-                customerCreateModel.getEmail() != null &&
-                customerCreateModel.getDateOfBirth() != null
+                customerCreateModel.getLastName() != null && !customerCreateModel.getLastName().equals("") &&
+                customerCreateModel.getCell() != null && !customerCreateModel.getCell().equals("") &&
+                customerCreateModel.getEmail() != null && !customerCreateModel.getEmail().equals("") &&
+                customerCreateModel.getDateOfBirth() != null && !customerCreateModel.getDateOfBirth().toString().equals("")
         ) {
             return true;
         } else throw new InvalidInputException("Please fill all fields");
