@@ -1,4 +1,4 @@
-package address;
+package hu.webler.weblerfeeder.address;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

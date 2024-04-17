@@ -1,4 +1,4 @@
-package address;
+package hu.webler.weblerfeeder.address;
 
 import hu.webler.weblerfeeder.address.entity.Address;
 import hu.webler.weblerfeeder.address.model.AddressModel;
@@ -17,11 +17,11 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static hu.webler.weblerfeeder.util.AddressMapper.mapAddressCreateModelToAddressEntity;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static hu.webler.weblerfeeder.util.AddressMapper.mapAddressCreateModelToAddressEntity;
-import static org.assertj.core.api.BDDAssertions.then;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Address service test - unit test")
