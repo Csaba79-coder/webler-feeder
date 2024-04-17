@@ -42,8 +42,8 @@ public class CustomerWebController {
         return "add-customer";
     }
 
-    @GetMapping("/update-customer/{id}")
-    public String updateCustomerOnWeb(@PathVariable Long id) {
+    @GetMapping("/update-customer")
+    public String updateCustomerOnWeb() {
         return "update-customer";
     }
 
@@ -64,7 +64,7 @@ public class CustomerWebController {
         return "redirect:/customers";
     }
 
-    @PostMapping("/customers/customer/update/")
+    @PostMapping("/customers/customer/update")
     public String updateCustomerOnWeb(@RequestParam Long customerId, String firstName, String midName, String lastName,
                                       String streetAndNumber, String city, String postalCode, String cell, String email,
                                       LocalDate dateOfBirth, Status status) {
@@ -83,7 +83,7 @@ public class CustomerWebController {
         return "redirect:/customers";
     }
 
-    @PostMapping("/customers/customer/")
+    @PostMapping("/customers/customer")
     public String deleteCustomerOnWeb(@RequestParam Long id) {
         customerService.deleteCustomer(id);
         return "redirect:/customers";

@@ -1,5 +1,6 @@
 package hu.webler.weblerfeeder.address.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import hu.webler.weblerfeeder.base.Auditable;
 import hu.webler.weblerfeeder.customer.entity.Customer;
 import jakarta.persistence.Column;
@@ -25,5 +26,6 @@ public class Address extends Auditable {
     private String postalCode;
 
     @OneToOne(mappedBy = "address")
+    @JsonBackReference
     private Customer customer;
 }

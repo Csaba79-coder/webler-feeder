@@ -52,6 +52,6 @@ public class Customer extends Auditable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-    @JsonBackReference
+    @JsonManagedReference
     private Address address;
 }
