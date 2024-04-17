@@ -6,12 +6,10 @@ import hu.webler.weblerfeeder.address.model.AddressModel;
 import hu.webler.weblerfeeder.address.model.AddressModelUpdateCreate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import hu.webler.weblerfeeder.util.AddressMapper.*;
 
 import static hu.webler.weblerfeeder.util.AddressMapper.mapAddressCreateModelToAddressEntity;
 import static hu.webler.weblerfeeder.util.AddressMapper.mapAddressEntityToAddressModel;
-
-import static org.assertj.core.api.BDDAssertions.*;
+import static org.assertj.core.api.BDDAssertions.then;
 
 @DisplayName("Address mapper - unit test")
 public class AddressMapperTest {

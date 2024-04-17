@@ -2,15 +2,10 @@ package address;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hu.webler.weblerfeeder.address.entity.Address;
-import hu.webler.weblerfeeder.address.model.AddressModelUpdateCreate;
-import hu.webler.weblerfeeder.base.Auditable;
-import hu.webler.weblerfeeder.base.Identifier;
 import hu.webler.weblerfeeder.address.controller.AddressController;
-import hu.webler.weblerfeeder.address.entity.Address;
 import hu.webler.weblerfeeder.address.model.AddressModel;
 import hu.webler.weblerfeeder.address.service.AddressService;
-import hu.webler.weblerfeeder.value.Status;
+import hu.webler.weblerfeeder.base.Identifier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,12 +13,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,9 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
