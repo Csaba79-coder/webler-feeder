@@ -12,10 +12,12 @@
     <div class="navElements">
       <a th:href="@{/}">Home</a>
       <a th:href="@{/customers}">Customers</a>
+      <a th:href="@{/add-customer}">Add new customer</a>
+      <a th:href="@{/update-customer}">Update customer</a>
     </div>
   </div>
 
-  <h1>Our customers</h1>
+  <h1>Feeder customers</h1>
   <div class="our-customers-table">
     <table border="1">
       <thead>
@@ -39,6 +41,7 @@
       <tr th:each="customer, stat : ${customers}">
         <td th:text="${stat.index + 1}"></td>
         <td th:text="${customer.getId()}"></td>
+        <input type="text" name="firstName" th:value="${customer.getId()}" placeholder="First Name" required>
         <td th:text="${customer.getFirstName()}"></td>
         <td th:text="${customer.getMidName()}"></td>
         <td th:text="${customer.getLastName()}"></td>
@@ -49,6 +52,12 @@
         <td th:text="${customer.getEmail()}"></td>
         <td th:text="${customer.getDateOfBirth()}"></td>
         <td th:text="${customer.getStatus()}"></td>
+        <td>
+          <form th:action="/update-customer/${customer.getId()}" method="get" class="customersListButtonForm">
+            <button type="submit" class="customerUpdateButton">Update customer</button>
+          </form>
+        </td>
+        <td><button type="submit" class="customerUpdateButton">Create order</button></td>
       </tr>
       </tbody>
       <tbody th:unless="${not #lists.isEmpty(customers)}">
@@ -68,39 +77,6 @@
       <input type="number" name="id" placeholder="Delete by id...">
       <button type="submit" class="customerDeleteButton">Delete customer</button>
     </form>
-
-    <h2>Add new customer</h2>
-    <form action="/customers/customer/add" th:method="POST">
-      <input type="text" name="firstName" placeholder="First Name" required>
-      <input type="text" name="midName" placeholder="Mid Name">
-      <input type="text" name="lastName" placeholder="Last Name" required>
-      <input type="text" name="streetAndNumber" placeholder="Street and number" required>
-      <input type="text" name="city" placeholder="City" required>
-      <input type="text" name="postalCode" placeholder="Postal code" required>
-      <input type="text" name="cell" placeholder="Cellphone" required minlength="10">
-      <input type="text" name="email" placeholder="E-mail" required>
-      <input type="date" name="dateOfBirth" placeholder="Date of Birth" required>
-      <button type="submit" class="customerAddButton">Add customer</button>
-    </form>
-
-    <div class="update-customer-container">
-      <h2>Update existing customer</h2>
-      <form action="/customers/customer/update/" th:method="POST">
-        <input type="number" name="customerId" placeholder="ID of customer" required>
-        <input type="text" name="firstName" placeholder="First Name">
-        <input type="text" name="midName" placeholder="Mid Name">
-        <input type="text" name="lastName" placeholder="Last Name">
-        <input type="text" name="streetAndNumber" placeholder="Street and number">
-        <input type="text" name="city" placeholder="City">
-        <input type="text" name="postalCode" placeholder="Postal code">
-        <input type="text" name="cell" placeholder="Cellphone" minlength="10">
-        <input type="text" name="email" placeholder="E-mail">
-        <input type="date" name="dateOfBirth" placeholder="Date of Birth">
-        <input type="text" name="status" placeholder="Status(ACTIVE, INACTIVE, DELETED, UNDEFINED)">
-        <button type="submit" class="customerUpdateButton">Update customer</button>
-      </form>
-    </div>
-
 
   </div>
 

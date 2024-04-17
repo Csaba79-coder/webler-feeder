@@ -73,6 +73,19 @@ body {
     justify-content: center;
 }
 
+/* Add new Customer */
+.add-customer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Update existing customer */
 .update-customer-container {
     margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
