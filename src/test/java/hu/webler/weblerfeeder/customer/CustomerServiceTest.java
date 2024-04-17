@@ -80,7 +80,7 @@ public class CustomerServiceTest {
         verify(customerRepository, times(1)).save(any());
         then(expectedCustomer)
                 .usingRecursiveComparison()
-                .ignoringFields("id", "registrationDate")
+                .ignoringFields("id", "registrationDate", "address.createdAt")
                 .isEqualTo(createdCustomer);
 
     }

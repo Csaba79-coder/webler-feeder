@@ -82,7 +82,7 @@ public class CustomerMapperTest {
         //Then
         then(customerModel)
                 .usingRecursiveComparison()
-                .ignoringFields("registrationDate")
+                .ignoringFields("registrationDate", "address.createdAt")
                 .isEqualTo(expectedCustomerModel);
     }
 }
