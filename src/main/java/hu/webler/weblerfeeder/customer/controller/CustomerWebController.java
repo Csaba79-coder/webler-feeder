@@ -44,12 +44,12 @@ public class CustomerWebController {
         newCustomer.setFirstName(firstName);
         newCustomer.setMidName(midName);
         newCustomer.setLastName(lastName);
-        newCustomer.setStreetAndNumber(streetAndNumber);
-        newCustomer.setCity(city);
-        newCustomer.setPostalCode(postalCode);
         newCustomer.setCell(cell);
         newCustomer.setEmail(email);
         newCustomer.setDateOfBirth(dateOfBirth);
+        newCustomer.getAddress().setStreetAndNumber(streetAndNumber);
+        newCustomer.getAddress().setCity(city);
+        newCustomer.getAddress().setPostalCode(postalCode);
         customerService.addCustomer(newCustomer);
         return "redirect:/customers";
     }
@@ -62,13 +62,13 @@ public class CustomerWebController {
         updateModelCustomer.setFirstName(firstName);
         updateModelCustomer.setMidName(midName);
         updateModelCustomer.setLastName(lastName);
-        updateModelCustomer.setStreetAndNumber(streetAndNumber);
-        updateModelCustomer.setCity(city);
-        updateModelCustomer.setPostalCode(postalCode);
         updateModelCustomer.setCell(cell);
         updateModelCustomer.setEmail(email);
         updateModelCustomer.setDateOfBirth(dateOfBirth);
         updateModelCustomer.setStatus(status);
+        updateModelCustomer.getAddress().setStreetAndNumber(streetAndNumber);
+        updateModelCustomer.getAddress().setCity(city);
+        updateModelCustomer.getAddress().setPostalCode(postalCode);
         customerService.updateCustomer(customerId, updateModelCustomer);
         return "redirect:/customers";
     }
