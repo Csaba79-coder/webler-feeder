@@ -1,4 +1,4 @@
-package hu.webler.weblerfeeder.order;
+package hu.webler.weblerfeeder.order.service;
 
 import hu.webler.weblerfeeder.customer.entity.Customer;
 import hu.webler.weblerfeeder.customer.service.CustomerService;
@@ -7,7 +7,6 @@ import hu.webler.weblerfeeder.order.entity.Order;
 import hu.webler.weblerfeeder.order.model.OrderCreateAndUpdateModel;
 import hu.webler.weblerfeeder.order.model.OrderModel;
 import hu.webler.weblerfeeder.order.repository.OrderRepository;
-import hu.webler.weblerfeeder.order.service.OrderService;
 import hu.webler.weblerfeeder.value.Status;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,7 +41,7 @@ public class OrderServiceTest {
     private OrderService orderService;
 
     @Test
-    @DisplayName("Given valid Address create model when addAddress then returns Address model")
+    @DisplayName("Given valid orders create model when addOrders then returns orders model")
     public void givenValidOrderCreateModel_whenAddOrder_thenReturnsOrderModel() {
 
         //Given
@@ -83,8 +82,8 @@ public class OrderServiceTest {
     }
 
     @Test
-    @DisplayName("Given empty Order list when getAllOrder then returns empty list")
-    public void givenEmptyCustomersList_whenGetAllOrders_thenReturnsEmptyList() {
+    @DisplayName("Given empty order list when getAllOrder then returns empty list")
+    public void givenEmptyOrdersList_whenGetAllOrders_thenReturnsEmptyList() {
         //Given
         when(orderRepository.findAll()).thenReturn(Collections.emptyList());
 
@@ -96,8 +95,8 @@ public class OrderServiceTest {
     }
 
     @Test
-    @DisplayName("Given Order id when getOrderById then returns Order")
-    public void givenCustomerId_whenGetOrderById_thenReturnsOrder() {
+    @DisplayName("Given order id when getOrderById then returns order")
+    public void givenOrderId_whenGetOrderById_thenReturnsOrder() {
 
         //Given
         Long id = 1L;
@@ -126,7 +125,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    @DisplayName("Given a non empty address list when getAllOrders then returns the list of Orders models")
+    @DisplayName("Given a non empty orders list when getAllOrders then returns the list of Orders models")
     public void givenNonEmptyOrdersList_whenGetAllOrders_thenReturnsTheListsOfOrderModels() {
 
         //Given

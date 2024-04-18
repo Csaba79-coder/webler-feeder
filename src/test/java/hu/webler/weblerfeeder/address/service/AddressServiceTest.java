@@ -1,10 +1,9 @@
-package hu.webler.weblerfeeder.address;
+package hu.webler.weblerfeeder.address.service;
 
 import hu.webler.weblerfeeder.address.entity.Address;
 import hu.webler.weblerfeeder.address.model.AddressModel;
 import hu.webler.weblerfeeder.address.model.AddressModelUpdateCreate;
 import hu.webler.weblerfeeder.address.repository.AddressRepository;
-import hu.webler.weblerfeeder.address.service.AddressService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,9 +33,8 @@ public class AddressServiceTest {
     private AddressService addressService;
 
     @Test
-    @DisplayName("Given valid Address create model when addAddress then returns Address model")
+    @DisplayName("Given valid address create model when addAddress then returns address model")
     public void givenValidAddressCreateModel_whenAddAddress_thenReturnsAddressModel() {
-
 
         //Given
         AddressModelUpdateCreate addressModelUpdateCreate = new AddressModelUpdateCreate();
@@ -68,8 +66,8 @@ public class AddressServiceTest {
     }
 
     @Test
-    @DisplayName("Given empty Address list when getAllCustomers then returns empty list")
-    public void givenEmptyCustomersList_whenGetAllCustomers_thenReturnsEmptyList() {
+    @DisplayName("Given empty address list when getAllAddress then returns empty list")
+    public void givenEmptyAddressList_whenGetAllAddress_thenReturnsEmptyList() {
         //Given
         when(addressRepository.findAll()).thenReturn(Collections.emptyList());
 
@@ -81,8 +79,8 @@ public class AddressServiceTest {
     }
 
     @Test
-    @DisplayName("Given customer id when getCustomerById then returns customer")
-    public void givenCustomerId_whenGetCustomerById_thenReturnsCustomer() {
+    @DisplayName("Given address id when getAddressById then returns address")
+    public void givenAddressId_whenGetAddressById_thenReturnsAddress() {
 
         //Given
         Long id = 1L;
@@ -103,7 +101,7 @@ public class AddressServiceTest {
     }
     @Test
     @DisplayName("Given a non empty address list when getAllAddress then returns the list of address models")
-    public void givenNonEmptyCustomersList_whenGetAllCustomers_thenReturnsTheListsOfCustomerModels() {
+    public void givenNonEmptyAddressList_whenGetAllAddress_thenReturnsTheListsOfAddressModels() {
         //Given
         List<Address> addressesData = List.of(
                 new Address("1014", "Tarnok 2 ", "BP", null),
@@ -123,7 +121,7 @@ public class AddressServiceTest {
 
     @Test
     @DisplayName("Given Address id when getAddressById then throws no such element exception")
-    public void givenCustomerId_whenGetCustomerById_thenThrowsNoSuchElementException() {
+    public void givenAddressId_whenGetAddressById_thenThrowsNoSuchElementException() {
         //Given
         Long id = 2L;
 

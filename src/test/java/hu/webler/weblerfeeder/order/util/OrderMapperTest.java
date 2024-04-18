@@ -1,4 +1,4 @@
-package hu.webler.weblerfeeder.util;
+package hu.webler.weblerfeeder.order.util;
 
 import hu.webler.weblerfeeder.customer.entity.Customer;
 import hu.webler.weblerfeeder.order.entity.Order;
@@ -18,7 +18,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 public class OrderMapperTest {
 
     @Test
-    @DisplayName("Given Order create model when mapping to entity then returns Order entity")
+    @DisplayName("Given Order create model when mapping to entity then returns order entity")
     public void givenOrderCreateModel_whenMappingToEntity_thenReturnsOrderEntity() {
 
         //Given
@@ -46,8 +46,8 @@ public class OrderMapperTest {
     }
 
     @Test
-    @DisplayName("Given Order entity when mapping to Order model then returns Order model")
-    public void givenAddressEntity_whenMappingToAddressModel_thenReturnsAddressModel() {
+    @DisplayName("Given Order entity when mapping to order model then returns order model")
+    public void givenOrderEntity_whenMappingToOrderModel_thenReturnsOrderModel() {
         //Given
         Order order = new Order();
 
@@ -59,7 +59,6 @@ public class OrderMapperTest {
         customer.setEmail("mikcsek2@gmail.com");
         customer.setDateOfBirth(LocalDate.parse("1991-12-07"));
         customer.setStatus(Status.INACTIVE);
-
 
         order.setDescription("Please, ring to second floor name: Peter");
         order.setCustomer(customer);

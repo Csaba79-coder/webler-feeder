@@ -1,8 +1,7 @@
-package hu.webler.weblerfeeder.address;
+package hu.webler.weblerfeeder.address.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hu.webler.weblerfeeder.address.controller.AddressController;
 import hu.webler.weblerfeeder.address.model.AddressModel;
 import hu.webler.weblerfeeder.address.service.AddressService;
 import hu.webler.weblerfeeder.base.Identifier;

@@ -1,5 +1,4 @@
-package hu.webler.weblerfeeder.util;
-
+package hu.webler.weblerfeeder.address.util;
 
 import hu.webler.weblerfeeder.address.entity.Address;
 import hu.webler.weblerfeeder.address.model.AddressModel;
@@ -15,8 +14,8 @@ import static org.assertj.core.api.BDDAssertions.then;
 public class AddressMapperTest {
 
     @Test
-    @DisplayName("Given Address create model when mapping to entity then returns Address entity")
-    public void givenCustomerCreateModel_whenMappingToEntity_thenReturnsCustomerEntity() {
+    @DisplayName("Given address create model when mapping to entity then returns address entity")
+    public void givenAddressCreateModel_whenMappingToEntity_thenReturnsAddressEntity() {
 
         //Given
         AddressModelUpdateCreate addressModelUpdateCreate = new AddressModelUpdateCreate();
@@ -24,7 +23,6 @@ public class AddressMapperTest {
         addressModelUpdateCreate.setCity("Budapes");
         addressModelUpdateCreate.setStreetAndNumber("Tarnok 4");
         addressModelUpdateCreate.setPostalCode("1014");
-
 
         //When
         Address address = mapAddressCreateModelToAddressEntity(addressModelUpdateCreate);
@@ -36,18 +34,16 @@ public class AddressMapperTest {
     }
 
     @Test
-    @DisplayName("Given Address entity when mapping to Address model then returns customer model")
+    @DisplayName("Given Address entity when mapping to address model then returns address model")
     public void givenAddressEntity_whenMappingToAddressModel_thenReturnsAddressModel() {
         //Given
         Address address = new Address();
-
 
         address.setCity("Komarom");
         address.setStreetAndNumber("Klapka 44");
         address.setPostalCode("2900");
 
         AddressModel expectedAddressModel = new AddressModel();
-
 
         expectedAddressModel.setCity("Komarom");
         expectedAddressModel.setStreetAndNumber("Klapka 44");
