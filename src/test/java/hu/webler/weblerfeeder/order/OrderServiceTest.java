@@ -1,19 +1,13 @@
 package hu.webler.weblerfeeder.order;
 
-import hu.webler.weblerfeeder.address.entity.Address;
 import hu.webler.weblerfeeder.customer.entity.Customer;
 import hu.webler.weblerfeeder.customer.service.CustomerService;
 import hu.webler.weblerfeeder.food.entity.Food;
 import hu.webler.weblerfeeder.order.entity.Order;
-import hu.webler.weblerfeeder.address.model.AddressModel;
-import hu.webler.weblerfeeder.order.model.OrderModel;
-import hu.webler.weblerfeeder.address.model.AddressModelUpdateCreate;
 import hu.webler.weblerfeeder.order.model.OrderCreateAndUpdateModel;
-import hu.webler.weblerfeeder.address.repository.AddressRepository;
+import hu.webler.weblerfeeder.order.model.OrderModel;
 import hu.webler.weblerfeeder.order.repository.OrderRepository;
-import hu.webler.weblerfeeder.address.service.AddressService;
 import hu.webler.weblerfeeder.order.service.OrderService;
-
 import hu.webler.weblerfeeder.value.Status;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,7 +22,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static hu.webler.weblerfeeder.util.AddressMapper.mapAddressCreateModelToAddressEntity;
 import static hu.webler.weblerfeeder.util.OrderMapper.mapOrderCreateAndUpdateModelToOrderEntity;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.BDDAssertions.then;
@@ -52,10 +45,8 @@ public class OrderServiceTest {
     @DisplayName("Given valid Address create model when addAddress then returns Address model")
     public void givenValidOrderCreateModel_whenAddOrder_thenReturnsOrderModel() {
 
-
         //Given
         OrderCreateAndUpdateModel orderCreateAndUpdateModel = new OrderCreateAndUpdateModel();
-
 
         Customer customer = new Customer();
         customer.setFirstName("Mikulas");
@@ -82,7 +73,6 @@ public class OrderServiceTest {
         //When
         OrderModel createdModel = orderService.addOrder(1L, orderCreateAndUpdateModel);
 
-
         //Then
         then(createdModel.getDescription()).isEqualTo(orderCreateAndUpdateModel.getDescription());
         verify(orderRepository, times(1)).save(any());
@@ -91,7 +81,6 @@ public class OrderServiceTest {
                 .ignoringFields("id", "registrationDate", "createdAt")
                 .isEqualTo(createdModel);
     }
-
 
     @Test
     @DisplayName("Given empty Order list when getAllOrder then returns empty list")
@@ -113,9 +102,7 @@ public class OrderServiceTest {
         //Given
         Long id = 1L;
 
-
         Order order = new Order();
-
 
         Customer customer = new Customer();
         customer.setFirstName("Mikulas");
@@ -136,7 +123,6 @@ public class OrderServiceTest {
 
         //Then
         then(existingOrder).isEqualTo(order);
-
     }
 
     @Test
@@ -172,7 +158,6 @@ public class OrderServiceTest {
                 .ignoringFields("id", "registrationDate", "orders", "address")
                 .isEqualTo(ordersData);
     }
-
 
     @Test
     @DisplayName("Given Order id when getOrderById then throws no such element exception")
