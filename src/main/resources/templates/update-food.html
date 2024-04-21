@@ -6,30 +6,25 @@
   <title>Feeder - Order food to be fed</title>
 </head>
 <body class="customers-content">
-
-<div class="navbar">
-  <img th:src="@{/images/logo.png}" alt="Feeder logo">
-  <div class="navElements">
-    <a th:href="@{/}">Home</a>
-    <a th:href="@{/customers}">Customers</a>
-    <a th:href="@{/foods}">Foods</a>
-    <a th:href="@{/orders}">Orders</a>
-    <a th:href="@{/add-customer}">Add new customer</a>
-    <a th:href="@{/update-customer}">Update customer</a>
+  <div class="navbar">
+    <img th:src="@{/images/logo.png}" alt="Feeder logo">
+    <div class="navElements">
+      <a th:href="@{/}">Home</a>
+      <a th:href="@{/customers}">Customers</a>
+      <a th:href="@{/foods}">Foods</a>
+      <a th:href="@{/orders}">Orders</a>
+      <a th:href="@{/add-customer}">Add new customer</a>
+    </div>
   </div>
-</div>
-
-<div class="update-customer-container">
-  <h2>Update existing food</h2>
-  <form th:each="food, stat : ${foods}" class="update-customer-container" th:action="@{/foods/food/update}" th:method="POST">
-    <input type="number" th:value="${food.getId()}" name="foodId" placeholder="ID of customer" required>
-    <input type="text" th:value="${food.getName()}" name="name" placeholder="Food Name">
-    <input type="text" th:value="${food.getDescription()}" name="description" placeholder="Description">
-    <input type="number" th:value="${food.getPrice()}" name="price" placeholder="Price">
-    <button type="submit" class="customerUpdateButton">Update food</button>
-  </form>
-</div>
-
-
+  <div class="update-customer-container">
+    <h2>Update existing food</h2>
+    <form th:each="food, stat : ${foods}" class="update-customer-container" th:action="@{/foods/food/update}" th:method="POST">
+      <input type="number" th:value="${food.getId()}" name="foodId" placeholder="ID of customer" required>
+      <input type="text" th:value="${food.getName()}" name="name" placeholder="Food Name">
+      <input type="text" th:value="${food.getDescription()}" name="description" placeholder="Description">
+      <input type="number" th:value="${food.getPrice()}" name="price" placeholder="Price">
+      <button type="submit" class="customerUpdateButton">Update food</button>
+    </form>
+  </div>
 </body>
 </html>

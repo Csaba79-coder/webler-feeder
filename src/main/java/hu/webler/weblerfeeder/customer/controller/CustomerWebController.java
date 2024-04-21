@@ -93,8 +93,8 @@ public class CustomerWebController {
     }
 
     @PostMapping("/customers/customer")
-    public String deleteCustomerOnWeb(@RequestParam Long id) {
-        customerService.deleteCustomer(id);
+    public String deleteCustomerOnWeb(@RequestParam Long customerId) {
+        customerService.deleteCustomer(customerId);
         return "redirect:/customers";
     }
 }

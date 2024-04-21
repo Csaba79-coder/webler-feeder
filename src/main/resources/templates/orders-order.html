@@ -6,105 +6,103 @@
   <title>Feeder - Order food to be fed</title>
 </head>
 <body class="customers-content">
-
-<div class="navbar">
-  <img th:src="@{/images/logo.png}" alt="Feeder logo">
-  <div class="navElements">
-    <a th:href="@{/}">Home</a>
-    <a th:href="@{/customers}">Customers</a>
-    <a th:href="@{/foods}">Foods</a>
-    <a th:href="@{/orders}">Orders</a>
-    <a th:href="@{/add-customer}">Add new customer</a>
-    <a th:href="@{/update-customer}">Update customer</a>
+  <div class="navbar">
+    <img th:src="@{/images/logo.png}" alt="Feeder logo">
+    <div class="navElements">
+      <a th:href="@{/}">Home</a>
+      <a th:href="@{/customers}">Customers</a>
+      <a th:href="@{/foods}">Foods</a>
+      <a th:href="@{/orders}">Orders</a>
+      <a th:href="@{/add-customer}">Add new customer</a>
+    </div>
   </div>
-</div>
+  <div class="create-order-content">
+    <table border="1">
+      <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Mid Name</th>
+        <th>Last name</th>
+        <th>Street and number</th>
+        <th>City</th>
+        <th>Postal code</th>
+        <th>Cellphone</th>
+        <th>Email</th>
+        <th>Date of birth</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody th:if="${not #lists.isEmpty(customers)}">
+      <tr th:each="customer : ${customers}">
+        <td th:text="${customers.getFirstName()}"></td>
+        <td th:text="${customers.getMidName()}"></td>
+        <td th:text="${customers.getLastName()}"></td>
+        <td th:text="${customers.getAddress().getStreetAndNumber()}"></td>
+        <td th:text="${customers.getAddress().getCity()}"></td>
+        <td th:text="${customers.getAddress().getPostalCode()}"></td>
+        <td th:text="${customers.getCell()}"></td>
+        <td th:text="${customers.getEmail()}"></td>
+        <td th:text="${customers.getDateOfBirth()}"></td>
+        <td th:text="${customers.getStatus()}"></td>
+      </tr>
+      </tbody>
+      <tbody th:unless="${not #lists.isEmpty(customers)}">
+      <tr>
+        <td colspan="6">No data found</td>
+      </tr>
+      </tbody>
+    </table>
 
-<div class="create-order-content">
 
-  <table border="1">
-    <thead>
-    <tr>
-      <th>First Name</th>
-      <th>Mid Name</th>
-      <th>Last name</th>
-      <th>Street and number</th>
-      <th>City</th>
-      <th>Postal code</th>
-      <th>Cellphone</th>
-      <th>Email</th>
-      <th>Date of birth</th>
-      <th>Status</th>
-    </tr>
-    </thead>
+    <table border="1">
+      <thead>
+      <tr>
+        <th>Order Id</th>
+        <th>Created at</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody th:if="${not #lists.isEmpty(orders)}">
+      <tr th:each="order, stat : ${orders}">
+        <td th:text="${orders.getId()}"></td>
+        <td th:text="${orders.getCreatedAt()}"></td>
+        <td th:text="${orders.getDescription()}"></td>
+        <td>
+          <form th:action="@{/create-order/order}" method="get" class="customersListButtonForm">
+            <input type="hidden" name="customerId" th:value="${orders.getCustomer().getId()}" />
+            <input type="hidden" name="orderId" th:value="${orders.getId()}" />
+            <button type="submit" class="customerUpdateButton">Open order</button>
+          </form>
+        </td>
+      </tr>
+      </tbody>
+      <tbody th:unless="${not #lists.isEmpty(orders)}">
+      <tr>
+        <td colspan="6">No data found</td>
+      </tr>
+      </tbody>
+    </table>
 
-    <tbody th:if="${not #lists.isEmpty(customers)}">
-    <tr th:each="customer : ${customers}">
-      <td th:text="${customers.getFirstName()}"></td>
-      <td th:text="${customers.getMidName()}"></td>
-      <td th:text="${customers.getLastName()}"></td>
-      <td th:text="${customers.getAddress().getStreetAndNumber()}"></td>
-      <td th:text="${customers.getAddress().getCity()}"></td>
-      <td th:text="${customers.getAddress().getPostalCode()}"></td>
-      <td th:text="${customers.getCell()}"></td>
-      <td th:text="${customers.getEmail()}"></td>
-      <td th:text="${customers.getDateOfBirth()}"></td>
-      <td th:text="${customers.getStatus()}"></td>
-    </tr>
-    </tbody>
-    <tbody th:unless="${not #lists.isEmpty(customers)}">
-    <tr>
-      <td colspan="6">No data found</td>
-    </tr>
-    </tbody>
-  </table>
 
-  <table border="1">
-    <thead>
-    <tr>
-      <th>Order Id</th>
-      <th>Created at</th>
-      <th>Description</th>
-    </tr>
-    </thead>
+    <table border="1">
+      <thead>
+      <tr>
+        <th>Foods in this order</th>
+      </tr>
+      </thead>
+      <tbody th:if="${not #lists.isEmpty(orders)}">
+      <tr th:each="order : ${orders.getFoods()}">
+        <td th:text="${orders.getFoods()}"></td>
+      </tr>
+      </tbody>
+      <tbody th:unless="${not #lists.isEmpty(orders.getFoods())}">
+      <tr>
+        <td colspan="6">No foods found</td>
+      </tr>
+      </tbody>
+    </table>
 
-    <tbody th:if="${not #lists.isEmpty(orders)}">
-    <tr th:each="order, stat : ${orders}">
-      <td th:text="${orders.getId()}"></td>
-      <td th:text="${orders.getCreatedAt()}"></td>
-      <td th:text="${orders.getDescription()}"></td>
-      <form th:action="@{/create-order/order}" method="get" class="customersListButtonForm">
-        <input type="hidden" name="customerId" th:value="${orders.getCustomer().getId()}" />
-        <input type="hidden" name="orderId" th:value="${orders.getId()}" />
-        <button type="submit" class="customerUpdateButton">Open order</button>
-      </form>
-    </tr>
-    </tbody>
-    <tbody th:unless="${not #lists.isEmpty(orders)}">
-    <tr>
-      <td colspan="6">No data found</td>
-    </tr>
-    </tbody>
-  </table>
-
-  <table border="1">
-    <thead>
-    <tr>
-      <th>Foods in this order</th>
-    </tr>
-    </thead>
-
-    <tbody th:if="${not #lists.isEmpty(orders)}">
-    <tr th:each="order : ${orders}">
-      <td th:text="${orders.getFoods()}"></td>
-    </tr>
-    </tbody>
-    <tbody th:unless="${not #lists.isEmpty(orders)}">
-    <tr>
-      <td colspan="6">No foods found</td>
-    </tr>
-    </tbody>
-  </table>
-
-</div>
+    </div>
+  </div>
 </body>
 </html>

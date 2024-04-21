@@ -15,11 +15,16 @@
     <a th:href="@{/foods}">Foods</a>
     <a th:href="@{/orders}">Orders</a>
     <a th:href="@{/add-customer}">Add new customer</a>
-    <a th:href="@{/update-customer}">Update customer</a>
   </div>
 </div>
 
   <h1>Feeder customers</h1>
+
+  <form action="/customers/search" method="get" class="customerEmailSearchForm">
+    <input type="text" name="email" placeholder="Search by email address...">
+    <button type="submit" class="customerEmailSearchButton">Search customer by email</button>
+  </form>
+
   <div class="our-customers-table">
     <table border="1">
       <thead>
@@ -56,9 +61,15 @@
           </form>
         </td>
         <td>
-          <form th:action="@{/create-order/{customerId}(customerId=${customer.getId()})}" method="get" class="customersListButtonForm">
+          <form th:action="@{/create-order}" method="get" class="customersListButtonForm">
             <input type="hidden" name="customerId" th:value="${customer.getId()}" />
             <button type="submit" class="customerUpdateButton">Create order</button>
+          </form>
+        </td>
+        <td>
+          <form th:action="@{/customers/customer}" method="post" class="customersListButtonForm">
+            <input type="hidden" name="customerId" th:value="${customer.getId()}" />
+            <button type="submit" class="customerUpdateButton">Delete customer</button>
           </form>
         </td>
       </tr>
@@ -68,20 +79,7 @@
         <td colspan="6">No data found</td>
       </tr>
       </tbody>
-
     </table>
   </div>
-
-  <div class="customers">
-
-
-    <h2>Delete customer</h2>
-    <form action="/customers/customer" method="POST">
-      <input type="number" name="id" placeholder="Delete by id...">
-      <button type="submit" class="customerDeleteButton">Delete customer</button>
-    </form>
-
-  </div>
-
 </body>
 </html>

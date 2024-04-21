@@ -6,7 +6,6 @@
     <title>Feeder - Order food to be fed</title>
 </head>
 <body>
-
     <div class="navbar">
         <img th:src="@{/images/logo.png}" alt="Feeder logo">
         <div class="navElements">
@@ -15,26 +14,12 @@
             <a th:href="@{/foods}">Foods</a>
             <a th:href="@{/orders}">Orders</a>
             <a th:href="@{/add-customer}">Add new customer</a>
-            <a th:href="@{/update-customer}">Update customer</a>
         </div>
     </div>
-
     <div class="hero">
         <h1 id="siteNameHero">Feeder</h1>
         <h3 id="siteSloganHero">Order food to be fed</h3>
     </div>
-
-    <div class="index-content">
-        <form action="/customers" method="get" class="customersListButtonForm">
-            <button type="submit" class="customersListButton">List all customers</button>
-        </form>
-
-        <form action="/customers/search" method="get" class="customerEmailSearchForm">
-            <input type="text" name="email" placeholder="Search by email address...">
-            <button type="submit" class="customerEmailSearchButton">Search customer by email</button>
-        </form>
-    </div>
-
     <h1 class="foods-title">Culinary offerings</h1>
     <div class="foods-table">
         <table border="1">
@@ -45,7 +30,6 @@
                 <th>Price</th>
             </tr>
             </thead>
-
             <tbody th:if="${not #lists.isEmpty(foods)}">
             <tr th:each="food, stat : ${foods}">
                 <td th:text="${food.getName()}"></td>
@@ -59,11 +43,9 @@
             </tr>
             </tbody>
         </table>
-
         <form action="/customers" method="get" class="customersListButtonForm">
             <button type="submit" class="customersListButton">Make order</button>
         </form>
     </div>
-
 </body>
 </html>
