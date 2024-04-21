@@ -7,23 +7,23 @@
 </head>
 <body class="customers-content">
 
-  <div class="navbar">
-    <img th:src="@{/images/logo.png}" alt="Feeder logo">
-    <div class="navElements">
-      <a th:href="@{/}">Home</a>
-      <a th:href="@{/customers}">Customers</a>
-      <a th:href="@{/add-customer}">Add new customer</a>
-      <a th:href="@{/update-customer}">Update customer</a>
-    </div>
+<div class="navbar">
+  <img th:src="@{/images/logo.png}" alt="Feeder logo">
+  <div class="navElements">
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/customers}">Customers</a>
+    <a th:href="@{/foods}">Foods</a>
+    <a th:href="@{/orders}">Orders</a>
+    <a th:href="@{/add-customer}">Add new customer</a>
+    <a th:href="@{/update-customer}">Update customer</a>
   </div>
+</div>
 
   <h1>Feeder customers</h1>
   <div class="our-customers-table">
     <table border="1">
       <thead>
       <tr>
-        <th>#</th>
-        <th>ID</th>
         <th>First Name</th>
         <th>Mid Name</th>
         <th>Last name</th>
@@ -39,8 +39,6 @@
 
       <tbody th:if="${not #lists.isEmpty(customers)}">
       <tr th:each="customer, stat : ${customers}">
-        <td th:text="${stat.index + 1}"></td>
-        <td th:text="${customer.getId()}"></td>
         <td th:text="${customer.getFirstName()}"></td>
         <td th:text="${customer.getMidName()}"></td>
         <td th:text="${customer.getLastName()}"></td>
@@ -53,11 +51,13 @@
         <td th:text="${customer.getStatus()}"></td>
         <td>
           <form th:action="@{/update-customer}" method="get" class="customersListButtonForm">
+            <input type="hidden" name="customerId" th:value="${customer.getId()}" />
             <button type="submit" class="customerUpdateButton">Update customer</button>
           </form>
         </td>
         <td>
-          <form th:action="@{/create-order}" method="get">
+          <form th:action="@{/create-order/{customerId}(customerId=${customer.getId()})}" method="get" class="customersListButtonForm">
+            <input type="hidden" name="customerId" th:value="${customer.getId()}" />
             <button type="submit" class="customerUpdateButton">Create order</button>
           </form>
         </td>

@@ -12,6 +12,8 @@
         <div class="navElements">
             <a th:href="@{/}">Home</a>
             <a th:href="@{/customers}">Customers</a>
+            <a th:href="@{/foods}">Foods</a>
+            <a th:href="@{/orders}">Orders</a>
             <a th:href="@{/add-customer}">Add new customer</a>
             <a th:href="@{/update-customer}">Update customer</a>
         </div>
@@ -29,7 +31,37 @@
 
         <form action="/customers/search" method="get" class="customerEmailSearchForm">
             <input type="text" name="email" placeholder="Search by email address...">
-            <button type="submit" class="customerEmailSearchButton">Search students by email</button>
+            <button type="submit" class="customerEmailSearchButton">Search customer by email</button>
+        </form>
+    </div>
+
+    <h1 class="foods-title">Culinary offerings</h1>
+    <div class="foods-table">
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Food name</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+
+            <tbody th:if="${not #lists.isEmpty(foods)}">
+            <tr th:each="food, stat : ${foods}">
+                <td th:text="${food.getName()}"></td>
+                <td th:text="${food.getDescription()}"></td>
+                <td th:text="${food.getPrice()}"></td>
+            </tr>
+            </tbody>
+            <tbody th:unless="${not #lists.isEmpty(foods)}">
+            <tr>
+                <td colspan="6">No data found</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <form action="/customers" method="get" class="customersListButtonForm">
+            <button type="submit" class="customersListButton">Make order</button>
         </form>
     </div>
 

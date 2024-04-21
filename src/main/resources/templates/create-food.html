@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/style.css}">
+  <title>Feeder - Order food to be fed</title>
+</head>
+<body class="customers-content">
+
+<div class="navbar">
+  <img th:src="@{/images/logo.png}" alt="Feeder logo">
+  <div class="navElements">
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/customers}">Customers</a>
+    <a th:href="@{/foods}">Foods</a>
+    <a th:href="@{/orders}">Orders</a>
+    <a th:href="@{/add-customer}">Add new customer</a>
+    <a th:href="@{/update-customer}">Update customer</a>
+  </div>
+</div>
+
+<div class="add-customer">
+  <h1>Add new food</h1>
+
+  <form class="add-customer" action="/foods/food/create" th:method="POST">
+    <input type="text" name="name" placeholder="Food Name" required>
+    <input type="text" name="description" placeholder="Description">
+    <input type="number" name="price" placeholder="Price" required>
+    <button type="submit" class="customerAddButton">Add food</button>
+  </form>
+</div>
+
+</body>
+</html>

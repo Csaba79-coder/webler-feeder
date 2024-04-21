@@ -105,6 +105,7 @@ public class CustomerService {
         }
         existingCustomer.setDateOfBirth(customerUpdateModel.getDateOfBirth());
         existingCustomer.setStatus(customerUpdateModel.getStatus());
+        existingCustomer.setAddress(customerUpdateModel.getAddress());
     }
 
     private boolean isRequiredFieldsExistsAndContainData(CustomerUpdateModel customerUpdateModel) {

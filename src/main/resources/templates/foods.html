@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/style.css}">
+  <title>Feeder - Order food to be fed</title>
+</head>
+<body class="customers-content">
+
+<div class="navbar">
+  <img th:src="@{/images/logo.png}" alt="Feeder logo">
+  <div class="navElements">
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/customers}">Customers</a>
+    <a th:href="@{/foods}">Foods</a>
+    <a th:href="@{/orders}">Orders</a>
+    <a th:href="@{/add-customer}">Add new customer</a>
+    <a th:href="@{/update-customer}">Update customer</a>
+  </div>
+</div>
+
+<h1>Feeder foods</h1>
+<div class="our-customers-table">
+  <table border="1">
+    <thead>
+    <tr>
+      <th>Food name</th>
+      <th>Description</th>
+      <th>Price</th>
+    </tr>
+    </thead>
+
+    <tbody th:if="${not #lists.isEmpty(foods)}">
+    <tr th:each="food, stat : ${foods}">
+      <td th:text="${food.getName()}"></td>
+      <td th:text="${food.getDescription()}"></td>
+      <td th:text="${food.getPrice()}"></td>
+      <td>
+        <form th:action="@{/update-food/{foodId}(foodId=${food.getId()})}" method="get" class="customersListButtonForm">
+          <input type="hidden" name="foodId" th:value="${food.getId()}" />
+          <button type="submit" class="customerUpdateButton">Update food</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+    <tbody th:unless="${not #lists.isEmpty(foods)}">
+    <tr>
+      <td colspan="6">No data found</td>
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+
+<div class="customers">
+
+
+  <h2>Delete food</h2>
+  <form action="/foods/food" method="POST">
+    <input type="number" name="id" placeholder="Delete by id...">
+    <button type="submit" class="customerDeleteButton">Delete food</button>
+  </form>
+
+  <div class="add-customer">
+    <h1>Add new food</h1>
+
+    <form class="add-customer" action="/foods/food/create" th:method="POST">
+      <input type="text" name="name" placeholder="Food Name" required>
+      <input type="text" name="description" placeholder="Description">
+      <input type="text" name="price" placeholder="Price" required>
+      <button type="submit" class="customerAddButton">Add new food</button>
+    </form>
+  </div>
+
+
+</div>
+
+</body>
+</html>

@@ -1,8 +1,10 @@
 package hu.webler.weblerfeeder.customer.controller;
 
+import hu.webler.weblerfeeder.address.entity.Address;
 import hu.webler.weblerfeeder.customer.model.CustomerCreateModel;
 import hu.webler.weblerfeeder.customer.model.CustomerUpdateModel;
 import hu.webler.weblerfeeder.customer.service.CustomerService;
+import hu.webler.weblerfeeder.food.service.FoodService;
 import hu.webler.weblerfeeder.value.Status;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,9 +19,11 @@ import java.time.LocalDate;
 public class CustomerWebController {
 
     private final CustomerService customerService;
+    private final FoodService foodService;
 
     @GetMapping
-    public String homePage() {
+    public String homePage(Model model) {
+        model.addAttribute("foods", foodService.getAllFoods());
         return "index";
     }
 
@@ -43,7 +47,8 @@ public class CustomerWebController {
     }
 
     @GetMapping("/update-customer")
-    public String updateCustomerOnWeb() {
+    public String updateCustomerOnWeb(@RequestParam Long customerId, Model model) {
+        model.addAttribute("customers", customerService.getCustomerById(customerId));
         return "update-customer";
     }
 
@@ -57,9 +62,11 @@ public class CustomerWebController {
         newCustomer.setCell(cell);
         newCustomer.setEmail(email);
         newCustomer.setDateOfBirth(dateOfBirth);
-        newCustomer.getAddress().setStreetAndNumber(streetAndNumber);
-        newCustomer.getAddress().setCity(city);
-        newCustomer.getAddress().setPostalCode(postalCode);
+        newCustomer.setAddress(Address.builder()
+                .streetAndNumber(streetAndNumber)
+                .city(city)
+                .postalCode(postalCode)
+                .build());
         customerService.addCustomer(newCustomer);
         return "redirect:/customers";
     }
@@ -68,18 +75,20 @@ public class CustomerWebController {
     public String updateCustomerOnWeb(@RequestParam Long customerId, String firstName, String midName, String lastName,
                                       String streetAndNumber, String city, String postalCode, String cell, String email,
                                       LocalDate dateOfBirth, Status status) {
-        CustomerUpdateModel updateModelCustomer = new CustomerUpdateModel();
-        updateModelCustomer.setFirstName(firstName);
-        updateModelCustomer.setMidName(midName);
-        updateModelCustomer.setLastName(lastName);
-        updateModelCustomer.setCell(cell);
-        updateModelCustomer.setEmail(email);
-        updateModelCustomer.setDateOfBirth(dateOfBirth);
-        updateModelCustomer.setStatus(status);
-        updateModelCustomer.getAddress().setStreetAndNumber(streetAndNumber);
-        updateModelCustomer.getAddress().setCity(city);
-        updateModelCustomer.getAddress().setPostalCode(postalCode);
-        customerService.updateCustomer(customerId, updateModelCustomer);
+        CustomerUpdateModel customerUpdateModel = new CustomerUpdateModel();
+        customerUpdateModel.setFirstName(firstName);
+        customerUpdateModel.setMidName(midName);
+        customerUpdateModel.setLastName(lastName);
+        customerUpdateModel.setCell(cell);
+        customerUpdateModel.setEmail(email);
+        customerUpdateModel.setDateOfBirth(dateOfBirth);
+        customerUpdateModel.setStatus(status);
+        customerUpdateModel.setAddress(Address.builder()
+                .streetAndNumber(streetAndNumber)
+                .city(city)
+                .postalCode(postalCode)
+                .build());
+        customerService.updateCustomer(customerId, customerUpdateModel);
         return "redirect:/customers";
     }
 
@@ -87,5 +96,5 @@ public class CustomerWebController {
     public String deleteCustomerOnWeb(@RequestParam Long id) {
         customerService.deleteCustomer(id);
         return "redirect:/customers";
-        }
+    }
 }

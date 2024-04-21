@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/style.css}">
+  <title>Feeder - Order food to be fed</title>
+</head>
+<body class="customers-content">
+
+<div class="navbar">
+  <img th:src="@{/images/logo.png}" alt="Feeder logo">
+  <div class="navElements">
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/customers}">Customers</a>
+    <a th:href="@{/foods}">Foods</a>
+    <a th:href="@{/orders}">Orders</a>
+    <a th:href="@{/add-customer}">Add new customer</a>
+    <a th:href="@{/update-customer}">Update customer</a>
+  </div>
+</div>
+
+<h1>Feeder orders</h1>
+<div class="our-customers-table">
+  <table border="1">
+    <thead>
+    <tr>
+      <th>Order Id</th>
+      <th>Created</th>
+      <th>Description</th>
+      <th>Customer</th>
+    </tr>
+    </thead>
+
+    <tbody th:if="${not #lists.isEmpty(orders)}">
+    <tr th:each="order, stat : ${orders}">
+      <td th:text="${order.getId()}"></td>
+      <td th:text="${order.getCreatedAt()}"></td>
+      <td th:text="${order.getDescription()}"></td>
+      <td th:text="${order.getCustomer().getFirstName()}"></td>
+      <td>
+        <form th:action="@{/update-order}" method="get" class="customersListButtonForm">
+          <input type="hidden" name="orderId" th:value="${order.getId()}" />
+          <button type="submit" class="customerUpdateButton">Update order</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+    <tbody th:unless="${not #lists.isEmpty(orders)}">
+    <tr>
+      <td colspan="6">No data found</td>
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+
+<div class="customers">
+
+
+  <h2>Delete order</h2>
+  <form action="/orders/order" method="POST">
+    <input type="number" name="id" placeholder="Delete by id...">
+    <button type="submit" class="customerDeleteButton">Delete order</button>
+  </form>
+
+</div>
+
+</body>
+</html>
