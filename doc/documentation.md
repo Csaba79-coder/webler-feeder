@@ -11,7 +11,7 @@ Each customer has a residence address, which is stored in a separate entity. <br
 
 ### Feeder Database Connections:
 
-![image.png](\images\DB.png)
+![img.png](img.png)
 
 ### Base entities:
 Auditable - Responsible for Creation Time <br />
