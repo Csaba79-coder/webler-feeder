@@ -15,5 +15,5 @@ public class Auditable extends Identifier {
 
     @CreationTimestamp
     @Column(nullable = false)
-    private final LocalDateTime createdAt = now();
+    private LocalDateTime createdAt = now();
 }
