@@ -34,10 +34,10 @@
 - H2 Database (in-memory database)
 
 ---
-
 | Name               | Value         | Remark            | Extra remark                                                                                                                                                 |
 |--------------------|---------------|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | DB_PORT_MYSQL           | 3306          | default           | please user your own port that has been set to MySQL server                                                                                                  |
 | DB_URL_MYSQL             | webler_feeder | recommended       | you can use your own, our name is just a recommendation!                                                                                                     |
 | DB_USER_MYSQL            | root          | default           | please use your own!                                                                                                                                         |
 | DB_PASSWORD_MYSQL        | no such info  | pls use your own! | [MYSQL Installation Guide](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/)                                                       |    
+
