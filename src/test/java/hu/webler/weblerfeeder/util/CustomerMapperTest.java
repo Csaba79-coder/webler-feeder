@@ -20,7 +20,6 @@ public class CustomerMapperTest {
     @Test
     @DisplayName("Given customer create model when mapping to entity then returns customer entity")
     public void givenCustomerCreateModel_whenMappingToEntity_thenReturnsCustomerEntity() {
-
         //Given
         CustomerCreateModel customerCreateModel = new CustomerCreateModel();
         customerCreateModel.setFirstName("Mikulas");
