@@ -40,7 +40,6 @@ public class CustomerServiceTest {
     @Test
     @DisplayName("Given valid customer create model when addCustomer then returns customer model")
     public void givenValidCustomerCreateModel_whenAddCustomer_thenReturnsCustomerModel() {
-
         //Given
         CustomerCreateModel customerCreateModel = new CustomerCreateModel();
         customerCreateModel.setFirstName("Mikulas");
@@ -82,7 +81,6 @@ public class CustomerServiceTest {
                 .usingRecursiveComparison()
                 .ignoringFields("id", "registrationDate", "address.createdAt")
                 .isEqualTo(createdCustomer);
-
     }
 
     @Test
@@ -90,7 +88,7 @@ public class CustomerServiceTest {
     public void givenValidCustomerCreateModel_whenAddCustomer_thenThrowsUserAlreadyExistsException() {
 
         //Given
-        String email = "a@gmail.com";
+        String email = "mikcsek2@gmail.com";
         CustomerCreateModel customerCreateModel = new CustomerCreateModel();
         customerCreateModel.setFirstName("Mikulas");
         customerCreateModel.setMidName("mikcsek");
@@ -106,7 +104,7 @@ public class CustomerServiceTest {
         );
 
         when(customerRepository.save(any())).thenReturn(mapCustomerCreateModelToCustomerEntity(customerCreateModel))
-                .thenThrow(new EntityAlreadyExistsException(String.format("User with this email %s not found", email)));
+                .thenThrow(new EntityAlreadyExistsException(String.format("User with this email %s already exists", email)));
 
         //When
         customerService.addCustomer(customerCreateModel);
@@ -114,7 +112,7 @@ public class CustomerServiceTest {
         //Then
         assertThatThrownBy(() -> customerService.addCustomer(customerCreateModel))
                 .isInstanceOf(EntityAlreadyExistsException.class)
-                .hasMessage("User with this email %s not found", email);
+                .hasMessage("User with this email %s already exists", email);
     }
 
     @Test

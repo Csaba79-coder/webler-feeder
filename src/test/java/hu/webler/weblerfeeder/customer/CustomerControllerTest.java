@@ -75,7 +75,6 @@ public class CustomerControllerTest {
                 .usingRecursiveComparison()
                 .asList()
                 .hasSize(0);
-
     }
 
     @Test
@@ -143,7 +142,7 @@ public class CustomerControllerTest {
 
     @Test
     @DisplayName("Given valid email when getCustomerByEmail then return customer")
-    public void givenValidEmail_whenGetCustomerByEmail_thenReturnCustomerModel() throws Exception{
+    public void givenValidEmail_whenGetCustomerByEmail_thenReturnCustomerModel() throws Exception {
         //Given
         String email = "mikcsek2@gmail.com"; // valid email
 
@@ -183,12 +182,11 @@ public class CustomerControllerTest {
         assertThat(actualUser)
                 .usingRecursiveComparison()
                 .isEqualTo(customer);
-
     }
 
     @Test
     @DisplayName("Given valid id when getCustomerById then return customer")
-    public void givenValidEmail_whenGetCustomerById_thenReturnCustomerModel() throws Exception{
+    public void givenValidId_whenGetCustomerById_thenReturnCustomerModel() throws Exception {
         //Given
         Long id = 1L; // valid id
 
@@ -227,6 +225,5 @@ public class CustomerControllerTest {
                 .usingRecursiveComparison()
                 .ignoringFields("id", "registrationDate", "createdAt", "orders")
                 .isEqualTo(customer);
-
     }
 }
