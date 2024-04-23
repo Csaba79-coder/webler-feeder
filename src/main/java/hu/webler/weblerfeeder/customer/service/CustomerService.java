@@ -112,9 +112,8 @@ public class CustomerService {
                 customerUpdateModel.getFirstName() != null && !customerUpdateModel.getFirstName().equals("") &&
                 customerUpdateModel.getMidName() != null &&
                 customerUpdateModel.getLastName() != null && !customerUpdateModel.getLastName().equals("") &&
-                customerUpdateModel.getCell() != null && !customerUpdateModel.getCell().equals("") &&
-
-                        customerUpdateModel.getEmail() != null && !customerUpdateModel.getEmail().equals("") &&
+                customerUpdateModel.getCell() != null && !customerUpdateModel.getCell().equals("") && 
+                customerUpdateModel.getEmail() != null && !customerUpdateModel.getEmail().equals("") &&
                 customerUpdateModel.getDateOfBirth() != null && !customerUpdateModel.getDateOfBirth().toString().equals("") &&
                 customerUpdateModel.getStatus() != null
         ) {
