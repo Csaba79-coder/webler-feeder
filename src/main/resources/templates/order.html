@@ -54,8 +54,7 @@
       </tbody>
     </table>
 
-
-    <table border="1">
+    <table class="orders" border="1">
       <thead>
       <tr>
         <th>Order Id</th>
@@ -64,17 +63,12 @@
       </tr>
       </thead>
       <tbody th:if="${not #lists.isEmpty(orders)}">
-      <tr th:each="order, stat : ${orders}">
+      <tr th:each="order : ${orders}">
         <td th:text="${orders.getId()}"></td>
         <td th:text="${orders.getCreatedAt()}"></td>
         <td th:text="${orders.getDescription()}"></td>
-        <td>
-          <form th:action="@{/create-order/order/add-food}" method="get" class="customersListButtonForm">
-            <input type="hidden" name="customerId" th:value="${orders.getCustomer().getId()}" />
-            <input id="inputOrderId" type="hidden" name="orderId" th:value="${orders.getId()}" />
-            <button type="submit" class="customerUpdateButton">Add food to order</button>
-          </form>
-        </td>
+        <input type="hidden" name="customerId" th:value="${orders.getCustomer().getId()}" />
+        <input id="inputOrderId" type="hidden" name="orderId" th:value="${orders.getId()}" />
       </tr>
       </tbody>
       <tbody th:unless="${not #lists.isEmpty(orders)}">
@@ -85,19 +79,19 @@
     </table>
 
 
-    <table border="1">
+    <table class="foodInOrder" border="1">
       <thead>
       <tr>
         <th>Foods in this order</th>
       </tr>
       </thead>
       <tbody th:if="${not #lists.isEmpty(orders.getFoods())}">
-        <tr th:each="order : ${orders.getFoods()}">
-          <td th:text="${order.getName()}"></td>
-          <td th:text="${order.getDescription()}"></td>
-          <td th:text="${order.getPrice()}"></td>
+        <tr th:each="food : ${orders.getFoods()}">
+          <td th:text="${food.getName()}"></td>
+          <td th:text="${food.getDescription()}"></td>
+          <td th:text="${food.getPrice()}"></td>
           <td>
-              <input type="hidden" id="foodIdToRemove" th:value="${order.getId()}" />
+              <input type="hidden" id="foodIdToRemove" th:value="${food.getId()}" />
               <button class="btnRemoveFood">Remove food from order</button>
           </td>
         </tr>
@@ -111,12 +105,7 @@
 
     <table border="1">
       <thead>
-      <tr>
-        <th>Food Id</th>
-        <th>Food name</th>
-        <th>Description</th>
-        <th>Price</th>
-      </tr>
+
       </thead>
       <tbody th:if="${not #lists.isEmpty(foods)}">
           <td><label for="foodsData">Choose a food id:</label>
@@ -132,7 +121,7 @@
       </tr>
       </tbody>
     </table>
-    <button id="foodBtn" class="customerDeleteButton">Add food</button>
+    <button id="foodBtn" class="orderAddButton">Add food</button>
   </div>
 
 <script type="text/javascript" th:src="@{/js/app.js}"></script>

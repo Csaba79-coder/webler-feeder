@@ -1,8 +1,7 @@
 package hu.webler.weblerfeeder.food.entity;
 
 import hu.webler.weblerfeeder.base.Auditable;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -22,4 +21,7 @@ public class Food extends Auditable {
 
     @Column(nullable = false)
     private Double price;
+
+    @Column(name = "foodPic")
+    private String foodPic = "/images/logo.png";
 }

@@ -40,10 +40,6 @@ public class OrderWebController {
         model.addAttribute("foods", foodService.getAllFoods());
         return "order";
     }
-    @GetMapping(value = "/create-order/order/add-food")
-    public void addFoodToOrderOnWeb(@RequestParam Long foodId, @RequestParam Long orderId) {
-        orderService.addFoodToOrderById(orderId, foodId);
-    }
 
     @GetMapping(value = "/update-order")
     public String updateOrderOnWeb(@RequestParam Long orderId,

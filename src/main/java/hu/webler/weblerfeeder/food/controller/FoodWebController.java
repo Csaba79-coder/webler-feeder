@@ -21,11 +21,12 @@ public class FoodWebController {
     }
 
     @PostMapping("/foods/food/create")
-    public String addFoodOnWeb(@RequestParam String name, String description, Double price) {
+    public String addFoodOnWeb(@RequestParam String name, String description, Double price, String foodPic) {
         FoodCreateAndUpdateModel newFood = new FoodCreateAndUpdateModel();
         newFood.setName(name);
         newFood.setDescription(description);
         newFood.setPrice(price);
+        newFood.setFoodPic(foodPic);
         foodService.addFood(newFood);
         return "redirect:/foods";
     }
@@ -37,11 +38,12 @@ public class FoodWebController {
     }
 
     @PostMapping("/foods/food/update")
-    public String updateFoodOnWeb(@RequestParam Long foodId, String name, String description, Double price) {
+    public String updateFoodOnWeb(@RequestParam Long foodId, String name, String description, Double price, String foodPic) {
         FoodCreateAndUpdateModel foodCreateAndUpdateModel = new FoodCreateAndUpdateModel();
         foodCreateAndUpdateModel.setName(name);
         foodCreateAndUpdateModel.setDescription(description);
         foodCreateAndUpdateModel.setPrice(price);
+        foodCreateAndUpdateModel.setFoodPic(foodPic);
         foodService.updateFood(foodId, foodCreateAndUpdateModel);
         return "redirect:/foods";
     }

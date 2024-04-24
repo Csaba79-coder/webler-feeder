@@ -19,19 +19,27 @@
     <div class="update-customer-container">
         <h2>Update existing customer</h2>
         <form th:each="customer, stat : ${customers}" class="update-customer-container" th:action="@{/customers/customer/update}" th:method="POST">
-            <input type="number" th:value="${customer.getId()}" name="customerId" placeholder="ID of customer" required>
+            <p>ID:</p>
+            <input type="number" th:value="${customer.getId()}" name="customerId" placeholder="ID of customer" required readonly>
+            <p>First Name:</p>
             <input type="text" th:value="${customer.getFirstName()}" name="firstName" placeholder="First Name">
+            <p>Mid Name:</p>
             <input type="text" th:value="${customer.getMidName()}" name="midName" placeholder="Mid Name">
+            <p>Last Name:</p>
             <input type="text" th:value="${customer.getLastName()}" name="lastName" placeholder="Last Name">
+            <p>Street and number:</p>
             <input type="text" th:value="${customer.getAddress().getStreetAndNumber()}" name="streetAndNumber" placeholder="Street and number">
+            <p>City:</p>
             <input type="text" th:value="${customer.getAddress().getCity()}" name="city" placeholder="City">
+            <p>Postal Code:</p>
             <input type="text" th:value="${customer.getAddress().getPostalCode()}" name="postalCode" placeholder="Postal code">
+            <p>Phone number:</p>
             <input type="text" th:value="${customer.getCell()}" name="cell" placeholder="Cellphone" minlength="10">
+            <p>E-Mail:</p>
             <input type="text" th:value="${customer.getEmail()}" name="email" placeholder="E-mail">
-            <label>
-                <input type="date" th:value="${customer.getDateOfBirth()}" name="dateOfBirth">
-                - Your birthday
-            </label>
+            <p>Birthday:</p>
+            <input type="date" th:value="${customer.getDateOfBirth()}" name="dateOfBirth">
+            <p>Status:</p>
             <input type="text" th:value="${customer.getStatus()}" name="status" placeholder="Status(ACTIVE, INACTIVE, DELETED, UNDEFINED)">
             <button type="submit" class="customerUpdateButton">Update customer</button>
         </form>

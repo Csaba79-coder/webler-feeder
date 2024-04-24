@@ -12,8 +12,9 @@
     <div class="navElements">
       <a th:href="@{/}">Home</a>
       <a th:href="@{/customers}">Customers</a>
+      <a th:href="@{/foods}">Foods</a>
+      <a th:href="@{/orders}">Orders</a>
       <a th:href="@{/add-customer}">Add new customer</a>
-      <a th:href="@{/update-customer}">Update customer</a>
     </div>
   </div>
 
@@ -21,18 +22,24 @@
     <h1>Add new customer</h1>
 
       <form class="add-customer" action="/customers/customer/add" th:method="POST">
+        <p>First Name:</p>
         <input type="text" name="firstName" placeholder="First Name" required>
+        <p>Mid Name:</p>
         <input type="text" name="midName" placeholder="Mid Name">
+        <p>Last Name:</p>
         <input type="text" name="lastName" placeholder="Last Name" required>
+        <p>Street and number:</p>
         <input type="text" name="streetAndNumber" placeholder="Street and number" required>
+        <p>City:</p>
         <input type="text" name="city" placeholder="City" required>
+        <p>Postal Code:</p>
         <input type="text" name="postalCode" placeholder="Postal code" required>
+        <p>Phone number:</p>
         <input type="text" name="cell" placeholder="Cellphone" required minlength="10">
+        <p>E-Mail:</p>
         <input type="text" name="email" placeholder="E-mail" required>
-        <label>
-          <input type="date" name="dateOfBirth" required>
-          - Your birthday
-        </label>
+        <p>Birthday:</p>
+        <input type="date" name="dateOfBirth" required>
         <button type="submit" class="customerAddButton">Add customer</button>
       </form>
   </div>

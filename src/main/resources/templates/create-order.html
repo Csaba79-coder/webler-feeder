@@ -54,7 +54,8 @@
             </tr>
             </tbody>
           </table>
-          <table border="1">
+
+          <table class="orders" border="1">
             <thead>
               <tr>
                 <th>Order Id</th>
@@ -85,9 +86,11 @@
         </div>
       <h1>Create new order</h1>
       <form class="add-customer" action="/orders/order/create" th:method="POST">
-        <input type="number" th:value="${customers.getId()}" name="customerId" placeholder="Customer Id">
-        <input type="text" name="description" placeholder="Description">
-        <button type="submit" class="customerAddButton">Add order</button>
+        <input type="hidden" th:value="${customers.getId()}" name="customerId" placeholder="Customer Id">
+        <label>Description:
+          <input type="text" name="description" placeholder="shipping address, food extras ...">
+        </label>
+        <button type="submit" class="orderAddButton">Add order</button>
       </form>
 </body>
 </html>

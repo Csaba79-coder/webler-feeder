@@ -24,7 +24,7 @@
         <th>Order Id</th>
         <th>Created</th>
         <th>Description</th>
-        <th>Customer</th>
+        <th>Customer email</th>
       </tr>
       </thead>
       <tbody th:if="${not #lists.isEmpty(orders)}">
@@ -32,11 +32,18 @@
         <td th:text="${order.getId()}"></td>
         <td th:text="${order.getCreatedAt()}"></td>
         <td th:text="${order.getDescription()}"></td>
-        <td th:text="${order.getCustomer().getFirstName()}"></td>
+        <td th:text="${order.getCustomer().getEmail()}"></td>
         <td>
           <form th:action="@{/update-order}" method="get" class="customersListButtonForm">
             <input type="hidden" name="orderId" th:value="${order.getId()}" />
             <button type="submit" class="customerUpdateButton">Update order</button>
+          </form>
+        </td>
+        <td>
+          <form th:action="@{/create-order/order}" method="get" class="customersListButtonForm">
+            <input type="hidden" name="customerId" th:value="${order.getCustomer().getId()}" />
+            <input type="hidden" name="orderId" th:value="${order.getId()}" />
+            <button type="submit" class="customerUpdateButton">Open order</button>
           </form>
         </td>
         <td>

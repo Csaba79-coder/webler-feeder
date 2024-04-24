@@ -16,13 +16,16 @@
       <a th:href="@{/add-customer}">Add new customer</a>
     </div>
   </div>
-  <div class="update-customer-container">
+  <div class="update-order-container">
     <h2>Update existing order</h2>
-    <form th:each="order, stat : ${orders}" class="update-customer-container" th:action="@{/orders/order/update}" th:method="POST">
-      <input type="number" th:value="${orders.getId()}" name="orderId"  >
+    <form th:each="order : ${orders}" class="update-customer-container" th:action="@{/orders/order/update}" th:method="POST">
+      <p>ID:</p>
+      <input type="number" th:value="${orders.getId()}" name="orderId" readonly>
+      <p>Created:</p>
       <input type="text" th:value="${orders.getCreatedAt()}" name="createdAt" disabled >
+      <p>Description:</p>
       <input type="text" th:value="${orders.getDescription()}" name="description" required >
-      <button type="submit" class="customerUpdateButton">Update order</button>
+      <button type="submit" class="orderUpdateButton">Update order</button>
     </form>
   </div>
 </body>
