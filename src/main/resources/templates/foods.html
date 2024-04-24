@@ -7,7 +7,7 @@
 </head>
 <body class="customers-content">
   <div class="navbar">
-    <img th:src="@{/images/logo.png}" alt="Feeder logo">
+    <img th:src="@{/images/logo.gif}" alt="Feeder logo">
     <div class="navElements">
       <a th:href="@{/}">Home</a>
       <a th:href="@{/customers}">Customers</a>
@@ -37,13 +37,13 @@
         <td>
           <form th:action="@{/update-food/{foodId}(foodId=${food.getId()})}" method="get" class="customersListButtonForm">
             <input type="hidden" name="foodId" th:value="${food.getId()}" />
-            <button type="submit" class="customerUpdateButton">Update food</button>
+            <button type="submit" class="customerUpdateButton button-75" role="button"><span class="text">Update food</span></button>
           </form>
         </td>
         <td>
           <form action="/foods/food" method="POST">
             <input type="hidden" th:value="${food.getId()}" name="id">
-            <button type="submit" class="customerDeleteButton">Delete food</button>
+            <button type="submit" class="customerDeleteButton button-75" role="button"><span class="text">Delete food</span></button>
           </form>
         </td>
       </tr>
@@ -53,18 +53,21 @@
         <td colspan="6">No data found</td>
       </tr>
       </tbody>
-
     </table>
   </div>
   <div class="customers">
     <div class="add-customer">
       <h1>Add new food</h1>
       <form class="add-customer" action="/foods/food/create" th:method="POST">
-        <input type="text" name="name" placeholder="Food Name" required>
-        <input type="text" name="description" placeholder="Description">
-        <input type="text" name="price" placeholder="Price" required>
-        <input type="text" th:value="@{/images/logo.png}" name="foodPic" placeholder="/images/{foodName}.jpg" required>
-        <button type="submit" class="customerAddButton">Add new food</button>
+        <p>Name:</p>
+        <input type="text" name="name" placeholder="Hamburger" required>
+        <p>Description:</p>
+        <input type="text" name="description" placeholder="Double cheese">
+        <p>Price:</p>
+        <input type="text" name="price" placeholder="2000" required>
+        <p>Picture:</p>
+        <input type="text" th:value="@{/images/logo.gif}" name="foodPic" placeholder="/images/{foodName}.jpg" required>
+        <button type="submit" class="customerAddButton button-75" role="button"><span class="text">Add new food</span></button>
       </form>
     </div>
   </div>

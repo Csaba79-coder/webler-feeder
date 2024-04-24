@@ -7,7 +7,7 @@
 </head>
 <body class="customers-content">
 <div class="navbar">
-  <img th:src="@{/images/logo.png}" alt="Feeder logo">
+  <img th:src="@{/images/logo.gif}" alt="Feeder logo">
   <div class="navElements">
     <a th:href="@{/}">Home</a>
     <a th:href="@{/customers}">Customers</a>
@@ -16,7 +16,6 @@
     <a th:href="@{/add-customer}">Add new customer</a>
   </div>
 </div>
-
   <div class="create-order-content">
     <table border="1">
       <thead>
@@ -53,7 +52,6 @@
       </tr>
       </tbody>
     </table>
-
     <table class="orders" border="1">
       <thead>
       <tr>
@@ -77,8 +75,6 @@
       </tr>
       </tbody>
     </table>
-
-
     <table class="foodInOrder" border="1">
       <thead>
       <tr>
@@ -92,7 +88,7 @@
           <td th:text="${food.getPrice()}"></td>
           <td>
               <input type="hidden" id="foodIdToRemove" th:value="${food.getId()}" />
-              <button class="btnRemoveFood">Remove food from order</button>
+              <button type="submit" class="button-33 btnRemoveFood" role="button">Remove food</button>
           </td>
         </tr>
       </tbody>
@@ -102,10 +98,8 @@
       </tr>
       </tbody>
     </table>
-
     <table border="1">
       <thead>
-
       </thead>
       <tbody th:if="${not #lists.isEmpty(foods)}">
           <td><label for="foodsData">Choose a food id:</label>
@@ -121,9 +115,8 @@
       </tr>
       </tbody>
     </table>
-    <button id="foodBtn" class="orderAddButton">Add food</button>
+    <button id="foodBtn" class="button-33 orderAddButton" role="button">Add food</button>
   </div>
-
 <script type="text/javascript" th:src="@{/js/app.js}"></script>
 </body>
 </html>

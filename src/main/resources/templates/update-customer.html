@@ -7,7 +7,7 @@
 </head>
 <body class="customers-content">
     <div class="navbar">
-        <img th:src="@{/images/logo.png}" alt="Feeder logo">
+        <img th:src="@{/images/logo.gif}" alt="Feeder logo">
         <div class="navElements">
             <a th:href="@{/}">Home</a>
             <a th:href="@{/customers}">Customers</a>
@@ -22,26 +22,26 @@
             <p>ID:</p>
             <input type="number" th:value="${customer.getId()}" name="customerId" placeholder="ID of customer" required readonly>
             <p>First Name:</p>
-            <input type="text" th:value="${customer.getFirstName()}" name="firstName" placeholder="First Name">
+            <input type="text" th:value="${customer.getFirstName()}" name="firstName" placeholder="John">
             <p>Mid Name:</p>
-            <input type="text" th:value="${customer.getMidName()}" name="midName" placeholder="Mid Name">
+            <input type="text" th:value="${customer.getMidName()}" name="midName" placeholder="Percival">
             <p>Last Name:</p>
-            <input type="text" th:value="${customer.getLastName()}" name="lastName" placeholder="Last Name">
+            <input type="text" th:value="${customer.getLastName()}" name="lastName" placeholder="Doe">
             <p>Street and number:</p>
-            <input type="text" th:value="${customer.getAddress().getStreetAndNumber()}" name="streetAndNumber" placeholder="Street and number">
+            <input type="text" th:value="${customer.getAddress().getStreetAndNumber()}" name="Dev street 69" placeholder="Street and number">
             <p>City:</p>
-            <input type="text" th:value="${customer.getAddress().getCity()}" name="city" placeholder="City">
+            <input type="text" th:value="${customer.getAddress().getCity()}" name="city" placeholder="Budapest">
             <p>Postal Code:</p>
-            <input type="text" th:value="${customer.getAddress().getPostalCode()}" name="postalCode" placeholder="Postal code">
+            <input type="text" th:value="${customer.getAddress().getPostalCode()}" name="postalCode" placeholder="1100">
             <p>Phone number:</p>
-            <input type="text" th:value="${customer.getCell()}" name="cell" placeholder="Cellphone" minlength="10">
+            <input type="text" th:value="${customer.getCell()}" name="cell" placeholder="06701234567" minlength="10">
             <p>E-Mail:</p>
-            <input type="text" th:value="${customer.getEmail()}" name="email" placeholder="E-mail">
+            <input type="text" th:value="${customer.getEmail()}" name="email" placeholder="example@gmail.com">
             <p>Birthday:</p>
             <input type="date" th:value="${customer.getDateOfBirth()}" name="dateOfBirth">
             <p>Status:</p>
             <input type="text" th:value="${customer.getStatus()}" name="status" placeholder="Status(ACTIVE, INACTIVE, DELETED, UNDEFINED)">
-            <button type="submit" class="customerUpdateButton">Update customer</button>
+            <button type="submit" class="customerUpdateButton button-75" role="button"><span class="text">Update customer</span></button>
         </form>
     </div>
 </body>

@@ -6,9 +6,8 @@
   <title>Feeder - Order food to be fed</title>
 </head>
 <body class="customers-content">
-
   <div class="navbar">
-    <img th:src="@{/images/logo.png}" alt="Feeder logo">
+    <img th:src="@{/images/logo.gif}" alt="Feeder logo">
     <div class="navElements">
       <a th:href="@{/}">Home</a>
       <a th:href="@{/customers}">Customers</a>
@@ -54,7 +53,6 @@
             </tr>
             </tbody>
           </table>
-
           <table class="orders" border="1">
             <thead>
               <tr>
@@ -72,7 +70,7 @@
                 <form th:action="@{/create-order/order}" method="get" class="customersListButtonForm">
                   <input type="hidden" name="customerId" th:value="${order.getCustomer().getId()}" />
                   <input type="hidden" name="orderId" th:value="${order.getId()}" />
-                  <button type="submit" class="customerUpdateButton">Open order</button>
+                  <button type="submit" class="customerUpdateButton button-75" role="button"><span class="text">Open order</span></button>
                 </form>
               </td>
             </tr>
@@ -90,7 +88,7 @@
         <label>Description:
           <input type="text" name="description" placeholder="shipping address, food extras ...">
         </label>
-        <button type="submit" class="orderAddButton">Add order</button>
+        <button type="submit" class="orderAddButton button-75" role="button"><span class="text">Add order</span></button>
       </form>
 </body>
 </html>

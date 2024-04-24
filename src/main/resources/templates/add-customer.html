@@ -6,9 +6,8 @@
   <title>Feeder - Order food to be fed</title>
 </head>
 <body class="customers-content">
-
   <div class="navbar">
-    <img th:src="@{/images/logo.png}" alt="Feeder logo">
+    <img th:src="@{/images/logo.gif}" alt="Feeder logo">
     <div class="navElements">
       <a th:href="@{/}">Home</a>
       <a th:href="@{/customers}">Customers</a>
@@ -17,30 +16,28 @@
       <a th:href="@{/add-customer}">Add new customer</a>
     </div>
   </div>
-
   <div class="add-customer">
     <h1>Add new customer</h1>
-
       <form class="add-customer" action="/customers/customer/add" th:method="POST">
         <p>First Name:</p>
-        <input type="text" name="firstName" placeholder="First Name" required>
+        <input type="text" name="firstName" placeholder="John" required>
         <p>Mid Name:</p>
-        <input type="text" name="midName" placeholder="Mid Name">
+        <input type="text" name="midName" placeholder="Percival">
         <p>Last Name:</p>
-        <input type="text" name="lastName" placeholder="Last Name" required>
+        <input type="text" name="lastName" placeholder="Doe" required>
         <p>Street and number:</p>
-        <input type="text" name="streetAndNumber" placeholder="Street and number" required>
+        <input type="text" name="streetAndNumber" placeholder="Dev street 69" required>
         <p>City:</p>
-        <input type="text" name="city" placeholder="City" required>
+        <input type="text" name="city" placeholder="Budapest" required>
         <p>Postal Code:</p>
-        <input type="text" name="postalCode" placeholder="Postal code" required>
+        <input type="text" name="postalCode" placeholder="1100" required>
         <p>Phone number:</p>
-        <input type="text" name="cell" placeholder="Cellphone" required minlength="10">
+        <input type="text" name="cell" placeholder="06701234567" required minlength="10">
         <p>E-Mail:</p>
-        <input type="text" name="email" placeholder="E-mail" required>
+        <input type="text" name="email" placeholder="example@gmail.com" required>
         <p>Birthday:</p>
         <input type="date" name="dateOfBirth" required>
-        <button type="submit" class="customerAddButton">Add customer</button>
+        <button type="submit" class="customerAddButton button-75" role="button"><span class="text">Add customer</span></button>
       </form>
   </div>
 </body>

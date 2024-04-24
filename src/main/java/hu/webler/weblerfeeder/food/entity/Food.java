@@ -23,5 +23,5 @@ public class Food extends Auditable {
     private Double price;
 
     @Column(name = "foodPic")
-    private String foodPic = "/images/logo.png";
+    private String foodPic = "/images/logo.gif";
 }

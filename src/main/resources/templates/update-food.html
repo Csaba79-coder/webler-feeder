@@ -7,7 +7,7 @@
 </head>
 <body class="customers-content">
   <div class="navbar">
-    <img th:src="@{/images/logo.png}" alt="Feeder logo">
+    <img th:src="@{/images/logo.gif}" alt="Feeder logo">
     <div class="navElements">
       <a th:href="@{/}">Home</a>
       <a th:href="@{/customers}">Customers</a>
@@ -20,16 +20,16 @@
     <h2>Update existing food</h2>
     <form th:each="food : ${foods}" class="update-food-container" th:action="@{/foods/food/update}" th:method="POST">
       <p>ID:</p>
-      <input type="number" th:value="${food.getId()}" name="foodId" placeholder="ID of customer" required>
+      <input type="number" th:value="${food.getId()}" name="foodId" placeholder="ID of customer" required readonly>
       <p>Name:</p>
-      <input type="text" th:value="${food.getName()}" name="name" placeholder="Food Name">
+      <input type="text" th:value="${food.getName()}" name="name" placeholder="Hamburger">
       <p>Description:</p>
-      <input type="text" th:value="${food.getDescription()}" name="description" placeholder="Description">
+      <input type="text" th:value="${food.getDescription()}" name="description" placeholder="Double cheese">
       <p>Price(HUF):</p>
-      <input type="number" th:value="${food.getPrice()}" name="price" placeholder="Price">
+      <input type="number" th:value="${food.getPrice()}" name="price" placeholder="2000">
       <p>Picture:</p>
       <input type="text" th:value="${food.getFoodPic()}" name="foodPic" placeholder="/images/{foodName}.jpg">
-      <button type="submit" class="customerUpdateButton">Update food</button>
+      <button type="submit" class="customerUpdateButton button-75" role="button"><span class="text">Update food</span></button>
     </form>
   </div>
 </body>
