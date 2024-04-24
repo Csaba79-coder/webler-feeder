@@ -1,7 +1,9 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #dab319;
+    background: -webkit-linear-gradient(left, #ffffff, #d3cb94);
+    background: linear-gradient(to right, #ffffff, #d3cb94);
+    font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
 }
 
@@ -10,6 +12,7 @@ body {
     margin: 10px;
     display: flex;
     justify-content: space-between;
+    color: #F39606FF
 }
 
 .navbar img {
@@ -20,6 +23,7 @@ body {
     text-decoration: none;
     font-size: 20px;
     margin-right: 10px;
+    color: #000;
 }
 
 .navElements {
@@ -170,11 +174,11 @@ body {
 /* CSS */
 .button-75 {
     align-items: center;
-    background-image: linear-gradient(135deg, #f34079 40%, #fc894d);
+    background-color: #F39606FF;
     border: 0;
     border-radius: 10px;
     box-sizing: border-box;
-    color: #fff;
+    color: #000;
     cursor: pointer;
     display: flex;
     flex-direction: column;
