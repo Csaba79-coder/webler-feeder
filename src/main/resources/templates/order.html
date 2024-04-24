@@ -16,93 +16,125 @@
     <a th:href="@{/add-customer}">Add new customer</a>
   </div>
 </div>
-<div class="create-order-content">
-  <table border="1">
-    <thead>
-    <tr>
-      <th>First Name</th>
-      <th>Mid Name</th>
-      <th>Last name</th>
-      <th>Street and number</th>
-      <th>City</th>
-      <th>Postal code</th>
-      <th>Cellphone</th>
-      <th>Email</th>
-      <th>Date of birth</th>
-      <th>Status</th>
-    </tr>
-    </thead>
-    <tbody th:if="${not #lists.isEmpty(customers)}">
-    <tr th:each="customer : ${customers}">
-      <td th:text="${customers.getFirstName()}"></td>
-      <td th:text="${customers.getMidName()}"></td>
-      <td th:text="${customers.getLastName()}"></td>
-      <td th:text="${customers.getAddress().getStreetAndNumber()}"></td>
-      <td th:text="${customers.getAddress().getCity()}"></td>
-      <td th:text="${customers.getAddress().getPostalCode()}"></td>
-      <td th:text="${customers.getCell()}"></td>
-      <td th:text="${customers.getEmail()}"></td>
-      <td th:text="${customers.getDateOfBirth()}"></td>
-      <td th:text="${customers.getStatus()}"></td>
-    </tr>
-    </tbody>
-    <tbody th:unless="${not #lists.isEmpty(customers)}">
-    <tr>
-      <td colspan="6">No data found</td>
-    </tr>
-    </tbody>
-  </table>
+
+  <div class="create-order-content">
+    <table border="1">
+      <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Mid Name</th>
+        <th>Last name</th>
+        <th>Street and number</th>
+        <th>City</th>
+        <th>Postal code</th>
+        <th>Cellphone</th>
+        <th>Email</th>
+        <th>Date of birth</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody th:if="${not #lists.isEmpty(customers)}">
+      <tr th:each="customer : ${customers}">
+        <td th:text="${customers.getFirstName()}"></td>
+        <td th:text="${customers.getMidName()}"></td>
+        <td th:text="${customers.getLastName()}"></td>
+        <td th:text="${customers.getAddress().getStreetAndNumber()}"></td>
+        <td th:text="${customers.getAddress().getCity()}"></td>
+        <td th:text="${customers.getAddress().getPostalCode()}"></td>
+        <td th:text="${customers.getCell()}"></td>
+        <td th:text="${customers.getEmail()}"></td>
+        <td th:text="${customers.getDateOfBirth()}"></td>
+        <td th:text="${customers.getStatus()}"></td>
+      </tr>
+      </tbody>
+      <tbody th:unless="${not #lists.isEmpty(customers)}">
+      <tr>
+        <td colspan="6">No data found</td>
+      </tr>
+      </tbody>
+    </table>
 
 
-  <table border="1">
-    <thead>
-    <tr>
-      <th>Order Id</th>
-      <th>Created at</th>
-      <th>Description</th>
-    </tr>
-    </thead>
-    <tbody th:if="${not #lists.isEmpty(orders)}">
-    <tr th:each="order, stat : ${orders}">
-      <td th:text="${orders.getId()}"></td>
-      <td th:text="${orders.getCreatedAt()}"></td>
-      <td th:text="${orders.getDescription()}"></td>
-      <td>
-        <form th:action="@{/create-order/order}" method="get" class="customersListButtonForm">
-          <input type="hidden" name="customerId" th:value="${orders.getCustomer().getId()}" />
-          <input type="hidden" name="orderId" th:value="${orders.getId()}" />
-          <button type="submit" class="customerUpdateButton">Open order</button>
-        </form>
-      </td>
-    </tr>
-    </tbody>
-    <tbody th:unless="${not #lists.isEmpty(orders)}">
-    <tr>
-      <td colspan="6">No data found</td>
-    </tr>
-    </tbody>
-  </table>
+    <table border="1">
+      <thead>
+      <tr>
+        <th>Order Id</th>
+        <th>Created at</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody th:if="${not #lists.isEmpty(orders)}">
+      <tr th:each="order, stat : ${orders}">
+        <td th:text="${orders.getId()}"></td>
+        <td th:text="${orders.getCreatedAt()}"></td>
+        <td th:text="${orders.getDescription()}"></td>
+        <td>
+          <form th:action="@{/create-order/order/add-food}" method="get" class="customersListButtonForm">
+            <input type="hidden" name="customerId" th:value="${orders.getCustomer().getId()}" />
+            <input id="inputOrderId" type="hidden" name="orderId" th:value="${orders.getId()}" />
+            <button type="submit" class="customerUpdateButton">Add food to order</button>
+          </form>
+        </td>
+      </tr>
+      </tbody>
+      <tbody th:unless="${not #lists.isEmpty(orders)}">
+      <tr>
+        <td colspan="6">No data found</td>
+      </tr>
+      </tbody>
+    </table>
 
 
-  <table border="1">
-    <thead>
-    <tr>
-      <th>Foods in this order</th>
-    </tr>
-    </thead>
-    <tbody th:if="${not #lists.isEmpty(orders)}">
-    <tr th:each="order : ${orders.getFoods()}">
-      <td th:text="${orders.getFoods()}"></td>
-    </tr>
-    </tbody>
-    <tbody th:unless="${not #lists.isEmpty(orders.getFoods())}">
-    <tr>
-      <td colspan="6">No foods found</td>
-    </tr>
-    </tbody>
-  </table>
+    <table border="1">
+      <thead>
+      <tr>
+        <th>Foods in this order</th>
+      </tr>
+      </thead>
+      <tbody th:if="${not #lists.isEmpty(orders.getFoods())}">
+        <tr th:each="order : ${orders.getFoods()}">
+          <td th:text="${order.getName()}"></td>
+          <td th:text="${order.getDescription()}"></td>
+          <td th:text="${order.getPrice()}"></td>
+          <td>
+              <input type="hidden" id="foodIdToRemove" th:value="${order.getId()}" />
+              <button class="btnRemoveFood">Remove food from order</button>
+          </td>
+        </tr>
+      </tbody>
+      <tbody th:unless="${not #lists.isEmpty(orders.getFoods())}">
+      <tr>
+        <td colspan="6">No foods found</td>
+      </tr>
+      </tbody>
+    </table>
 
-</div>
-</div>
+    <table border="1">
+      <thead>
+      <tr>
+        <th>Food Id</th>
+        <th>Food name</th>
+        <th>Description</th>
+        <th>Price</th>
+      </tr>
+      </thead>
+      <tbody th:if="${not #lists.isEmpty(foods)}">
+          <td><label for="foodsData">Choose a food id:</label>
+            <select name="foodsData" id="foodsData">
+              <option th:each="food : ${foods}" th:value="${food.getId()}" th:text="${food.getName()}"></option>
+              <input id="inputFoodId" type="hidden" value="" name="inputFoodId" >
+            </select>
+          </td>
+      </tbody>
+      <tbody th:unless="${not #lists.isEmpty(foods)}">
+      <tr>
+        <td colspan="6">No data found</td>
+      </tr>
+      </tbody>
+    </table>
+    <button id="foodBtn" class="customerDeleteButton">Add food</button>
+  </div>
+
+<script type="text/javascript" th:src="@{/js/app.js}"></script>
 </body>
 </html>
