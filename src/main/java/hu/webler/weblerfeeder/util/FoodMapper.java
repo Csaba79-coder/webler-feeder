@@ -16,6 +16,7 @@ public class FoodMapper {
                 .name(food.getName())
                 .description(food.getDescription())
                 .price(food.getPrice())
+                .foodPic(food.getFoodPic())
                 .build();
     }
 
@@ -25,6 +26,7 @@ public class FoodMapper {
                 .name(foodCreateAndUpdateModel.getName())
                 .description(foodCreateAndUpdateModel.getDescription())
                 .price(foodCreateAndUpdateModel.getPrice())
+                .foodPic(foodCreateAndUpdateModel.getFoodPic())
                 .build();
     }
 }

@@ -21,6 +21,7 @@ public class CustomerMapper {
                 .dateOfBirth(customer.getDateOfBirth())
                 .address(customer.getAddress())
                 .status(customer.getStatus())
+                .orders(customer.getOrders())
                 .build();
     }
 

@@ -1,6 +1,7 @@
 package hu.webler.weblerfeeder.customer.model;
 
 import hu.webler.weblerfeeder.address.entity.Address;
+import hu.webler.weblerfeeder.order.entity.Order;
 import hu.webler.weblerfeeder.value.Status;
 
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,4 +31,5 @@ public class CustomerModel {
     private LocalDate dateOfBirth;
     private Status status;
     private Address address;
+    private List orders;
 }

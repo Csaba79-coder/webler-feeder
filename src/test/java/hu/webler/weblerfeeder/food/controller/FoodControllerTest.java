@@ -82,6 +82,7 @@ public class FoodControllerTest {
         foodModelOne.setName("Sajt");
         foodModelOne.setDescription("");
         foodModelOne.setPrice(2000D);
+        foodModelOne.setFoodPic("/images/defaultFood.png");
 
         FoodModel foodModelTwo = new FoodModel();
         foodModelTwo.setId(2L);
@@ -89,6 +90,7 @@ public class FoodControllerTest {
         foodModelTwo.setName("Hamburger");
         foodModelTwo.setDescription("");
         foodModelTwo.setPrice(2000D);
+        foodModelTwo.setFoodPic("/images/defaultFood.png");
 
         List<FoodModel> expectedModels = Arrays.asList(
                 foodModelOne, foodModelTwo
@@ -130,6 +132,7 @@ public class FoodControllerTest {
         foodModel.setName("Sajt");
         foodModel.setDescription("");
         foodModel.setPrice(2000D);
+        foodModel.setFoodPic("/images/defaultFood.png");
 
         when(foodService.getFoodByName(any(String.class))).thenReturn(foodModel);
 
@@ -163,6 +166,7 @@ public class FoodControllerTest {
         food.setName("Sajt");
         food.setDescription("");
         food.setPrice(2000D);
+        food.setFoodPic("/images/defaultFood.png");
 
         when(foodService.getFoodById(any(Long.class))).thenReturn(food);
 
