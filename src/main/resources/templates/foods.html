@@ -61,7 +61,7 @@
         <p>Description:</p>
         <input type="text" name="description" placeholder="Double cheese">
         <p>Price:</p>
-        <input type="text" name="price" placeholder="2000" required>
+        <input type="number" name="price" placeholder="2000" required>
         <p>Picture:</p>
         <input type="text" th:value="@{/images/defaultFood.png}" name="foodPic" placeholder="/images/{foodName}.jpg" required>
         <button type="submit" class="customerAddButton button-75" role="button"><span class="text">Add new food</span></button>
