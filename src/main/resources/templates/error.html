@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/style.css}">
+  <title>Feeder - Order food to be fed</title>
+</head>
+<body>
+
+<div class="errorNavbar">
+  <div class="navElements">
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/customers}">Customers</a>
+    <a th:href="@{/foods}">Foods</a>
+    <a th:href="@{/orders}">Orders</a>
+  </div>
+</div>
+
+<div class="error">
+  <img id="logo" th:src="@{/images/logo.gif}" alt="Feeder logo">
+  <div class="" style="min-height: 100vh;">
+    <h1>Error</h1>
+    <br>
+    <p class="text-center"></p>
+    <img th:src="@{/images/404.png}" alt="Image" class="no_page_found_icon">
+    <div id="errorText">
+      <p id="whoops">Whoops! The page you are looking for can not be found.</p>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

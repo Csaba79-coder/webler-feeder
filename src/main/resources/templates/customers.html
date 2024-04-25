@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <title>Feeder - Order food to be fed</title>
+</head>
+<body class="customers-content">
+<div class="navbar">
+  <img th:src="@{/images/logo.gif}" alt="Feeder logo">
+  <div class="navElements">
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/customers}">Customers</a>
+    <a th:href="@{/foods}">Foods</a>
+    <a th:href="@{/orders}">Orders</a>
+  </div>
+</div>
+  <h1>Feeder customers</h1>
+  <div class="customers">
+    <form action="/add-customer" method="get" class="customerEmailSearchForm">
+      <button type="submit" class="customerEmailSearchButton button-75" role="button"><span class="text">Add new customer</span></button>
+    </form>
+    <form action="/customers/search" method="get" class="customerEmailSearchForm">
+      <input type="text" name="email" placeholder="Search by email address...">
+      <button id="search-btn" type="submit" class="customerEmailSearchButton button-75" role="button"><span class="text">Search customer by email</span></button>
+    </form>
+  </div>
+  <div class="our-customers-table">
+    <table border="1">
+      <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Mid Name</th>
+        <th>Last name</th>
+        <th>Street and number</th>
+        <th>City</th>
+        <th>Postal code</th>
+        <th>Cellphone</th>
+        <th>Email</th>
+        <th>Date of birth</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody th:if="${not #lists.isEmpty(customers)}">
+      <tr th:each="customer, stat : ${customers}">
+        <td th:text="${customer.getFirstName()}"></td>
+        <td th:text="${customer.getMidName()}"></td>
+        <td th:text="${customer.getLastName()}"></td>
+        <td th:text="${customer.getAddress().getStreetAndNumber()}"></td>
+        <td th:text="${customer.getAddress().getCity()}"></td>
+        <td th:text="${customer.getAddress().getPostalCode()}"></td>
+        <td th:text="${customer.getCell()}"></td>
+        <td th:text="${customer.getEmail()}"></td>
+        <td th:text="${customer.getDateOfBirth()}"></td>
+        <td th:text="${customer.getStatus()}"></td>
+        <td>
+          <form th:action="@{/update-customer}" method="get" class="customersListButtonForm">
+            <input type="hidden" name="customerId" th:value="${customer.getId()}" />
+            <button type="submit" class="button-33 customerUpdateButton" role="button">Update customer</button>
+          </form>
+        </td>
+        <td>
+          <form th:action="@{/create-order}" method="get" class="customersListButtonForm">
+            <input type="hidden" name="customerId" th:value="${customer.getId()}" />
+            <button type="submit" class="button-33 customerUpdateButton" role="button">Orders</button>
+          </form>
+        </td>
+        <td>
+          <form th:action="@{/customers/customer}" method="post" class="customersListButtonForm">
+            <input type="hidden" name="customerId" th:value="${customer.getId()}" />
+            <button type="submit" class="button-33 customerUpdateButton" role="button">Delete customer</button>
+          </form>
+        </td>
+      </tr>
+      </tbody>
+      <tbody th:unless="${not #lists.isEmpty(customers)}">
+      <tr>
+        <td colspan="6">No data found</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

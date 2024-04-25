@@ -16,4 +16,5 @@ public class FoodModel {
     private String name;
     private String description;
     private Double price;
+    private String foodPic;
 }

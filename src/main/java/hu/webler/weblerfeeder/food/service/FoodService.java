@@ -98,13 +98,15 @@ public class FoodService {
         }
         existingFood.setDescription(foodCreateAndUpdateModel.getDescription());
         existingFood.setPrice(foodCreateAndUpdateModel.getPrice());
+        existingFood.setFoodPic(foodCreateAndUpdateModel.getFoodPic());
     }
 
     private boolean isAllFieldsContainData(FoodCreateAndUpdateModel foodCreateAndUpdateModel) {
         if (
                 foodCreateAndUpdateModel.getName() != null &&
                 foodCreateAndUpdateModel.getDescription() != null &&
-                foodCreateAndUpdateModel.getPrice() != null
+                foodCreateAndUpdateModel.getPrice() != null &&
+                foodCreateAndUpdateModel.getFoodPic() != null
         ) {
             return true;
         } else throw new InvalidInputException("Please fill all fields");

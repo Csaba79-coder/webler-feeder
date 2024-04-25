@@ -1,0 +1,304 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: -webkit-linear-gradient(left, #ffffff, #d3cb94);
+    background: linear-gradient(to right, #ffffff, #d3cb94);
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+.error {
+    color: #482a07;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+#logo {
+    width: 5%;
+}
+#whoops {
+    color: #482a07;
+    font-size: 20px;
+    margin-top: 60px;
+    font-weight: bold;
+}
+
+.errorNavbar {
+    display: flex;
+    justify-content: end;
+    margin-top: 30px;
+    margin-right: 10px;
+}
+.errorNavbar a {
+    text-decoration: none;
+    font-size: 20px;
+    margin-right: 10px;
+    color: #482a07;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+/* navbar */
+.navbar {
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    color: #F39606FF
+}
+
+.navbar img {
+    width: 5%;
+}
+
+.navbar a {
+    text-decoration: none;
+    font-size: 20px;
+    margin-right: 10px;
+    color: #482a07;
+}
+
+.navElements {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hero */
+.hero {
+    background: url('images/hero.png') no-repeat center;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    line-height: 0;
+}
+#siteNameHero {
+    font-size: 80px;
+    color: beige;
+}
+#siteSloganHero {
+    font-size: 60px;
+    color: beige;
+}
+
+/* Home content */
+.index-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.index-foods {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px 1px #424242;
+}
+
+.customersListButtonForm {
+    margin: 20px;
+}
+
+.customerEmailSearchForm {
+    margin-bottom: 20px;
+}
+
+/* Customers */
+.customers-content {
+    text-align: center;
+}
+.customers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.our-customers-table {
+    display: flex;
+    justify-content: center;
+}
+
+/* Add new Customer */
+.add-customer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.add-customer input{
+    text-align: center;
+}
+
+/* Update existing customer */
+.update-customer-container {
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.update-customer-container input{
+    text-align: center;
+}
+.customerUpdateButton, .customerAddButton {
+    margin: 20px 0;
+}
+
+/* Foods */
+.foods-title {
+    text-align: center;
+}
+
+.foods-table {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.update-food-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    text-align: center;
+}
+.update-food-container input {
+    text-align: center;
+}
+
+/* Orders */
+.orders {
+    margin: 20px 0;
+}
+
+.foodInOrder {
+    margin-bottom: 20px;
+}
+
+.create-order-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.update-order-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.update-order-container input {
+    text-align: center;
+}
+
+.orderUpdateButton, .orderAddButton {
+    margin-top: 20px;
+
+}
+
+/* CSS */
+.button-75 {
+    align-items: center;
+    background-color: #F39606FF;
+    border: 0;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    font-family: "Codec cold",sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    height: 54px;
+    justify-content: center;
+    letter-spacing: .4px;
+    line-height: 1;
+    max-width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 3px;
+    text-decoration: none;
+    text-transform: uppercase;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-75:active {
+    outline: 0;
+}
+
+.button-75:hover {
+    outline: 0;
+}
+
+.button-75 span {
+    transition: all 200ms;
+}
+
+.button-75:hover span {
+    transform: scale(.9);
+    opacity: .75;
+}
+
+@media screen and (max-width: 991px) {
+    .button-75 {
+        font-size: 15px;
+        height: 50px;
+    }
+    .button-50 {
+        height: 30px;
+    }
+
+    .button-75 span {
+        line-height: 50px;
+    }
+}
+
+/* CSS */
+.button-33 {
+    background-color: #f39606;
+    border-radius: 100px;
+    box-shadow: rgb(134, 84, 3) 0 -25px 18px -14px inset, rgb(134, 84, 3) 0 1px 2px, rgb(134, 84, 3) 0 2px 4px, rgb(134, 84, 3) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+    color: #000;
+    cursor: pointer;
+    display: inline-block;
+    font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+    font-weight: bold;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 250ms;
+    border: 0;
+    font-size: 16px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-33:hover {
+    box-shadow: rgb(134, 84, 3) 0 -25px 18px -14px inset, rgb(134, 84, 3) 0 1px 2px, rgb(134, 84, 3) 0 2px 4px, rgb(134, 84, 3) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+    transform: scale(1.05) rotate(-1deg);
+}
+
+#search-btn {
+    margin-top: 20px;
+}

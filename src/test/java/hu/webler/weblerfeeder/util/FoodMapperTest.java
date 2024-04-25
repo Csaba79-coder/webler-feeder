@@ -19,6 +19,7 @@ public class FoodMapperTest {
         foodCreateAndUpdateModel.setName("Sajt");
         foodCreateAndUpdateModel.setDescription("Hasábbal");
         foodCreateAndUpdateModel.setPrice(2000D);
+        foodCreateAndUpdateModel.setFoodPic("/images/defaultFood.png");
 
         //When
         Food food = mapFoodCreateAndUpdateModelToFoodEntity(foodCreateAndUpdateModel);
@@ -37,11 +38,13 @@ public class FoodMapperTest {
         food.setName("Sajt");
         food.setDescription("Hasábbal");
         food.setPrice(2000D);
+        food.setFoodPic("/images/defaultFood.png");
 
         FoodModel expectedFoodModel = new FoodModel();
         expectedFoodModel.setName("Sajt");
         expectedFoodModel.setDescription("Hasábbal");
         expectedFoodModel.setPrice(2000D);
+        expectedFoodModel.setFoodPic("/images/defaultFood.png");
 
         //When
         FoodModel foodModel = FoodMapper.mapFoodEntityToFoodModel(food);
