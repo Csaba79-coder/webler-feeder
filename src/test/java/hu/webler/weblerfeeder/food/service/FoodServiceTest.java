@@ -41,12 +41,14 @@ public class FoodServiceTest {
         foodCreateAndUpdateModel.setName("Sajt");
         foodCreateAndUpdateModel.setDescription("Hasábbal");
         foodCreateAndUpdateModel.setPrice(2000D);
+        foodCreateAndUpdateModel.setFoodPic("/images/defaultFood.png");
 
         //Mock customerRepository.save() to return a mock CustomerModel
         FoodModel expectedFood = new FoodModel();
         expectedFood.setName("Sajt");
         expectedFood.setDescription("Hasábbal");
         expectedFood.setPrice(2000D);
+        expectedFood.setFoodPic("/images/defaultFood.png");
 
         when(foodRepository.save(any())).thenReturn(mapFoodCreateAndUpdateModelToFoodEntity(foodCreateAndUpdateModel));
 
@@ -69,6 +71,7 @@ public class FoodServiceTest {
         foodCreateAndUpdateModel.setName("Sajt");
         foodCreateAndUpdateModel.setDescription("Krumplival");
         foodCreateAndUpdateModel.setPrice(1500D);
+        foodCreateAndUpdateModel.setFoodPic("/images/defaultFood.png");
 
         when(foodRepository.save(any())).thenReturn(mapFoodCreateAndUpdateModelToFoodEntity(foodCreateAndUpdateModel))
                 .thenThrow(new EntityAlreadyExistsException(String.format("Food with this name %s already exists", foodName)));
@@ -102,10 +105,12 @@ public class FoodServiceTest {
         List<Food> foodData = List.of(
                 new Food("Sajt",
                         "Hasábbal",
-                        2000D),
+                        2000D,
+                        "/images/defaultFood.png"),
                 new Food("Hamburger",
                         "Krumplival",
-                        2000D)
+                        2000D,
+                        "/images/defaultFood.png")
         );
         when(foodRepository.findAll()).thenReturn(foodData);
 
@@ -128,6 +133,7 @@ public class FoodServiceTest {
         food.setName("Sajt");
         food.setDescription("");
         food.setPrice(2000D);
+        food.setFoodPic("/images/defaultFood.png");
 
         when(foodRepository.findByName(foodName)).thenReturn(Optional.of(food));
 
@@ -162,6 +168,7 @@ public class FoodServiceTest {
         food.setName("Sajt");
         food.setDescription("Hasábbal");
         food.setPrice(2000D);
+        food.setFoodPic("/images/defaultFood.png");
 
         when(foodRepository.findById(id)).thenReturn(Optional.of(food));
 

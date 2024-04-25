@@ -143,7 +143,7 @@ public class OrderServiceTest {
         order.setDescription("Please, ring to second floor name: Peter");
         order.setCustomer(customer);
 
-        order.setFoods(List.of(new Food("Dinnye", "Gyumi", 100d)));
+        order.setFoods(List.of(new Food("Dinnye", "Gyumi", 100d, "/images/defaultFood.png")));
         List<Order> ordersData = List.of(order);
 
         when(orderRepository.findAll()).thenReturn(ordersData);
