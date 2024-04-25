@@ -13,7 +13,6 @@
       <a th:href="@{/customers}">Customers</a>
       <a th:href="@{/foods}">Foods</a>
       <a th:href="@{/orders}">Orders</a>
-      <a th:href="@{/add-customer}">Add new customer</a>
     </div>
   </div>
   <h1>Feeder foods</h1>
@@ -21,7 +20,6 @@
     <table border="1">
       <thead>
       <tr>
-        <th>Food id</th>
         <th>Food name</th>
         <th>Description</th>
         <th>Price</th>
@@ -29,7 +27,6 @@
       </thead>
       <tbody th:if="${not #lists.isEmpty(foods)}">
       <tr th:each="food : ${foods}">
-        <td th:text="${food.getId()}"></td>
         <td th:text="${food.getName()}"></td>
         <td th:text="${food.getDescription()}"></td>
         <td th:text="${food.getPrice()} + ' HUF'"></td>

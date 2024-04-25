@@ -103,6 +103,9 @@ body {
     justify-content: center;
     align-items: center;
 }
+.add-customer input{
+    text-align: center;
+}
 
 /* Update existing customer */
 .update-customer-container {

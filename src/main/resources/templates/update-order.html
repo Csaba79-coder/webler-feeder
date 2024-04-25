@@ -13,14 +13,12 @@
       <a th:href="@{/customers}">Customers</a>
       <a th:href="@{/foods}">Foods</a>
       <a th:href="@{/orders}">Orders</a>
-      <a th:href="@{/add-customer}">Add new customer</a>
     </div>
   </div>
   <div class="update-order-container">
     <h2>Update existing order</h2>
     <form th:each="order : ${orders}" class="update-customer-container" th:action="@{/orders/order/update}" th:method="POST">
-      <p>ID:</p>
-      <input type="number" th:value="${orders.getId()}" name="orderId" readonly>
+      <input type="hidden" th:value="${orders.getId()}" name="orderId" readonly>
       <p>Created:</p>
       <input type="text" th:value="${orders.getCreatedAt()}" name="createdAt" disabled >
       <p>Description:</p>

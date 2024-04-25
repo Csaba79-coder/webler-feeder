@@ -13,14 +13,12 @@
       <a th:href="@{/customers}">Customers</a>
       <a th:href="@{/foods}">Foods</a>
       <a th:href="@{/orders}">Orders</a>
-      <a th:href="@{/add-customer}">Add new customer</a>
     </div>
   </div>
   <div class="update-customer-container">
     <h2>Update existing food</h2>
     <form th:each="food : ${foods}" class="update-food-container" th:action="@{/foods/food/update}" th:method="POST">
-      <p>ID:</p>
-      <input type="number" th:value="${food.getId()}" name="foodId" placeholder="ID of customer" required readonly>
+      <input type="hidden" th:value="${food.getId()}" name="foodId" placeholder="ID of customer" required readonly>
       <p>Name:</p>
       <input type="text" th:value="${food.getName()}" name="name" placeholder="Hamburger">
       <p>Description:</p>
