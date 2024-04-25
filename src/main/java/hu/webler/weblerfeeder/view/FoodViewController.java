@@ -1,4 +1,4 @@
-package hu.webler.weblerfeeder.food.controller;
+package hu.webler.weblerfeeder.view;
 
 import hu.webler.weblerfeeder.food.model.FoodCreateAndUpdateModel;
 import hu.webler.weblerfeeder.food.service.FoodService;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("")
-public class FoodWebController {
+public class FoodViewController {
 
     private final FoodService foodService;
 

@@ -7,6 +7,39 @@ body {
     box-sizing: border-box;
 }
 
+.error {
+    color: #482a07;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+#logo {
+    width: 5%;
+}
+#whoops {
+    color: #482a07;
+    font-size: 20px;
+    margin-top: 60px;
+    font-weight: bold;
+}
+
+.errorNavbar {
+    display: flex;
+    justify-content: end;
+    margin-top: 30px;
+    margin-right: 10px;
+}
+.errorNavbar a {
+    text-decoration: none;
+    font-size: 20px;
+    margin-right: 10px;
+    color: #482a07;
+    text-decoration: none;
+    font-size: 20px;
+}
+
 /* navbar */
 .navbar {
     margin: 10px;
@@ -23,7 +56,7 @@ body {
     text-decoration: none;
     font-size: 20px;
     margin-right: 10px;
-    color: #000;
+    color: #482a07;
 }
 
 .navElements {

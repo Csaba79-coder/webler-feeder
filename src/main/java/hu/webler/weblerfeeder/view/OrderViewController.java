@@ -1,4 +1,4 @@
-package hu.webler.weblerfeeder.order.controller;
+package hu.webler.weblerfeeder.view;
 
 import hu.webler.weblerfeeder.customer.service.CustomerService;
 import hu.webler.weblerfeeder.food.service.FoodService;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("")
-public class OrderWebController {
+public class OrderViewController {
 
     private final CustomerService customerService;
     private final OrderService orderService;

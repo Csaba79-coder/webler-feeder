@@ -1,4 +1,4 @@
-package hu.webler.weblerfeeder.customer.controller;
+package hu.webler.weblerfeeder.view;
 
 import hu.webler.weblerfeeder.address.entity.Address;
 import hu.webler.weblerfeeder.customer.model.CustomerCreateModel;
@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("")
-public class CustomerWebController {
+public class CustomerViewController {
 
     private final CustomerService customerService;
     private final FoodService foodService;

@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "f18b627a-b561-49c0-8bd4-a6e7253259bd",
+		"name": "Customer controller",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32315287"
+	},
+	"item": [
+		{
+			"name": "GET all customers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/customers",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add customer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"John\",\r\n    \"midName\": \"\",\r\n    \"lastName\": \"Doe\",\r\n    \"streetAndNumber\": \"Klapka 44\",\r\n    \"city\": \"Budapest\",\r\n    \"postalCode\": \"1000\",\r\n    \"cell\": \"06702345678\",\r\n    \"email\": \"example@gmail.com\",\r\n    \"dateOfBirth\": \"2000-12-07\",\r\n    \"address\": {\r\n        \"streetAndNumber\": \"Klapka\",\r\n        \"city\":\"Komarom\",\r\n        \"postalCode\":\"2900\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/customers",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update customer",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Johnathan\",\r\n    \"midName\": \"Perci\",\r\n    \"lastName\": \"Doeee\",\r\n    \"streetAndNumber\": \"White\",\r\n    \"city\": \"Bratislava\",\r\n    \"postalCode\": \"3432\",\r\n    \"cell\": \"123323243234\",\r\n    \"email\": \"test@gmail.com\",\r\n    \"dateOfBirth\": \"1990-23-23\",\r\n    \"status\": \"ACTIVE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/customers/customer/id/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers",
+						"customer",
+						"id",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete customer",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/customers/customer/id/10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers",
+						"customer",
+						"id",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get customer by email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/customers/customer/email/example@gmail.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers",
+						"customer",
+						"email",
+						"example@gmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get customer by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/customers/customer/id/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers",
+						"customer",
+						"id",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

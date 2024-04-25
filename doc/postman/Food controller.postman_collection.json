@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "213118aa-d147-4e02-bd4c-f9cec5878212",
+		"name": "Food controller",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32315287"
+	},
+	"item": [
+		{
+			"name": "get all foods",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/foods",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"foods"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get food by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/foods/food/id/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"foods",
+						"food",
+						"id",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get food by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/foods/food/name/hamburger",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"foods",
+						"food",
+						"name",
+						"hamburger"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add food",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Hamburger\",\r\n    \"description\": \"Duouble cheese\",\r\n    \"price\": \"3000\",\r\n    \"foodPic\": \"/images/defaultFood.png\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/foods",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"foods"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update food",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"French fries\",\r\n    \"description\": \"souce\",\r\n    \"price\": \"1000\",\r\n    \"foodPic\": \"/images/defaultPic.png\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/foods/food/id/10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"foods",
+						"food",
+						"id",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete food",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/foods/food/id/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"foods",
+						"food",
+						"id",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

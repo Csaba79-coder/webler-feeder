@@ -22,7 +22,7 @@
       <p>Created:</p>
       <input type="text" th:value="${orders.getCreatedAt()}" name="createdAt" disabled >
       <p>Description:</p>
-      <input type="text" th:value="${orders.getDescription()}" name="description" placeholder="e.g. shipping address" required >
+      <input type="text" th:value="${orders.getDescription()}" name="description" placeholder="e.g. shipping address" >
       <button type="submit" class="orderUpdateButton button-75" role="button"><span class="text">Update order</span></button>
     </form>
   </div>
